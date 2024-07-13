@@ -1,11 +1,10 @@
+using NUnit.Framework;
+using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent (typeof(Rigidbody2D))]
 public class ItemController : MonoBehaviour
 {
-    Vector3 DropPosition;
-    bool HasBeenDropped = false;
-
     [SerializeField]
     float DropHeight = 4f;
     [SerializeField]
@@ -14,6 +13,13 @@ public class ItemController : MonoBehaviour
     float MapBorderRight = 2.75f;
     [SerializeField]
     float ItemRadius = 0.1f;
+    [SerializeField]
+    GameObject NewItem;
+
+    static List<GameObject> DroppedItems = new();
+
+    Vector3 DropPosition;
+    bool HasBeenDropped = false;
 
     // Update is called once per frame
     void Update()
@@ -69,8 +75,12 @@ public class ItemController : MonoBehaviour
         // Unfreeze rotation on z-axis.
         GetComponent<Rigidbody2D>().freezeRotation = false;
 
-        // Spawn a new item
+        // Spawn a new item a half-second afterwards
+        Invoke(nameof(SpawnItem), 0.5f);
     }
+
+    private void SpawnItem() => Instantiate(NewItem, GameManager.GetCursorInWorldPosition(), Quaternion.identity);
+
 
     private void Restart()
     {
