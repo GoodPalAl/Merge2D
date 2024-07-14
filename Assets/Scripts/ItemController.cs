@@ -1,8 +1,8 @@
 using NUnit.Framework;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
-[RequireComponent (typeof(Rigidbody2D))]
 public class ItemController : MonoBehaviour
 {
     [SerializeField]
@@ -13,18 +13,26 @@ public class ItemController : MonoBehaviour
     float MapBorderRight = 2.75f;
     [SerializeField]
     float ItemRadius = 0.1f;
-    [SerializeField]
-    GameObject NewItem;
+
+    public GameObject ItemPrefab;
+    public GameObject HeldItem;
+
+    Transform Parent;
 
     static List<GameObject> DroppedItems = new();
 
     Vector3 DropPosition;
-    bool HasBeenDropped = false;
+    bool Dropping = false;
+
+    private void Start()
+    {
+        Parent = transform;
+    }
 
     // Update is called once per frame
     void Update()
     {
-        if (!HasBeenDropped)
+        if (!Dropping)
         {
             FollowMouse();
         }
@@ -33,7 +41,7 @@ public class ItemController : MonoBehaviour
     private void FixedUpdate()
     {
         // If the item is being held and the left-mouse button is pressed, drop the item.
-        if (!HasBeenDropped && Input.GetMouseButtonDown(0))
+        if (!Dropping && Input.GetMouseButtonDown(0))
         {
             DropItem();
         }
@@ -48,10 +56,7 @@ public class ItemController : MonoBehaviour
     void FollowMouse()
     {
         // Convert mouse position to Unity world position
-        // Mouse Position:
-        //  <0,0,0> = Bottom-Left of screen
-        //  <Screen.width, Screen.height, 0> = Top-Right of screen
-        Vector3 WorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        Vector3 WorldPos = GameManager.GetCursorInWorldPosition();
 
         // Keep item in border of map.
         if (WorldPos.x > MapBorderRight - ItemRadius) WorldPos.x = MapBorderRight - ItemRadius;
@@ -62,30 +67,41 @@ public class ItemController : MonoBehaviour
         // y = height of map,
         // z = distance of near clipping plane from Camera
         DropPosition = new Vector3(WorldPos.x, DropHeight, Camera.main.nearClipPlane);
-        transform.position = DropPosition;
 
         // Freeze rotation on z-axis.
-        GetComponent<Rigidbody2D>().freezeRotation = true;
+        HeldItem.transform.position = DropPosition;
+        HeldItem.GetComponent<Rigidbody2D>().freezeRotation = true;
     }
 
     void DropItem()
     {
-        // Flag that the item has been dropped.
-        HasBeenDropped = true;
+        // Flag that the item is being dropped.
+        Dropping = true;
+
         // Unfreeze rotation on z-axis.
-        GetComponent<Rigidbody2D>().freezeRotation = false;
+        ItemPrefab.GetComponent<Rigidbody2D>().freezeRotation = false;
 
         // Spawn a new item a half-second afterwards
         Invoke(nameof(SpawnItem), 0.5f);
+
+        // Reset flag to indicate item is no longer being dropped.
+        Dropping = false;
     }
 
-    private void SpawnItem() => Instantiate(NewItem, GameManager.GetCursorInWorldPosition(), Quaternion.identity);
+    private void SpawnItem()
+    {
+        GameObject child = Instantiate(ItemPrefab, Parent.position, Quaternion.identity);
+        child.name = "Item" + (DroppedItems.Count + 1).ToString();
+        DroppedItems.Add(child);
+        HeldItem = child;
+    }
 
 
     private void Restart()
     {
         // Flag that the item was "picked back up".
-        HasBeenDropped = false;
+        Dropping = false;
+        DroppedItems.Clear();
         FollowMouse();
     }
 }
