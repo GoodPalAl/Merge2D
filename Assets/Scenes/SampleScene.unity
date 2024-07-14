@@ -436,7 +436,7 @@ GameObject:
   - component: {fileID: 1700063899}
   - component: {fileID: 1700063900}
   m_Layer: 0
-  m_Name: Items
+  m_Name: Spawned Items
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -454,8 +454,7 @@ Transform:
   m_LocalPosition: {x: -0.02, y: 3.85, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1795592125}
+  m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1700063900
@@ -470,20 +469,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b71c67ba4da3f594d8c4ba63a4d06cb0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DropHeight: 4
+  StartHeight: 4
   MapBorderLeft: -2.75
   MapBorderRight: 2.75
   ItemRadius: 0.5
-  ItemPrefab: {fileID: 2157959706339219250, guid: fee5e467e497d544b8865bd9da3fb001, type: 3}
-  HeldItem: {fileID: 1795592124}
+  NextItem: {fileID: 2157959706339219250, guid: fee5e467e497d544b8865bd9da3fb001, type: 3}
 --- !u!1 &1795592124 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2157959706339219250, guid: fee5e467e497d544b8865bd9da3fb001, type: 3}
-  m_PrefabInstance: {fileID: 8439840989205561566}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &1795592125 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1195160872690095431, guid: fee5e467e497d544b8865bd9da3fb001, type: 3}
   m_PrefabInstance: {fileID: 8439840989205561566}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8439840989205561566
@@ -492,15 +485,15 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 1700063899}
+    m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1195160872690095431, guid: fee5e467e497d544b8865bd9da3fb001, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.02
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1195160872690095431, guid: fee5e467e497d544b8865bd9da3fb001, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.1500001
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 1195160872690095431, guid: fee5e467e497d544b8865bd9da3fb001, type: 3}
       propertyPath: m_LocalPosition.z
@@ -536,7 +529,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2157959706339219250, guid: fee5e467e497d544b8865bd9da3fb001, type: 3}
       propertyPath: m_Name
-      value: Apple
+      value: Cursor
+      objectReference: {fileID: 0}
+    - target: {fileID: 2883645008782811697, guid: fee5e467e497d544b8865bd9da3fb001, type: 3}
+      propertyPath: m_Constraints
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 5133011673308115725, guid: fee5e467e497d544b8865bd9da3fb001, type: 3}
       propertyPath: NewItem
@@ -546,7 +543,9 @@ PrefabInstance:
       propertyPath: newItem
       value: 
       objectReference: {fileID: 1795592124}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5458165025396039534, guid: fee5e467e497d544b8865bd9da3fb001, type: 3}
+    - {fileID: 2883645008782811697, guid: fee5e467e497d544b8865bd9da3fb001, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -558,4 +557,5 @@ SceneRoots:
   - {fileID: 1476060556}
   - {fileID: 519420032}
   - {fileID: 1150828524}
+  - {fileID: 8439840989205561566}
   - {fileID: 1700063899}
