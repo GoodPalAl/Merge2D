@@ -21,34 +21,18 @@ public class GameManager : MonoBehaviour
 
     #endregion
 
-    public GameObject Cursor;
     /// <summary>
     /// Official merge order of fruit.
     /// </summary>
     public List<GameObject> FruitOrder = new();
+
     /// <summary>
     /// List of all the dropped fruit in the game.
     /// </summary>
     public static List<GameObject> DroppedFruit = new();
-    private void Start()
-    {
-        Cursor = GameObject.Find("Cursor");
-    }
-
-    /// <summary>
-    /// Convert mouse position to Unity world position
-    /// Mouse Position:
-    ///  <0,0,0> = Bottom-Left of screen
-    ///  <Screen.width, Screen.height, 0> = Top-Right of screen
-    /// </summary>
-    /// <returns>Mouse position in Unity world position vector3</returns>
-    public static Vector3 GetCursorInWorldPosition() 
-        => Camera.main.ScreenToWorldPoint(Input.mousePosition);
-
-    public void HideCursor() => Cursor.SetActive(false);
-    public void ShowCursor() => Cursor.SetActive(true);
 
     public GameObject GetFruit(int order) => FruitOrder[order];
+    public int FruitCount() => FruitOrder.Count;
 
     /// <summary>
     /// Clear the board of all fruits. DEBUG ONLY.

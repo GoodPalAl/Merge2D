@@ -3,21 +3,9 @@ using UnityEngine;
 
 public class ItemController : MonoBehaviour
 {
-
-    // Height cursor is locked at
-    const float StartHeight = 4f;
-    // Width of the board
-    const float BoardSize = 5.5f;
-    // Position of board's left border from center 
-    float MapBorderLeft = -(BoardSize / 2);
-    // Position of board's right border from center 
-    float MapBorderRight = (BoardSize / 2);
     // Radius of fruit
     [SerializeField]
     float FruitRadius = 0.1f;
-    // Delay of cursor reveal in seconds
-    [SerializeField]
-    float ShowCursorDelay = 0.5f;
 
     // Next fruit in queue
     public GameObject NextFruit;
@@ -34,7 +22,7 @@ public class ItemController : MonoBehaviour
         Parent = transform;
         NextFruit = GameManager.Instance.GetFruit(0);
     }
-
+        
     private void FixedUpdate()
     {
         // If the item is being held and the left-mouse button is pressed, drop the item.
@@ -55,7 +43,7 @@ public class ItemController : MonoBehaviour
 
     void LoadNextFruit()
     {
-        int index = Random.Range(0, 2);
+        int index = Random.Range(0, GameManager.Instance.FruitCount());
         NextFruit = GameManager.Instance.GetFruit(index);
     }
 
@@ -69,22 +57,19 @@ public class ItemController : MonoBehaviour
         Dropping = true;
 
         // Hide cursor.
-        GameManager.Instance.HideCursor();
+        CursorManager.Instance.HideCursor();
 
         // Spawn a new item.
         SpawnFruit();
 
         // Invoke show cursor so there is a small delay.
-        Invoke(nameof(ShowCursor), ShowCursorDelay);
+        Invoke(nameof(ShowCursor), CursorManager.Instance.GetShowCursorDelay());
 
         // Reset flag to indicate item is no longer being dropped.
         Dropping = false;
     }
 
-    /// <summary>
-    /// Seperate function so the Invoke() function can be used.
-    /// </summary>
-    void ShowCursor() => GameManager.Instance.ShowCursor();
+    void ShowCursor() => CursorManager.Instance.ShowCursor();
 
     /// <summary>
     /// Spawns a new item loaded in from NextItem.
@@ -92,11 +77,14 @@ public class ItemController : MonoBehaviour
     private void SpawnFruit()
     {
         // New item spawns where cursor is located.
-        GameObject child = Instantiate(NextFruit, GameManager.Instance.Cursor.transform.position, Quaternion.identity);
+        GameObject child = Instantiate(NextFruit, CursorManager.Instance.GetCursor().transform.position, Quaternion.identity);
+
         // Update child's name based on # of fruit in the board.
         child.name = "Fruit" + (GameManager.DroppedFruit.Count + 1).ToString();
+
         // Assign a parent to the new fruit.
         child.transform.SetParent(Parent.transform);
+
         // Add item to an array to manage it.
         GameManager.DroppedFruit.Add(child);
     }

@@ -7,11 +7,19 @@ public class CursorController : MonoBehaviour
     // Radius of fruit
     [SerializeField]
     float FruitRadius = 0.1f;
+    // Delay of cursor reveal in seconds
+    [SerializeField]
+    float ShowCursorDelay = 0.5f;
 
     private void Update()
     {
         FollowMouse();
-        //LoadNextFruitIntoCursor();
+        UpdateCursor();
+    }
+
+    void UpdateCursor()
+    {
+
     }
 
     /// <summary>
@@ -21,19 +29,22 @@ public class CursorController : MonoBehaviour
     void FollowMouse()
     {
         // Convert mouse position to Unity world position
-        Vector3 WorldPos = GameManager.GetCursorInWorldPosition();
+        Vector3 WorldPos = CursorManager.GetCursorInWorldPosition();
+        float MapRight = GameManager.Constants.MapBorderRight;
+        float MapLeft = GameManager.Constants.MapBorderLeft;
+        float Height = GameManager.Constants.StartHeight;
 
         // Keep item within border of map.
         // Right border
-        if (WorldPos.x > GameManager.Constants.MapBorderRight - FruitRadius) WorldPos.x = GameManager.Constants.MapBorderRight - FruitRadius;
+        if (WorldPos.x > MapRight - FruitRadius) WorldPos.x = MapRight - FruitRadius;
         // Left border
-        if (WorldPos.x < GameManager.Constants.MapBorderLeft + FruitRadius) WorldPos.x = GameManager.Constants.MapBorderLeft + FruitRadius;
+        if (WorldPos.x < MapLeft + FruitRadius) WorldPos.x = MapLeft + FruitRadius;
 
         // Set item transform to appropriate position:
         // x = x of mouse curser within map boundaries,
         // y = height of map,
         // z = distance of near clipping plane from Camera
-        Vector3 CursorPosition = new Vector3(WorldPos.x, GameManager.Constants.StartHeight, Camera.main.nearClipPlane);
-        GameManager.Instance.Cursor.transform.position = CursorPosition;
+        Vector3 CursorPosition = new Vector3(WorldPos.x, Height, Camera.main.nearClipPlane);
+        CursorManager.Instance.UpdateCursorPosition(CursorPosition);
     }
 }
