@@ -8,7 +8,8 @@ public class ItemController : MonoBehaviour
     float FruitRadius = 0.1f;
 
     // Next fruit in queue
-    public GameObject NextFruit;
+    public static GameObject NextFruit;
+    public static Sprite GetNextFruitSprite() => NextFruit.GetComponentInChildren<SpriteRenderer>().sprite;
 
     // Parent that new fruits will be put in.
     Transform Parent;
@@ -40,6 +41,7 @@ public class ItemController : MonoBehaviour
         }
 
     }
+
 
     void LoadNextFruit()
     {

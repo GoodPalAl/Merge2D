@@ -19,7 +19,8 @@ public class CursorController : MonoBehaviour
 
     void UpdateCursor()
     {
-
+        Sprite NewCursorSprite = ItemController.GetNextFruitSprite();
+        CursorManager.Instance.UpdateCursorSprite(NewCursorSprite);
     }
 
     /// <summary>
