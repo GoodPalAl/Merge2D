@@ -425,6 +425,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd1c904c096e9414d90432bda31885fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Cursor: {fileID: 1795592124}
+  FruitOrder:
+  - {fileID: 2157959706339219250, guid: fee5e467e497d544b8865bd9da3fb001, type: 3}
+  - {fileID: 2157959706339219250, guid: d25905727f9c0e0498df21d24beea1b5, type: 3}
 --- !u!1 &1700063897
 GameObject:
   m_ObjectHideFlags: 0
@@ -469,11 +473,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b71c67ba4da3f594d8c4ba63a4d06cb0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  StartHeight: 4
-  MapBorderLeft: -2.75
-  MapBorderRight: 2.75
-  ItemRadius: 0.5
-  NextItem: {fileID: 2157959706339219250, guid: fee5e467e497d544b8865bd9da3fb001, type: 3}
+  FruitRadius: 0.1
+  ShowCursorDelay: 0.5
+  NextFruit: {fileID: 2157959706339219250, guid: fee5e467e497d544b8865bd9da3fb001, type: 3}
 --- !u!1 &1795592124 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2157959706339219250, guid: fee5e467e497d544b8865bd9da3fb001, type: 3}

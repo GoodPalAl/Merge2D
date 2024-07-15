@@ -1,16 +1,17 @@
+using System.Linq;
 using UnityEngine;
 
 public class ItemController : MonoBehaviour
 {
+
     // Height cursor is locked at
-    [SerializeField]
-    float StartHeight = 4f;
+    const float StartHeight = 4f;
+    // Width of the board
+    const float BoardSize = 5.5f;
     // Position of board's left border from center 
-    [SerializeField]
-    float MapBorderLeft = -2.75f;
+    float MapBorderLeft = -(BoardSize / 2);
     // Position of board's right border from center 
-    [SerializeField]
-    float MapBorderRight = 2.75f;
+    float MapBorderRight = (BoardSize / 2);
     // Radius of fruit
     [SerializeField]
     float FruitRadius = 0.1f;
@@ -30,15 +31,8 @@ public class ItemController : MonoBehaviour
     private void Start()
     {
         // Initialize this transform as the parent that the new items will spawn in.
-        Parent = transform; 
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        // Cursor must always follow the mouse x-position.
-        // Keep this in Update to avoid strange glitching.
-        FollowMouse();
+        Parent = transform;
+        NextFruit = GameManager.Instance.GetFruit(0);
     }
 
     private void FixedUpdate()
@@ -47,6 +41,7 @@ public class ItemController : MonoBehaviour
         if (!Dropping && Input.GetMouseButtonDown(0))
         {
             DropFruit();
+            LoadNextFruit();
         }
         // If the right-mouse button is pressed, clear the board of all dropped fruits.
         if (Input.GetMouseButtonDown(1))
@@ -58,29 +53,12 @@ public class ItemController : MonoBehaviour
 
     }
 
-    // TODO: Migrate to a "cursor controller"
-    /// <summary>
-    /// Calculates mouse position in the world and has cursor 
-    /// follow it within a set boundary.
-    /// </summary>
-    void FollowMouse()
+    void LoadNextFruit()
     {
-        // Convert mouse position to Unity world position
-        Vector3 WorldPos = GameManager.GetCursorInWorldPosition();
-
-        // Keep item within border of map.
-        // Right border
-        if (WorldPos.x > MapBorderRight - FruitRadius) WorldPos.x = MapBorderRight - FruitRadius;
-        // Left border
-        if (WorldPos.x < MapBorderLeft + FruitRadius) WorldPos.x = MapBorderLeft + FruitRadius;
-
-        // Set item transform to appropriate position:
-        // x = x of mouse curser within map boundaries,
-        // y = height of map,
-        // z = distance of near clipping plane from Camera
-        Vector3 CursorPosition = new Vector3(WorldPos.x, StartHeight, Camera.main.nearClipPlane);
-        GameManager.Instance.Cursor.transform.position = CursorPosition;
+        int index = Random.Range(0, 2);
+        NextFruit = GameManager.Instance.GetFruit(index);
     }
+
 
     /// <summary>
     /// Toggles cursor visibility and calls for a new fruit to spawn.

@@ -23,6 +23,10 @@ public class GameManager : MonoBehaviour
 
     public GameObject Cursor;
     /// <summary>
+    /// Official merge order of fruit.
+    /// </summary>
+    public List<GameObject> FruitOrder = new();
+    /// <summary>
     /// List of all the dropped fruit in the game.
     /// </summary>
     public static List<GameObject> DroppedFruit = new();
@@ -44,6 +48,8 @@ public class GameManager : MonoBehaviour
     public void HideCursor() => Cursor.SetActive(false);
     public void ShowCursor() => Cursor.SetActive(true);
 
+    public GameObject GetFruit(int order) => FruitOrder[order];
+
     /// <summary>
     /// Clear the board of all fruits. DEBUG ONLY.
     /// </summary>
@@ -54,5 +60,25 @@ public class GameManager : MonoBehaviour
             DestroyImmediate(obj, true);
         }
         DroppedFruit.Clear();
+    }
+    public class Constants
+    {
+        public static readonly string PathToPrefabs = "Assets/Prefabs";
+        /// <summary>
+        /// Width of the board
+        /// </summary>
+        public const float BoardSize = 5.5f;
+        /// <summary>
+        /// Position of board's left border from center 
+        /// </summary>
+        public const float MapBorderLeft = -(BoardSize / 2);
+        /// <summary>
+        /// Position of board's right border from center 
+        /// </summary>
+        public const float MapBorderRight = (BoardSize / 2);
+        /// <summary>
+        /// Height cursor is locked at
+        /// </summary>
+        public const float StartHeight = 4f;
     }
 }
