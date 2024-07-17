@@ -223,9 +223,9 @@ GameObject:
   - component: {fileID: 1150828523}
   - component: {fileID: 1150828525}
   - component: {fileID: 1150828526}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Board
-  m_TagString: Untagged
+  m_TagString: Board
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -441,7 +441,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7cb08029506f2ee41b190d9458d53fef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Cursor: {fileID: 7553321913051092972}
+  ShowCursorDelay: 0.5
 --- !u!1 &1700063897
 GameObject:
   m_ObjectHideFlags: 0
@@ -486,8 +486,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b71c67ba4da3f594d8c4ba63a4d06cb0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FruitRadius: 0.1
-  NextFruit: {fileID: 2157959706339219250, guid: fee5e467e497d544b8865bd9da3fb001, type: 3}
 --- !u!1001 &7337029512657262108
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -566,7 +564,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FruitRadius: 0.1
-  ShowCursorDelay: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
