@@ -3,15 +3,19 @@ using UnityEngine;
 
 public class ItemController : MonoBehaviour
 {
+    // Radius of fruit
+    [SerializeField]
+    float FruitRadius = 0.1f;
+
     // Next fruit in queue
     public static GameObject NextFruit;
     public static Sprite GetNextFruitSprite() => NextFruit.GetComponentInChildren<SpriteRenderer>().sprite;
 
-    // Flag that indicates when a fruit is dropping.
-    public static bool Dropping = false;
-
     // Parent that new fruits will be put in.
     Transform Parent;
+
+    // Flag that indicates when a fruit is dropping.
+    bool Dropping = false;
 
     private void Start()
     {
@@ -36,14 +40,12 @@ public class ItemController : MonoBehaviour
             GameManager.Instance.ClearBoard();
         }
 
-        // If two fruits of the same type touch, they should merge into a new fruit.
-
     }
 
 
     void LoadNextFruit()
     {
-        int index = 0; //Random.Range(0, GameManager.Instance.FruitCount());
+        int index = Random.Range(0, GameManager.Instance.FruitCount());
         NextFruit = GameManager.Instance.GetFruit(index);
     }
 
@@ -71,7 +73,6 @@ public class ItemController : MonoBehaviour
 
     void ShowCursor() => CursorManager.Instance.ShowCursor();
 
-    // FIXME: two fruits spawn at the beginning of the game for some reason.
     /// <summary>
     /// Spawns a new item loaded in from NextItem.
     /// </summary>

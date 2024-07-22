@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class CursorController : MonoBehaviour
@@ -5,21 +7,21 @@ public class CursorController : MonoBehaviour
     // Radius of fruit
     [SerializeField]
     float FruitRadius = 0.1f;
+    // Delay of cursor reveal in seconds
+    [SerializeField]
+    float ShowCursorDelay = 0.5f;
 
     private void Update()
     {
         FollowMouse();
-
         UpdateCursor();
     }
 
-    // FIXME: the switch between fruits is visible. Make this happen when the fruit is dropping
     void UpdateCursor()
     {
         Sprite NewCursorSprite = ItemController.GetNextFruitSprite();
         CursorManager.Instance.UpdateCursorSprite(NewCursorSprite);
     }
-    void ShowCursor() => CursorManager.Instance.ShowCursor();
 
     /// <summary>
     /// Calculates mouse position in the world and has cursor 
