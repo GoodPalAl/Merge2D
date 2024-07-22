@@ -1,23 +1,25 @@
 using UnityEngine;
 
-[RequireComponent(typeof(PolygonCollider2D))]
 public class Fruit : MonoBehaviour
 {
-    PolygonCollider2D Collider;
-    bool isMerging = false;
+    [SerializeField]
+    PolygonCollider2D Trigger;
+
+    int ID;
 
     private void Start()
     {
-        Collider = gameObject.GetComponent<PolygonCollider2D>();
+        ID = GetInstanceID();
     }
 
-
-    private void OnTriggerEnter2D(Collider2D other)
+    private void OnTriggerStay2D(Collider2D other)
     {
-        if (Collider.CompareTag(other.tag))
+        if (other.GetComponent<Fruit>() != null && Trigger.CompareTag(other.tag) && Trigger.CompareTag("Apple"))
         {
-            Debug.Log(Collider.tag);
-            if (Collider.CompareTag("Apple") && isMerging == false)
+            Debug.Log(Trigger.tag);
+
+            // Ensures this trigger is only called once.
+            if (ID < other.gameObject.GetComponent<Fruit>().ID)
             {
                 MergeFruits(tag, gameObject, other.gameObject);
             }
@@ -25,14 +27,11 @@ public class Fruit : MonoBehaviour
 
     }
 
-    // FIXME: spawns 6 oranges instead of 1 :^)
     void MergeFruits(string oldName, GameObject thisFruit, GameObject otherFruit)
     {
-        isMerging = true;
         GameObject newFruit = GameManager.Instance.GetFruit(1);
         Destroy(thisFruit);
         Destroy(otherFruit);
         Instantiate(newFruit, transform.position, Quaternion.identity);
-        isMerging = false;
     }
 }

@@ -8,7 +8,7 @@ public class ItemController : MonoBehaviour
     public static Sprite GetNextFruitSprite() => NextFruit.GetComponentInChildren<SpriteRenderer>().sprite;
 
     // Flag that indicates when a fruit is dropping.
-    public static bool Dropping = false;
+    public bool Dropping = false;
 
     // Parent that new fruits will be put in.
     Transform Parent;
@@ -78,15 +78,17 @@ public class ItemController : MonoBehaviour
     private void SpawnFruit()
     {
         // New item spawns where cursor is located.
-        GameObject child = Instantiate(NextFruit, CursorManager.Instance.GetCursor().transform.position, Quaternion.identity);
+        GameObject newFruit = Instantiate(NextFruit, CursorManager.Instance.GetCursor().transform.position, Quaternion.identity);
 
         // Update child's name based on # of fruit in the board.
-        child.name = "Fruit" + (GameManager.DroppedFruit.Count + 1).ToString();
+        newFruit.name = "Fruit" + (GameManager.DroppedFruit.Count + 1).ToString();
+
+        // Apply gravity
 
         // Assign a parent to the new fruit.
-        child.transform.SetParent(Parent.transform);
+        newFruit.transform.SetParent(Parent.transform);
 
         // Add item to an array to manage it.
-        GameManager.DroppedFruit.Add(child);
+        GameManager.DroppedFruit.Add(newFruit);
     }
 }
