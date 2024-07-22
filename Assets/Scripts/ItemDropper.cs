@@ -1,11 +1,11 @@
 using System.Linq;
 using UnityEngine;
 
-public class ItemController : MonoBehaviour
+public class ItemDropper : MonoBehaviour
 {
     // Next fruit in queue
-    public static GameObject NextFruit;
-    public static Sprite GetNextFruitSprite() => NextFruit.GetComponentInChildren<SpriteRenderer>().sprite;
+    public static GameObject QueuedFruit;
+    public static Sprite GetNextFruitSprite() => QueuedFruit.GetComponentInChildren<SpriteRenderer>().sprite;
 
     // Flag that indicates when a fruit is dropping.
     public bool Dropping = false;
@@ -17,7 +17,7 @@ public class ItemController : MonoBehaviour
     {
         // Initialize this transform as the parent that the new items will spawn in.
         Parent = transform;
-        NextFruit = GameManager.Instance.GetFruit(0);
+        QueuedFruit = GameManager.Instance.GetFruit(0);
     }
         
     private void FixedUpdate()
@@ -35,16 +35,13 @@ public class ItemController : MonoBehaviour
             Dropping = false;
             GameManager.Instance.ClearBoard();
         }
-
-        // If two fruits of the same type touch, they should merge into a new fruit.
-
     }
 
 
     void LoadNextFruit()
     {
         int index = 0; //Random.Range(0, GameManager.Instance.FruitCount());
-        NextFruit = GameManager.Instance.GetFruit(index);
+        QueuedFruit = GameManager.Instance.GetFruit(index);
     }
 
 
@@ -78,7 +75,7 @@ public class ItemController : MonoBehaviour
     private void SpawnFruit()
     {
         // New item spawns where cursor is located.
-        GameObject newFruit = Instantiate(NextFruit, CursorManager.Instance.GetCursor().transform.position, Quaternion.identity);
+        GameObject newFruit = Instantiate(QueuedFruit, CursorManager.Instance.GetCursor().transform.position, Quaternion.identity);
 
         // Update child's name based on # of fruit in the board.
         newFruit.name = "Fruit" + (GameManager.DroppedFruit.Count + 1).ToString();

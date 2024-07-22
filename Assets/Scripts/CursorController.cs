@@ -16,7 +16,7 @@ public class CursorController : MonoBehaviour
     // FIXME: the switch between fruits is visible. Make this happen when the fruit is dropping
     void UpdateCursor()
     {
-        Sprite NewCursorSprite = ItemController.GetNextFruitSprite();
+        Sprite NewCursorSprite = ItemDropper.GetNextFruitSprite();
         CursorManager.Instance.UpdateCursorSprite(NewCursorSprite);
     }
     void ShowCursor() => CursorManager.Instance.ShowCursor();

@@ -429,6 +429,7 @@ MonoBehaviour:
   FruitOrder:
   - {fileID: 2157959706339219250, guid: fee5e467e497d544b8865bd9da3fb001, type: 3}
   - {fileID: 2157959706339219250, guid: d25905727f9c0e0498df21d24beea1b5, type: 3}
+  - {fileID: 2157959706339219250, guid: e7b7c7c78d76a1b40a4e5c8ff5bde046, type: 3}
 --- !u!114 &1476060558
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -486,6 +487,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b71c67ba4da3f594d8c4ba63a4d06cb0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Dropping: 0
 --- !u!1001 &7337029512657262108
 PrefabInstance:
   m_ObjectHideFlags: 0

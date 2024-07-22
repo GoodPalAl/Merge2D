@@ -14,7 +14,7 @@ public class Fruit : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D other)
     {
-        if (other.GetComponent<Fruit>() != null && Trigger.CompareTag(other.tag) && Trigger.CompareTag("Apple"))
+        if (other.GetComponent<Fruit>() != null && Trigger.CompareTag(other.tag)) //&& Trigger.CompareTag("Apple"))
         {
             Debug.Log(Trigger.tag);
 
@@ -29,7 +29,7 @@ public class Fruit : MonoBehaviour
 
     void MergeFruits(string oldName, GameObject thisFruit, GameObject otherFruit)
     {
-        GameObject newFruit = GameManager.Instance.GetFruit(1);
+        GameObject newFruit = GameManager.Instance.GetNextFruit(oldName);
         Destroy(thisFruit);
         Destroy(otherFruit);
         Instantiate(newFruit, transform.position, Quaternion.identity);

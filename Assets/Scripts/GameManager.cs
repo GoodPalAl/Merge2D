@@ -32,6 +32,12 @@ public class GameManager : MonoBehaviour
     public static List<GameObject> DroppedFruit = new();
 
     public GameObject GetFruit(int order) => FruitOrder[order];
+    public GameObject GetNextFruit(string oldFruitName) 
+    {
+        int nextIndex = FruitOrder.FindIndex(Fruit => Fruit.name == oldFruitName) + 1;
+        return GetFruit(nextIndex);
+    }
+    
     public int FruitCount() => FruitOrder.Count;
 
     /// <summary>
