@@ -4,8 +4,7 @@ using UnityEngine;
 public class ItemController : MonoBehaviour
 {
     // Next fruit in queue
-    public static GameObject NextFruit;
-    public static Sprite GetNextFruitSprite() => NextFruit.GetComponentInChildren<SpriteRenderer>().sprite;
+    public GameObject NextFruit;
 
     // Flag that indicates when a fruit is dropping.
     public static bool Dropping = false;
@@ -39,7 +38,6 @@ public class ItemController : MonoBehaviour
         // If two fruits of the same type touch, they should merge into a new fruit.
 
     }
-
 
     void LoadNextFruit()
     {
