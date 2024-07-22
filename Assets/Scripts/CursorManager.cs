@@ -34,6 +34,7 @@ public class CursorManager : MonoBehaviour
 
     public GameObject GetCursor() => Cursor;
     public void UpdateCursorPosition(Vector3 pos) => Cursor.transform.position = pos;
+    public void UpdateCursorSprite(Sprite s) => Cursor.GetComponentInChildren<SpriteRenderer>().sprite = s;
 
 
     /// <summary>
