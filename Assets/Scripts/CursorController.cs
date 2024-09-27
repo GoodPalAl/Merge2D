@@ -4,7 +4,7 @@ public class CursorController : MonoBehaviour
 {
     // Radius of fruit
     [SerializeField]
-    float FruitRadius = 0.1f;
+    float FruitRadius = 0.5f;
 
     private void Update()
     {
@@ -18,6 +18,8 @@ public class CursorController : MonoBehaviour
     {
         Sprite NewCursorSprite = ItemDropper.GetNextFruitSprite();
         CursorManager.Instance.UpdateCursorSprite(NewCursorSprite);
+        //GameObject NewCursor = ItemDropper.GetNextFruit();
+        //CursorManager.Instance.UpdateCursor(NewCursor);
     }
     void ShowCursor() => CursorManager.Instance.ShowCursor();
 

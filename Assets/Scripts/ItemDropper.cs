@@ -1,14 +1,19 @@
-using System.Linq;
+
 using UnityEngine;
 
 public class ItemDropper : MonoBehaviour
 {
+    [SerializeField]
+    bool TestMode = true;
+    [SerializeField]
+    GameManager.Fruit TestModeStartFruit = GameManager.Fruit.Strawberry;
+    [SerializeField]
+    GameManager.Fruit MaxFruitSpawn = GameManager.Fruit.Banana;
+
     // Next fruit in queue
     public static GameObject QueuedFruit;
     public static Sprite GetNextFruitSprite() => QueuedFruit.GetComponentInChildren<SpriteRenderer>().sprite;
-
-    // Flag that indicates when a fruit is dropping.
-    public bool Dropping = false;
+    public static GameObject GetNextFruit() => QueuedFruit;
 
     // Parent that new fruits will be put in.
     Transform Parent;
@@ -17,42 +22,50 @@ public class ItemDropper : MonoBehaviour
     {
         // Initialize this transform as the parent that the new items will spawn in.
         Parent = transform;
-        QueuedFruit = GameManager.Instance.GetFruit(0);
+        QueuedFruit = GameManager.Instance.GetFruit(TestMode ? GameManager.Instance.GetFruitIndexFromEnum(TestModeStartFruit) : 0);
     }
         
     private void FixedUpdate()
     {
-        // If the item is being held and the left-mouse button is pressed, drop the item.
-        if (!Dropping && Input.GetMouseButtonDown(0))
+        ClickEvent();
+
+        // If the space bar is pressed, clear the board of all dropped fruits.
+        if (Input.GetKeyDown("space"))
         {
-            DropFruit();
-            LoadNextFruit();
-        }
-        // If the right-mouse button is pressed, clear the board of all dropped fruits.
-        if (Input.GetMouseButtonDown(1))
-        {
-            // Reset flag.
-            Dropping = false;
             GameManager.Instance.ClearBoard();
         }
     }
 
-
-    void LoadNextFruit()
+    public float TimeLastClick = 0f;
+    private void ClickEvent()
     {
-        int index = 0; //Random.Range(0, GameManager.Instance.FruitCount());
-        QueuedFruit = GameManager.Instance.GetFruit(index);
+        // Click delay should happen slightly after the cursor is revealed
+        float ClickDelay = CursorManager.Instance.GetShowCursorDelay() + 0.1f;
+
+        // Click delay is applied
+        // This prevents from multiple items spawning at the same time.
+        if (TimeLastClick < ClickDelay)
+        {
+            TimeLastClick += Time.deltaTime;
+        }
+        // If left-mouse button is pressed and delay has passed, drop the item.
+        if (Input.GetMouseButtonDown(0) && TimeLastClick >= ClickDelay)
+        {
+            Debug.Log("CLICK");
+            DropFruit();
+            // Reset timer
+            TimeLastClick = 0;
+        }
     }
 
+    // Created local function to utilize the invoke function.
+    void ShowCursor() => CursorManager.Instance.ShowCursor();
 
     /// <summary>
     /// Toggles cursor visibility and calls for a new fruit to spawn.
     /// </summary>
     void DropFruit()
     {
-        // Flag that the item is being dropped.
-        Dropping = true;
-
         // Hide cursor.
         CursorManager.Instance.HideCursor();
 
@@ -62,13 +75,20 @@ public class ItemDropper : MonoBehaviour
         // Invoke show cursor so there is a small delay.
         Invoke(nameof(ShowCursor), CursorManager.Instance.GetShowCursorDelay());
 
-        // Reset flag to indicate item is no longer being dropped.
-        Dropping = false;
+        // Queue next fruit
+        // If TestMode enabled, the first fruit in hierarchy will always load, otherwise the fruit will be random.
+        int index;
+        if (TestMode)
+        {
+            index = GameManager.Instance.GetFruitIndexFromEnum(TestModeStartFruit);
+        }
+        else
+        {
+            index = Random.Range(0, GameManager.Instance.GetFruitIndexFromEnum(MaxFruitSpawn));
+        }
+        QueuedFruit = GameManager.Instance.GetFruit(index);
     }
 
-    void ShowCursor() => CursorManager.Instance.ShowCursor();
-
-    // FIXME: two fruits spawn at the beginning of the game for some reason.
     /// <summary>
     /// Spawns a new item loaded in from NextItem.
     /// </summary>
@@ -78,9 +98,7 @@ public class ItemDropper : MonoBehaviour
         GameObject newFruit = Instantiate(QueuedFruit, CursorManager.Instance.GetCursor().transform.position, Quaternion.identity);
 
         // Update child's name based on # of fruit in the board.
-        newFruit.name = "Fruit" + (GameManager.DroppedFruit.Count + 1).ToString();
-
-        // Apply gravity
+        newFruit.name = QueuedFruit.name + (GameManager.DroppedFruit.Count + 1).ToString();
 
         // Assign a parent to the new fruit.
         newFruit.transform.SetParent(Parent.transform);

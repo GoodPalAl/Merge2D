@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: 2883645008782811697}
   - component: {fileID: -1632651129367888320}
   m_Layer: 0
-  m_Name: Orange
-  m_TagString: Orange
+  m_Name: Grape
+  m_TagString: Grape
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -28,9 +28,9 @@ Transform:
   m_GameObject: {fileID: 2157959706339219250}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.25, y: 4, z: 0.3}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 3.25, y: 3.25, z: 3.25}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 9122175254247523403}
   - {fileID: 8746429662522263420}
@@ -48,7 +48,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe1c29a1b5b1a8f4ebd5e84652ca5987, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Trigger: {fileID: 3459152921467366032}
 --- !u!50 &2883645008782811697
 Rigidbody2D:
   serializedVersion: 4
@@ -122,21 +121,17 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 0.31550264, y: 0.3783183}
-      - {x: -0.18112332, y: 0.3792012}
-      - {x: -0.32112932, y: 0.32110882}
-      - {x: -0.4324174, y: 0.18642426}
-      - {x: -0.5014658, y: 0.06414461}
-      - {x: -0.5040416, y: -0.18891585}
-      - {x: -0.4361806, y: -0.31258368}
-      - {x: -0.31540585, y: -0.43705225}
-      - {x: -0.18526006, y: -0.5026164}
-      - {x: 0.06858516, y: -0.505492}
-      - {x: 0.18701279, y: -0.43017697}
-      - {x: 0.3090862, y: -0.3102095}
-      - {x: 0.38298917, y: -0.1926961}
-      - {x: 0.4975649, y: -0.13417625}
-      - {x: 0.5064181, y: 0.19536489}
+    - - {x: 0.2512323, y: 0.31268236}
+      - {x: -0.12673588, y: 0.31402496}
+      - {x: -0.18699414, y: 0.18405427}
+      - {x: -0.18539003, y: -0.18588972}
+      - {x: -0.12587577, y: -0.24412617}
+      - {x: -0.07042545, y: -0.37443507}
+      - {x: 0.060293317, y: -0.5032791}
+      - {x: 0.18995073, y: -0.502367}
+      - {x: 0.37320468, y: -0.318861}
+      - {x: 0.43919927, y: -0.18702853}
+      - {x: 0.44070452, y: 0.1277706}
   m_UseDelaunayMesh: 0
 --- !u!1 &7185292251332830357
 GameObject:
@@ -213,7 +208,7 @@ SpriteRenderer:
   m_SortingLayerID: -1988797245
   m_SortingLayer: 3
   m_SortingOrder: 0
-  m_Sprite: {fileID: 1218446674, guid: a03c2610221b14940b818fb271b448fa, type: 3}
+  m_Sprite: {fileID: 828239227, guid: a03c2610221b14940b818fb271b448fa, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -236,7 +231,7 @@ GameObject:
   - component: {fileID: 3459152921467366032}
   m_Layer: 0
   m_Name: Trigger
-  m_TagString: Orange
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -302,19 +297,15 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 0.31550264, y: 0.3783183}
-      - {x: -0.18112332, y: 0.3792012}
-      - {x: -0.32112932, y: 0.32110882}
-      - {x: -0.4324174, y: 0.18642426}
-      - {x: -0.5014658, y: 0.06414461}
-      - {x: -0.5040416, y: -0.18891585}
-      - {x: -0.4361806, y: -0.31258368}
-      - {x: -0.31540585, y: -0.43705225}
-      - {x: -0.18526006, y: -0.5026164}
-      - {x: 0.06858516, y: -0.505492}
-      - {x: 0.18701279, y: -0.43017697}
-      - {x: 0.3090862, y: -0.3102095}
-      - {x: 0.38298917, y: -0.1926961}
-      - {x: 0.4975649, y: -0.13417625}
-      - {x: 0.5064181, y: 0.19536489}
+    - - {x: 0.2512323, y: 0.31268236}
+      - {x: -0.12673588, y: 0.31402496}
+      - {x: -0.18699414, y: 0.18405427}
+      - {x: -0.18539003, y: -0.18588972}
+      - {x: -0.12587577, y: -0.24412617}
+      - {x: -0.07042545, y: -0.37443507}
+      - {x: 0.060293317, y: -0.5032791}
+      - {x: 0.18995073, y: -0.502367}
+      - {x: 0.37320468, y: -0.318861}
+      - {x: 0.43919927, y: -0.18702853}
+      - {x: 0.44070452, y: 0.1277706}
   m_UseDelaunayMesh: 0

@@ -7,6 +7,18 @@ TagManager:
   - Board
   - Apple
   - Orange
+  - Banana
+  - Strawberry
+  - Pear
+  - Avocado
+  - Cherry
+  - Coconut
+  - Grape
+  - Kiwi
+  - Lemon
+  - Peach
+  - Pineapple
+  - Watermelon
   layers:
   - Default
   - TransparentFX
@@ -14,7 +26,7 @@ TagManager:
   - 
   - Water
   - UI
-  - 
+  - Shape
   - Board
   - 
   - 
