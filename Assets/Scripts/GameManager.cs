@@ -20,12 +20,12 @@ public class GameManager : MonoBehaviour
             Instance = this;
         }
 
-        // is this the best place for this?
-        for (int i = 0; i < FruitOrder.Count; i++)
-        {
-            var fruit = FruitOrder[i];
-            fruit.transform.localScale = FruitStartSizev3 + (FruitScaleSizev3 * i);
-        }
+        //// is this the best place for this?
+        //for (int i = 0; i < FruitOrder.Count; i++)
+        //{
+        //    var fruit = FruitOrder[i];
+        //    fruit.transform.localScale = FruitStartSizev3 + (FruitScaleSizev3 * i);
+        //}
     }
 
     #endregion

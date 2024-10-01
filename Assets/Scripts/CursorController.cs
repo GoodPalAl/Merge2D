@@ -45,7 +45,7 @@ public class CursorController : MonoBehaviour
         // x = x of mouse curser within map boundaries,
         // y = height of map,
         // z = distance of near clipping plane from Camera
-        Vector3 CursorPosition = new Vector3(WorldPos.x, Height, Camera.main.nearClipPlane);
+        Vector3 CursorPosition = new(WorldPos.x, Height, Camera.main.nearClipPlane);
         CursorManager.Instance.UpdateCursorPosition(CursorPosition);
     }
 }

@@ -4,11 +4,9 @@ using UnityEngine;
 
 public class DisableGravity : MonoBehaviour
 {
-
-    // Update is called once per frame
     void Start()
     {
-        List<GameObject> children = new List<GameObject>();
+        List<GameObject> children = new();
         foreach (Transform child in transform) 
         {
             children.Add(child.gameObject);
