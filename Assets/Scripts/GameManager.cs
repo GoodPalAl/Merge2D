@@ -31,45 +31,105 @@ public class GameManager : MonoBehaviour
     #endregion
 
     /// <summary>
+    /// Scale steps in fruit hierarchy (size)
+    /// </summary>
+    //static readonly float FruitScaleSize = 0.25f;
+    //static readonly Vector3 FruitStartSizev3 = Vector3.one;
+    //static readonly Vector3 FruitScaleSizev3 = new(FruitScaleSize, FruitScaleSize, FruitScaleSize);
+
+    ///
+    /// <summary>Fruit in order as enums. First = strawberry, Last = watermelon</summary>
+    ///
+    public enum Fruit
+    {
+        Strawberry, 
+        Cherry, 
+        Apple, 
+        Peach, 
+        Pear, 
+        Orange, 
+        Pineapple, 
+        Banana, 
+        Lemon, 
+        Avocado, 
+        Kiwi, 
+        Coconut, 
+        Grape, 
+        Watermelon
+    }
+    /// <summary>
     /// Official merge order of fruit.
     /// </summary>
     public List<GameObject> FruitOrder = new();
-
-    /// <summary>
-    /// Scale steps in fruit hierarchy (size)
-    /// </summary>
-    static readonly float FruitScaleSize = 0.25f;
-    static readonly Vector3 FruitStartSizev3 = Vector3.one;
-    static readonly Vector3 FruitScaleSizev3 = new Vector3(FruitScaleSize, FruitScaleSize, FruitScaleSize);
-
     /// <summary>
     /// List of all the dropped fruit in the game.
     /// </summary>
     public static List<GameObject> DroppedFruit = new();
-
-    public enum Fruit
-    {
-        Strawberry, Apple, Pear, Orange, Banana, Avocado, Cherry, Coconut, Kiwi, Grape, Lemon, Peach, Pineapple, Watermelon
-    }
-
     public GameObject GetFruitFromEnum(Fruit fruit) => FruitOrder.Find(x => x.CompareTag(fruit.ToString()));
     public int GetFruitIndexFromEnum(Fruit fruit) => FruitOrder.FindIndex(x => x.CompareTag(fruit.ToString()));
-
     public GameObject GetFruit(int order) => FruitOrder[order];
     public GameObject GetNextFruit(string oldFruitName) 
     {
         int nextIndex = FruitOrder.FindIndex(Fruit => Fruit.name == oldFruitName) + 1;
         return GetFruit(nextIndex);
     }
-    
-    private int Score = 0;
-
     public int FruitCount() => FruitOrder.Count;
+    
 
-    public void TickScore() { Score++; }
-    public void ResetScore() { Score = 0; }
-    public int GetScore() { return Score; }
-    public string GetScoreAsString() { return Score.ToString(); }
+    /// <summary>
+    /// Score of Current Game
+    /// </summary>
+    private int Score = 0;
+    /// <summary>
+    /// Increment score by 1. TODO: icrement score based on fruit hierarchy.
+    /// </summary>
+    public void TickScore() => Score++; 
+    /// <summary>
+    /// Sets Score equal to 0
+    /// </summary>
+    public void ResetScore() => Score = 0; 
+    /// <summary>
+    /// Gets current score of game
+    /// </summary>
+    /// <returns>Integer of score</returns>
+    public int GetScore() => Score;
+    /// <summary>
+    /// Gets current score of game
+    /// </summary>
+    /// <returns>String of score</returns>
+    public string GetScoreAsString() => Score.ToString(); 
+
+
+    /// <summary>
+    /// Represents the time, in seconds, that has ticked since a fruit has entered the dead zone.
+    /// </summary>
+    private float DeathTimer = 0f;
+    /// <summary>
+    /// Gets Death Timer in seconds, no rounding
+    /// </summary>
+    /// <returns>Death Timer, in seconds</returns>
+    public float GetDeathTimer() => DeathTimer;
+    /// <summary>
+    /// Gets Death Timer in seconds as a string, formatted to the nearest hundreth (0.00)
+    /// </summary>
+    /// <returns>Time in seconds</returns>
+    public string GetDeathTimerAsString() => DeathTimer.ToString("0.00");
+    public float TickDeathTimer() => DeathTimer += Time.deltaTime;
+    /// <summary>
+    /// Resets the death timer.
+    /// </summary>
+    public void ResetDeathTimer() => DeathTimer = 0f;
+
+    /// <summary>
+    /// Maximum allowed time, in seconds, a fruit can be in the deadzone before a game over occurs.
+    /// </summary>
+    private float GameOverTime = 10f;
+    /// <summary>
+    /// Gets time in which the game would end, in seconds.
+    /// </summary>
+    /// <returns>Game Over time, in seconds</returns>
+    public float GetGameOverTime() => GameOverTime;
+
 
     /// <summary>
     /// Clear the board of all fruits. DEBUG ONLY.
@@ -83,7 +143,6 @@ public class GameManager : MonoBehaviour
         DroppedFruit.Clear();
         ResetScore();
     }
-
 
 
     public class Constants

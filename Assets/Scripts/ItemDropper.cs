@@ -90,12 +90,15 @@ public class ItemDropper : MonoBehaviour
     }
 
     /// <summary>
-    /// Spawns a new item loaded in from NextItem.
+    /// Spawns a new fruit object at cursor's position
     /// </summary>
     private void SpawnFruit()
     {
+        // Subtract a bit of y-axis position so the fruit is dropped below trigger box.
+        Vector3 pos = CursorManager.Instance.GetCursor().transform.position + new Vector3(0f,-0.5f,0f);
+
         // New item spawns where cursor is located.
-        GameObject newFruit = Instantiate(QueuedFruit, CursorManager.Instance.GetCursor().transform.position, Quaternion.identity);
+        GameObject newFruit = Instantiate(QueuedFruit, pos, Quaternion.identity);
 
         // Update child's name based on # of fruit in the board.
         newFruit.name = QueuedFruit.name + (GameManager.DroppedFruit.Count + 1).ToString();

@@ -7,16 +7,16 @@ using UnityEngine;
 [RequireComponent(typeof(TextMeshProUGUI))]
 public class ScoreController : MonoBehaviour
 {
-    TextMeshProUGUI textGUI;
+    TextMeshProUGUI scoreText;
 
     private void Start()
     {
-        textGUI = GetComponent<TextMeshProUGUI>();
+        scoreText = GetComponent<TextMeshProUGUI>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        textGUI.text = GameManager.Instance.GetScoreAsString();
+        scoreText.text = GameManager.Instance.GetScoreAsString();
     }
 }
