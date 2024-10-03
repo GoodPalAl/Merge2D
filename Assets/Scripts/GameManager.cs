@@ -119,6 +119,13 @@ public class GameManager : MonoBehaviour
     /// Resets the death timer.
     /// </summary>
     public void ResetDeathTimer() => DeathTimer = 0f;
+    /// <summary>
+    /// Time between the timer being shown to the player 
+    /// and the time fruit linger in the dead zone. 
+    /// Accounts for dropping fruit.
+    /// </summary>
+    private float DeathTimeThreshold = 1f;
+    public float GetDeathTimeThreshold() => DeathTimeThreshold;
 
     /// <summary>
     /// Maximum allowed time, in seconds, a fruit can be in the deadzone before a game over occurs.

@@ -6,30 +6,38 @@ using UnityEngine;
 
 public class TimerController : MonoBehaviour
 {
+
+    // TODO: Timer resets when ONE fruit leaves deadzone. Should reset when there are NO fruit in deadzone.
+
+
     TextMeshProUGUI timerText;
 
     // Start is called before the first frame update
     void Start()
     {
         timerText = GetComponent<TextMeshProUGUI>();
-        HideTimer();
+        ShowTimer(false);
     }
-
-    void HideTimer() => timerText.enabled = false;    
-    void ShowTimer() => timerText.enabled = true;
 
     // Update is called once per frame
     void Update()
     {
+        // Show timer if timer has passed 1 second
         float timer = GameManager.Instance.GetDeathTimer();
-        if (timer != 0)
+        if (timer >= GameManager.Instance.GetDeathTimeThreshold())
         {
-            ShowTimer();
+            ShowTimer(true);
             timerText.text = GameManager.Instance.GetDeathTimerAsString();
         }
         else
-        { 
-            HideTimer(); 
+        {
+            ShowTimer(false); 
         }
     }
+
+    /// <summary>
+    /// Enable or disable visibility on timer's text based on input
+    /// </summary>
+    /// <param name="x">true = show timer, false = hide timer</param>
+    void ShowTimer(bool x) => timerText.enabled = x;
 }
