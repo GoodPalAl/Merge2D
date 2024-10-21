@@ -13,7 +13,7 @@ public class CursorController : MonoBehaviour
         UpdateCursor();
     }
 
-    // FIXME: the switch between fruits is visible. Make this happen when the fruit is dropping
+    // FIXME: load in the prefab instead of the sprite so scale is accurate
     void UpdateCursor()
     {
         Sprite NewCursorSprite = ItemDropper.GetNextFruitSprite();

@@ -6,16 +6,17 @@ public class DisableGravity : MonoBehaviour
 {
     void Start()
     {
-        List<GameObject> FruitInKey = new();
-        foreach (Transform child in transform) 
-        {
-            FruitInKey.Add(child.gameObject);
-        }
+        //List<GameObject> FruitInKey = new();
+        //foreach (Transform child in transform) 
+        //{
+        //    FruitInKey.Add(child.gameObject);
+        //}
 
         Debug.Log("Disabling gravity for fruits in key. \'" 
-            + FruitInKey.Count.ToString() + "\' gravity scales set to 0.");
+            + transform.childCount.ToString() + "\' gravity scales set to 0.");
 
-        foreach (GameObject obj in FruitInKey)
+        //foreach (GameObject obj in FruitInKey)
+        foreach (Transform obj in transform)
         {
             if (obj.GetComponent<Rigidbody2D>() != null)
             {
