@@ -145,7 +145,7 @@ public class GameManager : MonoBehaviour
     {
         foreach (var obj in DroppedFruit)
         {
-            DestroyImmediate(obj, true);
+            Destroy(obj);
         }
         DroppedFruit.Clear();
         ResetScore();

@@ -19,6 +19,7 @@ TagManager:
   - Peach
   - Pineapple
   - Watermelon
+  - ChildOfCursor
   layers:
   - Default
   - TransparentFX

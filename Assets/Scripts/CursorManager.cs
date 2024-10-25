@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class CursorManager : MonoBehaviour
@@ -34,9 +35,23 @@ public class CursorManager : MonoBehaviour
 
     public GameObject GetCursor() => Cursor;
     public void UpdateCursorPosition(Vector3 pos) => Cursor.transform.position = pos;
-    public void UpdateCursorSprite(Sprite s) => Cursor.GetComponentInChildren<SpriteRenderer>().sprite = s;
+    public void UpdateCursorSprite(Sprite s)
+    {
+        Cursor.GetComponentInChildren<SpriteRenderer>().sprite = s;
+    }
+    
+    /// <summary>
+    /// Uses fruit prefab to load in sprite and transform scale for cursor.
+    /// </summary>
+    /// <param name="g">Prefab of queued fruit.</param>
     public void UpdateCursor(GameObject g)
     {
+        Sprite newFruitSprite = g.GetComponentInChildren<SpriteRenderer>().sprite;
+        Vector3 newFruitSize = g.transform.localScale;
+
+        Cursor.GetComponentInChildren<SpriteRenderer>().sprite = newFruitSprite;
+        Cursor.GetComponentInChildren<Transform>().localScale = newFruitSize;
+
     }
 
 

@@ -13,13 +13,16 @@ public class CursorController : MonoBehaviour
         UpdateCursor();
     }
 
-    // FIXME: load in the prefab instead of the sprite so scale is accurate
+    
     void UpdateCursor()
     {
-        Sprite NewCursorSprite = ItemDropper.GetNextFruitSprite();
-        CursorManager.Instance.UpdateCursorSprite(NewCursorSprite);
-        //GameObject NewCursor = ItemDropper.GetNextFruit();
-        //CursorManager.Instance.UpdateCursor(NewCursor);
+        //// Updates cursor image as a sprite
+        //Sprite NewCursorSprite = ItemDropper.GetNextFruitSprite();
+        //CursorManager.Instance.UpdateCursorSprite(NewCursorSprite);
+
+        // Updates cursor image with sprite and transform scale from prefab!!!
+        GameObject NewCursor = ItemDropper.GetNextFruit();
+        CursorManager.Instance.UpdateCursor(NewCursor);
     }
     void ShowCursor() => CursorManager.Instance.ShowCursor();
 
