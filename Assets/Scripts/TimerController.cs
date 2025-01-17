@@ -10,12 +10,12 @@ public class TimerController : MonoBehaviour
      * - Change timer to a UnityEvent instead of a Time.deltaTime timer.
      */
 
-    TextMeshProUGUI _timerText;
+    TextMeshProUGUI timerText;
 
     // Start is called before the first frame update
     void Start()
     {
-        _timerText = GetComponent<TextMeshProUGUI>();
+        timerText = GetComponent<TextMeshProUGUI>();
         ShowTimer(false);
     }
 
@@ -23,11 +23,11 @@ public class TimerController : MonoBehaviour
     void Update()
     {
         // Show timer if timer has passed 1 second
-        float _timer = GameManager.Instance.GetDeathTimer();
-        if (_timer >= GameManager.Instance.GetDeathTimeThreshold())
+        float timer = GameManager.Instance.GetDeathTimer();
+        if (timer >= GameManager.Instance.GetDeathTimeThreshold())
         {
             ShowTimer(true);
-            _timerText.text = GameManager.Instance.GetDeathTimerAsString();
+            timerText.text = GameManager.Instance.GetDeathTimerAsString();
         }
         else
         {
@@ -38,6 +38,6 @@ public class TimerController : MonoBehaviour
     /// <summary>
     /// Enable or disable visibility on timer's text based on input
     /// </summary>
-    /// <param name="x">true = show timer, false = hide timer</param>
-    void ShowTimer(bool x) => _timerText.enabled = x;
+    /// <param name="_x">true = show timer, false = hide timer</param>
+    void ShowTimer(bool _x) => timerText.enabled = _x;
 }

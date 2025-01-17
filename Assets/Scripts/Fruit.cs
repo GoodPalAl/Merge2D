@@ -5,54 +5,53 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class Fruit : MonoBehaviour
 {
-    PolygonCollider2D Trigger;
-    Rigidbody2D Rb;
+    PolygonCollider2D trigger;
+    Rigidbody2D rb;
 
-    int ID;
+    int id;
 
     private void Start()
     {
-        ID = GetInstanceID();
-        Trigger = GetComponent<PolygonCollider2D>();
-        Rb = GetComponent<Rigidbody2D>();
+        id = GetInstanceID();
+        trigger = GetComponent<PolygonCollider2D>();
+        rb = GetComponent<Rigidbody2D>();
     }
 
-    private void OnTriggerStay2D(Collider2D other)
+    private void OnTriggerStay2D(Collider2D _other)
     {
-        if (other.GetComponent<Fruit>() != null && Trigger.CompareTag(other.tag)) //&& Trigger.CompareTag("Apple"))
+        if (_other.GetComponent<Fruit>() != null && trigger.CompareTag(_other.tag))
         {
-            Debug.Log(Trigger.tag + ":" + ID + " --> " + other.tag + ":" + other.gameObject.GetComponent<Fruit>().ID);
+            Debug.Log(trigger.tag + ":" + id + " --> " + _other.tag + ":" + _other.gameObject.GetComponent<Fruit>().id);
 
             // Ensures this trigger is only called once when event happens.
-            if (ID < other.gameObject.GetComponent<Fruit>().ID)
+            if (id < _other.gameObject.GetComponent<Fruit>().id)
             {
-                MergeFruits(tag, gameObject, other.gameObject);
+                mergeFruits(tag, gameObject, _other.gameObject);
             }
         }
     }
 
-    // FIXME: game doesnt make last fruit merge vanish.
-    void MergeFruits(string oldName, GameObject thisFruit, GameObject otherFruit)
+    void mergeFruits(string _oldName, GameObject _thisFruit, GameObject _otherFruit)
     {
         GameObject newFruit;
         try
         {
-            newFruit = GameManager.Instance.GetNextFruit(oldName);
+            newFruit = GameManager.Instance.GetNextFruit(_oldName);
 
-            Debug.Log(thisFruit.tag  + ":" + thisFruit.GetInstanceID()  + " + "
-                    + otherFruit.tag + ":" + otherFruit.GetInstanceID() + " = " 
+            Debug.Log(_thisFruit.tag  + ":" + _thisFruit.GetInstanceID()  + " + "
+                    + _otherFruit.tag + ":" + _otherFruit.GetInstanceID() + " = " 
                     + newFruit.tag   + ":" + newFruit.GetInstanceID());
         }
         catch (ArgumentOutOfRangeException)
         {
             newFruit = null;
-            Debug.Log(thisFruit.tag + ":" + thisFruit.GetInstanceID() + " + "
-                    + otherFruit.tag + ":" + otherFruit.GetInstanceID() + " = "
+            Debug.Log(_thisFruit.tag + ":" + _thisFruit.GetInstanceID() + " + "
+                    + _otherFruit.tag + ":" + _otherFruit.GetInstanceID() + " = "
                     + "POOF last fruit haha");
         }
 
-        Destroy(thisFruit);
-        Destroy(otherFruit);
+        Destroy(_thisFruit);
+        Destroy(_otherFruit);
 
         if (newFruit != null)
         {

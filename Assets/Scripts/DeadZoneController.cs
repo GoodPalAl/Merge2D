@@ -14,35 +14,35 @@ public class DeadZoneController : MonoBehaviour
     }
 
     // FIXME: Triggers twice
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerEnter2D(Collider2D _collision)
     {
-        if (collision != null)
+        if (_collision != null)
         {
             Debug.Log("Entered Dead Zone");
 
-            if (FruitsInDeadZone.FindAll(x => x == collision).Count == 0)
+            if (FruitsInDeadZone.FindAll(x => x == _collision).Count == 0)
             {
-                FruitsInDeadZone.Add(collision);
+                FruitsInDeadZone.Add(_collision);
             }
         }
     }
 
-    private void OnTriggerStay2D(Collider2D collision)
+    private void OnTriggerStay2D(Collider2D _collision)
     {
-        if (collision != null)
+        if (_collision != null)
         {
             GameManager.Instance.TickDeathTimer();
             Debug.Log("Timer: " + GameManager.Instance.GetDeathTimerAsString());
         }
     }
 
-    private void OnTriggerExit2D(Collider2D collision)
+    private void OnTriggerExit2D(Collider2D _collision)
     {
-        if (collision != null && FruitsInDeadZone.FindAll(x => x == collision).Count != 0)
+        if (_collision != null && FruitsInDeadZone.FindAll(x => x == _collision).Count != 0)
         {
             Debug.Log("Leaving Dead Zone");
 
-            FruitsInDeadZone.Remove(collision);
+            FruitsInDeadZone.Remove(_collision);
 
             GameManager.Instance.ResetDeathTimer();
         }

@@ -8,14 +8,14 @@ public class DisableGravity : MonoBehaviour
             + transform.childCount.ToString() + "\' gravity scales set to 0.");
 
         //foreach (GameObject obj in FruitInKey)
-        foreach (Transform _obj in transform)
+        foreach (Transform obj in transform)
         {
-            if (_obj.GetComponent<Rigidbody2D>() != null)
+            if (obj.GetComponent<Rigidbody2D>() != null)
             {
-                var _rb = _obj.GetComponent<Rigidbody2D>();
+                var rb = obj.GetComponent<Rigidbody2D>();
                 // Keeps fruits from inside of key from moving or falling.
-                _rb.gravityScale = 0f;
-                _rb.constraints = RigidbodyConstraints2D.FreezeAll;
+                rb.gravityScale = 0f;
+                rb.constraints = RigidbodyConstraints2D.FreezeAll;
             }
         }
     }

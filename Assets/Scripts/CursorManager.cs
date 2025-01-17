@@ -19,7 +19,7 @@ public class CursorManager : MonoBehaviour
     #endregion
 
     // Private instance variables
-    static GameObject _cursor;
+    static GameObject cursor;
 
     // Variables ediable in Unity
     [SerializeField]
@@ -27,15 +27,15 @@ public class CursorManager : MonoBehaviour
 
     void Start()
     {
-        if (_cursor == null)
-            _cursor = GameObject.Find("Cursor");
+        if (cursor == null)
+            cursor = GameObject.Find("Cursor");
     }
 
 
-    public GameObject GetCursor() => _cursor;
-    public void UpdateCursorPosition(Vector3 _pos) => _cursor.transform.position = _pos;
+    public GameObject GetCursor() => cursor;
+    public void UpdateCursorPosition(Vector3 _pos) => cursor.transform.position = _pos;
     public void UpdateCursorSprite(Sprite _s) 
-        => _cursor.GetComponentInChildren<SpriteRenderer>().sprite = _s;
+        => cursor.GetComponentInChildren<SpriteRenderer>().sprite = _s;
     
     /// <summary>
     /// Uses fruit prefab to load in sprite and transform scale for cursor.
@@ -46,8 +46,8 @@ public class CursorManager : MonoBehaviour
         Sprite newFruitSprite = _g.GetComponentInChildren<SpriteRenderer>().sprite;
         Vector3 newFruitSize = _g.transform.localScale;
 
-        _cursor.GetComponentInChildren<SpriteRenderer>().sprite = newFruitSprite;
-        _cursor.GetComponentInChildren<Transform>().localScale = newFruitSize;
+        cursor.GetComponentInChildren<SpriteRenderer>().sprite = newFruitSprite;
+        cursor.GetComponentInChildren<Transform>().localScale = newFruitSize;
     }
 
 
@@ -61,8 +61,8 @@ public class CursorManager : MonoBehaviour
     public static Vector3 GetCursorInWorldPosition()
         => Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-    public void HideCursor() => _cursor.SetActive(false);
-    public void ShowCursor() => _cursor.SetActive(true);
+    public void HideCursor() => cursor.SetActive(false);
+    public void ShowCursor() => cursor.SetActive(true);
     public float GetCursorDelay() => showCursorDelay;
 
 }
