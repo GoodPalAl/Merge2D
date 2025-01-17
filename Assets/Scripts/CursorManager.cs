@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class CursorManager : MonoBehaviour
@@ -16,28 +13,26 @@ public class CursorManager : MonoBehaviour
             Destroy(this);
         }
         else
-        {
             Instance = this;
-        }
     }
     #endregion
 
-    static GameObject Cursor;
+    static GameObject _cursor;
     [SerializeField]
-    float ShowCursorDelay = 0.5f;
+    float showCursorDelay = 0.5f;
 
     private void Start()
     {
-        if (Cursor == null)
-            Cursor = GameObject.Find("Cursor");
+        if (_cursor == null)
+            _cursor = GameObject.Find("Cursor");
     }
 
 
-    public GameObject GetCursor() => Cursor;
-    public void UpdateCursorPosition(Vector3 pos) => Cursor.transform.position = pos;
+    public GameObject GetCursor() => _cursor;
+    public void UpdateCursorPosition(Vector3 pos) => _cursor.transform.position = pos;
     public void UpdateCursorSprite(Sprite s)
     {
-        Cursor.GetComponentInChildren<SpriteRenderer>().sprite = s;
+        _cursor.GetComponentInChildren<SpriteRenderer>().sprite = s;
     }
     
     /// <summary>
@@ -49,8 +44,8 @@ public class CursorManager : MonoBehaviour
         Sprite newFruitSprite = g.GetComponentInChildren<SpriteRenderer>().sprite;
         Vector3 newFruitSize = g.transform.localScale;
 
-        Cursor.GetComponentInChildren<SpriteRenderer>().sprite = newFruitSprite;
-        Cursor.GetComponentInChildren<Transform>().localScale = newFruitSize;
+        _cursor.GetComponentInChildren<SpriteRenderer>().sprite = newFruitSprite;
+        _cursor.GetComponentInChildren<Transform>().localScale = newFruitSize;
 
     }
 
@@ -65,9 +60,8 @@ public class CursorManager : MonoBehaviour
     public static Vector3 GetCursorInWorldPosition()
         => Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-    public void HideCursor() => Cursor.SetActive(false);
-    public void ShowCursor() => Cursor.SetActive(true);
-
-    public float GetShowCursorDelay() => ShowCursorDelay;
+    public void HideCursor() => _cursor.SetActive(false);
+    public void ShowCursor() => _cursor.SetActive(true);
+    public float GetCursorDelay() => showCursorDelay;
 
 }

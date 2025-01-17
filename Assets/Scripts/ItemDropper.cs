@@ -40,7 +40,7 @@ public class ItemDropper : MonoBehaviour
     private void ClickEvent()
     {
         // Click delay should happen slightly after the cursor is revealed
-        float ClickDelay = CursorManager.Instance.GetShowCursorDelay() + 0.1f;
+        float ClickDelay = CursorManager.Instance.GetCursorDelay() + 0.1f;
 
         // Click delay is applied
         // This prevents from multiple items spawning at the same time.
@@ -73,7 +73,7 @@ public class ItemDropper : MonoBehaviour
         SpawnFruit();
 
         // Invoke show cursor so there is a small delay.
-        Invoke(nameof(ShowCursor), CursorManager.Instance.GetShowCursorDelay());
+        Invoke(nameof(ShowCursor), CursorManager.Instance.GetCursorDelay());
 
         // Queue next fruit
         // If TestMode enabled, the first fruit in hierarchy will always load, otherwise the fruit will be random.
