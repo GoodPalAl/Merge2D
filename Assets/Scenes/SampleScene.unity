@@ -38,12 +38,12 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
-  serializedVersion: 12
+  serializedVersion: 13
+  m_BakeOnSceneLoad: 0
   m_GISettings:
     serializedVersion: 2
     m_BounceScale: 1
@@ -1124,6 +1124,7 @@ SpriteRenderer:
   m_RayTraceProcedural: 0
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -1232,7 +1233,7 @@ PolygonCollider2D:
   m_UseDelaunayMesh: 0
 --- !u!50 &1150828526
 Rigidbody2D:
-  serializedVersion: 4
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -1243,8 +1244,8 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1000
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
   m_GravityScale: 0
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -1410,6 +1411,7 @@ SpriteRenderer:
   m_RayTraceProcedural: 0
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -1596,7 +1598,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7cb08029506f2ee41b190d9458d53fef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ShowCursorDelay: 0.5
+  showCursorDelay: 0.5
 --- !u!1 &1506776494
 GameObject:
   m_ObjectHideFlags: 0
@@ -1679,6 +1681,7 @@ SpriteRenderer:
   m_RayTraceProcedural: 0
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -1885,9 +1888,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 178a053e187f3564fb294784de29b512, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TestMode: 0
-  TestModeStartFruit: 0
-  MaxFruitSpawn: 4
+  testMode: 0
+  testModeStartFruit: 0
+  maxFruitSpawn: 7
   TimeLastClick: 0
 --- !u!1 &1728853327
 GameObject:
@@ -2351,7 +2354,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93405debac056ca468f96896da650bf0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FruitRadius: 0.5
+  fruitRadius: 0.5
 --- !u!4 &7553321913051092974 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3375520635250032467, guid: a04f022534e79f34fba40baf265e149a, type: 3}

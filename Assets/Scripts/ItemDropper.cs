@@ -3,14 +3,19 @@ using UnityEngine;
 
 public class ItemDropper : MonoBehaviour
 {
+    // Variables editable in Unity
+    // TODO : Move "test mode" into its own script
     [SerializeField]
-    bool TestMode = true;
+    bool testMode;
     [SerializeField]
-    GameManager.Fruit TestModeStartFruit = GameManager.Fruit.Strawberry;
+    GameManager.Fruit testModeStartFruit = GameManager.Fruit.Strawberry;
     [SerializeField]
-    GameManager.Fruit MaxFruitSpawn = GameManager.Fruit.Banana;
+    GameManager.Fruit maxFruitSpawn = GameManager.Fruit.Banana;
 
-    // Next fruit in queue
+    // Public fields
+    /// <summary>
+    /// Next fruit in queue
+    /// </summary>
     public static GameObject QueuedFruit;
     public static Sprite GetNextFruitSprite() => QueuedFruit.GetComponentInChildren<SpriteRenderer>().sprite;
     public static GameObject GetNextFruit() => QueuedFruit;
@@ -22,7 +27,7 @@ public class ItemDropper : MonoBehaviour
     {
         // Initialize this transform as the parent that the new items will spawn in.
         Parent = transform;
-        QueuedFruit = GameManager.Instance.GetFruit(TestMode ? GameManager.Instance.GetFruitIndexFromEnum(TestModeStartFruit) : 0);
+        QueuedFruit = GameManager.Instance.GetFruit(testMode ? GameManager.Instance.GetFruitIndexFromEnum(testModeStartFruit) : 0);
     }
         
     private void FixedUpdate()
@@ -30,7 +35,7 @@ public class ItemDropper : MonoBehaviour
         ClickEvent();
 
         // If the space bar is pressed, clear the board of all dropped fruits.
-        if (Input.GetKeyDown("space"))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             GameManager.Instance.ClearBoard();
         }
@@ -78,13 +83,13 @@ public class ItemDropper : MonoBehaviour
         // Queue next fruit
         // If TestMode enabled, the first fruit in hierarchy will always load, otherwise the fruit will be random.
         int index;
-        if (TestMode)
+        if (testMode)
         {
-            index = GameManager.Instance.GetFruitIndexFromEnum(TestModeStartFruit);
+            index = GameManager.Instance.GetFruitIndexFromEnum(testModeStartFruit);
         }
         else
         {
-            index = Random.Range(0, GameManager.Instance.GetFruitIndexFromEnum(MaxFruitSpawn));
+            index = Random.Range(0, GameManager.Instance.GetFruitIndexFromEnum(maxFruitSpawn));
         }
         QueuedFruit = GameManager.Instance.GetFruit(index);
     }

@@ -1,33 +1,22 @@
 using System.Collections.Generic;
-using System.Runtime.InteropServices.WindowsRuntime;
-using UnityEditor;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    /// <summary>
+    /// Establishes only one Instance of this class.
+    /// </summary>
     #region Singleton
-
     public static GameManager Instance { get; private set; }
-
     private void Awake()
     {
         if (Instance != null && Instance != this)
         {
             Destroy(this);
+            return;
         }
-        else
-        { 
-            Instance = this;
-        }
-
-        //// is this the best place for this?
-        //for (int i = 0; i < FruitOrder.Count; i++)
-        //{
-        //    var fruit = FruitOrder[i];
-        //    fruit.transform.localScale = FruitStartSizev3 + (FruitScaleSizev3 * i);
-        //}
+        Instance = this;
     }
-
     #endregion
 
     /// <summary>
@@ -65,8 +54,10 @@ public class GameManager : MonoBehaviour
     /// List of all the dropped fruit in the game.
     /// </summary>
     public static List<GameObject> DroppedFruit = new();
-    public GameObject GetFruitFromEnum(Fruit fruit) => FruitOrder.Find(x => x.CompareTag(fruit.ToString()));
-    public int GetFruitIndexFromEnum(Fruit fruit) => FruitOrder.FindIndex(x => x.CompareTag(fruit.ToString()));
+    public GameObject GetFruitFromEnum(Fruit fruit) 
+        => FruitOrder.Find(x => x.CompareTag(fruit.ToString()));
+    public int GetFruitIndexFromEnum(Fruit fruit) 
+        => FruitOrder.FindIndex(x => x.CompareTag(fruit.ToString()));
     public GameObject GetFruit(int order) => FruitOrder[order];
     public GameObject GetNextFruit(string oldFruitName) 
     {
@@ -79,63 +70,63 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// Score of Current Game
     /// </summary>
-    private int Score = 0;
+    int _score = 0;
     /// <summary>
     /// Increment score by 1. TODO: icrement score based on fruit hierarchy.
     /// </summary>
-    public void TickScore() => Score++; 
+    public void TickScore() => _score++; 
     /// <summary>
     /// Sets Score equal to 0
     /// </summary>
-    public void ResetScore() => Score = 0; 
+    public void ResetScore() => _score = 0; 
     /// <summary>
     /// Gets current score of game
     /// </summary>
     /// <returns>Integer of score</returns>
-    public int GetScore() => Score;
+    public int GetScore() => _score;
     /// <summary>
     /// Gets current score of game
     /// </summary>
     /// <returns>String of score</returns>
-    public string GetScoreAsString() => Score.ToString(); 
+    public string GetScoreAsString() => _score.ToString(); 
 
 
     /// <summary>
     /// Represents the time, in seconds, that has ticked since a fruit has entered the dead zone.
     /// </summary>
-    private float DeathTimer = 0f;
+    float _deathTimer = 0f;
     /// <summary>
     /// Gets Death Timer in seconds, no rounding
     /// </summary>
     /// <returns>Death Timer, in seconds</returns>
-    public float GetDeathTimer() => DeathTimer;
+    public float GetDeathTimer() => _deathTimer;
     /// <summary>
     /// Gets Death Timer in seconds as a string, formatted to the nearest hundreth (0.00)
     /// </summary>
     /// <returns>Time in seconds</returns>
-    public string GetDeathTimerAsString() => DeathTimer.ToString("0.00");
-    public float TickDeathTimer() => DeathTimer += Time.deltaTime;
+    public string GetDeathTimerAsString() => _deathTimer.ToString("0.00");
+    public float TickDeathTimer() => _deathTimer += Time.deltaTime;
     /// <summary>
     /// Resets the death timer.
     /// </summary>
-    public void ResetDeathTimer() => DeathTimer = 0f;
+    public void ResetDeathTimer() => _deathTimer = 0f;
     /// <summary>
     /// Time between the timer being shown to the player 
     /// and the time fruit linger in the dead zone. 
     /// Accounts for dropping fruit.
     /// </summary>
-    private float DeathTimeThreshold = 1f;
-    public float GetDeathTimeThreshold() => DeathTimeThreshold;
+    float _deathTimeThreshold = 1f;
+    public float GetDeathTimeThreshold() => _deathTimeThreshold;
 
     /// <summary>
     /// Maximum allowed time, in seconds, a fruit can be in the deadzone before a game over occurs.
     /// </summary>
-    private float GameOverTime = 10f;
+    float _gameOverTime = 10f;
     /// <summary>
     /// Gets time in which the game would end, in seconds.
     /// </summary>
     /// <returns>Game Over time, in seconds</returns>
-    public float GetGameOverTime() => GameOverTime;
+    public float GetGameOverTime() => _gameOverTime;
 
 
     /// <summary>
@@ -143,9 +134,9 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void ClearBoard()
     {
-        foreach (var obj in DroppedFruit)
+        foreach (var _obj in DroppedFruit)
         {
-            Destroy(obj);
+            Destroy(_obj);
         }
         DroppedFruit.Clear();
         ResetScore();
@@ -154,22 +145,22 @@ public class GameManager : MonoBehaviour
 
     public class Constants
     {
-        public static readonly string PathToPrefabs = "Assets/Prefabs";
+        public static readonly string PATH_TO_PREFABS = "Assets/Prefabs";
         /// <summary>
         /// Width of the board
         /// </summary>
-        public const float BoardSize = 5.5f;
+        public const float BOARD_SIZE = 5.5f;
         /// <summary>
         /// Position of board's left border from center 
         /// </summary>
-        public const float MapBorderLeft = -(BoardSize / 2);
+        public const float MAP_BORDER_LEFT = -(BOARD_SIZE / 2);
         /// <summary>
         /// Position of board's right border from center 
         /// </summary>
-        public const float MapBorderRight = (BoardSize / 2);
+        public const float MAP_BORDER_RIGHT = BOARD_SIZE / 2;
         /// <summary>
         /// Height cursor is locked at
         /// </summary>
-        public const float StartHeight = 4f;
+        public const float START_HEIGHT = 4f;
     }
 }

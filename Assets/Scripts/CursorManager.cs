@@ -2,26 +2,30 @@ using UnityEngine;
 
 public class CursorManager : MonoBehaviour
 {
+    /// <summary>
+    /// Establishes only one Instance of this class.
+    /// </summary>
     #region Singleton
-
     public static CursorManager Instance { get; private set; }
-
     private void Awake()
     {
         if (Instance != null && Instance != this)
         {
             Destroy(this);
+            return;
         }
-        else
-            Instance = this;
+        Instance = this;
     }
     #endregion
 
+    // Private instance variables
     static GameObject _cursor;
+
+    // Variables ediable in Unity
     [SerializeField]
     float showCursorDelay = 0.5f;
 
-    private void Start()
+    void Start()
     {
         if (_cursor == null)
             _cursor = GameObject.Find("Cursor");
@@ -29,24 +33,21 @@ public class CursorManager : MonoBehaviour
 
 
     public GameObject GetCursor() => _cursor;
-    public void UpdateCursorPosition(Vector3 pos) => _cursor.transform.position = pos;
-    public void UpdateCursorSprite(Sprite s)
-    {
-        _cursor.GetComponentInChildren<SpriteRenderer>().sprite = s;
-    }
+    public void UpdateCursorPosition(Vector3 _pos) => _cursor.transform.position = _pos;
+    public void UpdateCursorSprite(Sprite _s) 
+        => _cursor.GetComponentInChildren<SpriteRenderer>().sprite = _s;
     
     /// <summary>
     /// Uses fruit prefab to load in sprite and transform scale for cursor.
     /// </summary>
-    /// <param name="g">Prefab of queued fruit.</param>
-    public void UpdateCursor(GameObject g)
+    /// <param name="_g">Prefab of queued fruit.</param>
+    public void UpdateCursor(GameObject _g)
     {
-        Sprite newFruitSprite = g.GetComponentInChildren<SpriteRenderer>().sprite;
-        Vector3 newFruitSize = g.transform.localScale;
+        Sprite newFruitSprite = _g.GetComponentInChildren<SpriteRenderer>().sprite;
+        Vector3 newFruitSize = _g.transform.localScale;
 
         _cursor.GetComponentInChildren<SpriteRenderer>().sprite = newFruitSprite;
         _cursor.GetComponentInChildren<Transform>().localScale = newFruitSize;
-
     }
 
 
