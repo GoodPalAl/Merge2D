@@ -1,13 +1,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameManager : MonoBehaviour
+public class FruitManager : MonoBehaviour
 {
     /// <summary>
     /// Establishes only one Instance of this class.
     /// </summary>
     #region Singleton
-    public static GameManager Instance { get; private set; }
+    public static FruitManager Instance { get; private set; }
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -44,11 +44,6 @@ public class GameManager : MonoBehaviour
     /// Official merge order of fruit.
     /// </summary>
     public List<GameObject> FruitOrder = new();
-
-    /// <summary>
-    /// List of all the dropped fruit in the game.
-    /// </summary>
-    public static List<GameObject> DroppedFruit = new();
     public GameObject GetFruitFromEnum(Fruit _fruit) => FruitOrder.Find(x => x.CompareTag(_fruit.ToString()));
     public int GetFruitIndexFromEnum(Fruit _fruit) => FruitOrder.FindIndex(x => x.CompareTag(_fruit.ToString()));
     public GameObject GetFruit(int _order) => FruitOrder[_order];
@@ -58,6 +53,11 @@ public class GameManager : MonoBehaviour
         return GetFruit(nextIndex);
     }
     public int FruitCount() => FruitOrder.Count;
+
+    /// <summary>
+    /// List of all the dropped fruit in the game.
+    /// </summary>
+    public static List<GameObject> DroppedFruit = new();
 
     /// <summary>
     /// Clear the board of all fruits. DEBUG ONLY.

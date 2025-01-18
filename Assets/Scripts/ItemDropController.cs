@@ -1,15 +1,15 @@
 using UnityEngine;
 
-public class ItemDropper : MonoBehaviour
+public class ItemDropController : MonoBehaviour
 {
     // Variables editable in Unity
     // TODO : Move "test mode" into its own script
     [SerializeField]
     bool testMode;
     [SerializeField]
-    GameManager.Fruit testModeStartFruit = GameManager.Fruit.Strawberry;
+    FruitManager.Fruit testModeStartFruit = FruitManager.Fruit.Strawberry;
     [SerializeField]
-    GameManager.Fruit maxFruitSpawn = GameManager.Fruit.Banana;
+    FruitManager.Fruit maxFruitSpawn = FruitManager.Fruit.Banana;
 
     // Public fields
     /// <summary>
@@ -26,7 +26,7 @@ public class ItemDropper : MonoBehaviour
     {
         // Initialize this transform as the parent that the new items will spawn in.
         parent = transform;
-        QueuedFruit = GameManager.Instance.GetFruit(testMode ? GameManager.Instance.GetFruitIndexFromEnum(testModeStartFruit) : 0);
+        QueuedFruit = FruitManager.Instance.GetFruit(testMode ? FruitManager.Instance.GetFruitIndexFromEnum(testModeStartFruit) : 0);
     }
         
     private void FixedUpdate()
@@ -36,7 +36,7 @@ public class ItemDropper : MonoBehaviour
         // If the space bar is pressed, clear the board of all dropped fruits.
         if (testMode && Input.GetKeyDown(KeyCode.Space))
         {
-            GameManager.Instance.ClearBoard();
+            FruitManager.Instance.ClearBoard();
         }
     }
 
@@ -85,13 +85,13 @@ public class ItemDropper : MonoBehaviour
         int index;
         if (testMode)
         {
-            index = GameManager.Instance.GetFruitIndexFromEnum(testModeStartFruit);
+            index = FruitManager.Instance.GetFruitIndexFromEnum(testModeStartFruit);
         }
         else
         {
-            index = Random.Range(0, GameManager.Instance.GetFruitIndexFromEnum(maxFruitSpawn));
+            index = Random.Range(0, FruitManager.Instance.GetFruitIndexFromEnum(maxFruitSpawn));
         }
-        QueuedFruit = GameManager.Instance.GetFruit(index);
+        QueuedFruit = FruitManager.Instance.GetFruit(index);
     }
 
     /// <summary>
@@ -106,12 +106,12 @@ public class ItemDropper : MonoBehaviour
         GameObject newFruit = Instantiate(QueuedFruit, pos, Quaternion.identity);
 
         // Update child's name based on # of fruit in the board.
-        newFruit.name = QueuedFruit.name + (GameManager.DroppedFruit.Count + 1).ToString();
+        newFruit.name = QueuedFruit.name + (FruitManager.DroppedFruit.Count + 1).ToString();
 
         // Assign a parent to the new fruit.
         newFruit.transform.SetParent(parent.transform);
 
         // Add item to an array to manage it.
-        GameManager.DroppedFruit.Add(newFruit);
+        FruitManager.DroppedFruit.Add(newFruit);
     }
 }

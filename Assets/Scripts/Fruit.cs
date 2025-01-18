@@ -36,7 +36,7 @@ public class Fruit : MonoBehaviour // Scriptable object?
         GameObject newFruit;
         try
         {
-            newFruit = GameManager.Instance.GetNextFruit(_oldName);
+            newFruit = FruitManager.Instance.GetNextFruit(_oldName);
 
             Debug.Log(_thisFruit.tag  + ":" + _thisFruit.GetInstanceID()  + " + "
                     + _otherFruit.tag + ":" + _otherFruit.GetInstanceID() + " = " 

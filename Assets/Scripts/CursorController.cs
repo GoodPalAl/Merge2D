@@ -21,7 +21,7 @@ public class CursorController : MonoBehaviour
         //CursorManager.Instance.UpdateCursorSprite(NewCursorSprite);
 
         // Updates cursor image with sprite and transform scale from prefab!!!
-        GameObject newCursor = ItemDropper.GetNextFruit();
+        GameObject newCursor = ItemDropController.GetNextFruit();
         CursorManager.Instance.UpdateCursor(newCursor);
     }
 
@@ -33,9 +33,9 @@ public class CursorController : MonoBehaviour
     {
         // Convert mouse position to Unity world position
         Vector3 worldPos = CursorManager.GetCursorInWorldPosition();
-        float mapRight = FruitMergeUtility.Constants.MAP_BORDER_RIGHT;
-        float mapLeft = FruitMergeUtility.Constants.MAP_BORDER_LEFT;
-        float height = FruitMergeUtility.Constants.START_HEIGHT;
+        float mapRight = GameUtility.Constants.MAP_BORDER_RIGHT;
+        float mapLeft = GameUtility.Constants.MAP_BORDER_LEFT;
+        float height = GameUtility.Constants.START_HEIGHT;
 
         // Keep item within border of map.
         // Right border

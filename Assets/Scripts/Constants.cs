@@ -1,4 +1,4 @@
-namespace FruitMergeUtility
+namespace GameUtility
 {
     public class Constants
     {
