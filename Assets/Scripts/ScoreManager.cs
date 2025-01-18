@@ -22,14 +22,18 @@ public class ScoreManager : MonoBehaviour
     /// Score of Current Game
     /// </summary>    
     int score = 0;
+
     /// <summary>
-    /// Increment score by 1. TODO: icrement score based on fruit hierarchy.
+    /// Increment score by 1. 
+    /// TODO: increment score based on fruit hierarchy.
     /// </summary>
     public void TickScore() => score++;
+
     /// <summary>
     /// Sets Score equal to 0
     /// </summary>
     public void ResetScore() => score = 0;
+
     /// <summary>
     /// Gets current score of game as a string.
     /// </summary>

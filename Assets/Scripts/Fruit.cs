@@ -3,7 +3,7 @@ using UnityEngine;
 
 [RequireComponent(typeof(PolygonCollider2D))]
 [RequireComponent(typeof(Rigidbody2D))]
-public class Fruit : MonoBehaviour
+public class Fruit : MonoBehaviour // Scriptable object?
 {
     PolygonCollider2D trigger;
     Rigidbody2D rb;

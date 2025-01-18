@@ -34,7 +34,7 @@ public class ItemDropper : MonoBehaviour
         clickEvent();
 
         // If the space bar is pressed, clear the board of all dropped fruits.
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (testMode && Input.GetKeyDown(KeyCode.Space))
         {
             GameManager.Instance.ClearBoard();
         }

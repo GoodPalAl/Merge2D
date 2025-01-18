@@ -1,17 +1,9 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class DeadZoneController : MonoBehaviour
 {
     public List<Collider2D> FruitsInDeadZone = new();
-    //public float TimerInDeadZone = 0f;
-
-    // TODO: When the player clicks, the timer should either pause or reset to account for "dropping" fruit
-    public void ClickEvent()
-    {
-
-    }
 
     // FIXME: Triggers twice
     private void OnTriggerEnter2D(Collider2D _collision)
@@ -31,8 +23,8 @@ public class DeadZoneController : MonoBehaviour
     {
         if (_collision != null)
         {
-            GameManager.Instance.TickDeathTimer();
-            Debug.Log("Timer: " + GameManager.Instance.GetDeathTimerAsString());
+            TimerManager.Instance.TickDeathTimer();
+            Debug.Log("Timer: " + TimerManager.Instance.GetDeathTimerAsString());
         }
     }
 
@@ -44,7 +36,7 @@ public class DeadZoneController : MonoBehaviour
 
             FruitsInDeadZone.Remove(_collision);
 
-            GameManager.Instance.ResetDeathTimer();
+            TimerManager.Instance.ResetDeathTimer();
         }
     }
 }

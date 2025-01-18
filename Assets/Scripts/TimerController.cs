@@ -23,11 +23,11 @@ public class TimerController : MonoBehaviour
     void Update()
     {
         // Show timer if timer has passed 1 second
-        float timer = GameManager.Instance.GetDeathTimer();
-        if (timer >= GameManager.Instance.GetDeathTimeThreshold())
+        float timer = TimerManager.Instance.GetDeathTimer();
+        if (timer >= TimerManager.Instance.GetDeathTimeThreshold())
         {
             ShowTimer(true);
-            timerText.text = GameManager.Instance.GetDeathTimerAsString();
+            timerText.text = TimerManager.Instance.GetDeathTimerAsString();
         }
         else
         {
