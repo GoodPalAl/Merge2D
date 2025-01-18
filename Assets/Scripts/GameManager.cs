@@ -58,36 +58,9 @@ public class GameManager : MonoBehaviour
         return GetFruit(nextIndex);
     }
     public int FruitCount() => FruitOrder.Count;
-    
-
-    /// <summary>
-    /// Score of Current Game
-    /// </summary>
-    int score = 0;
-
-    /// <summary>
-    /// Increment score by 1. TODO: icrement score based on fruit hierarchy.
-    /// </summary>
-    public void TickScore() => score++; 
-
-    /// <summary>
-    /// Sets Score equal to 0
-    /// </summary>
-    public void ResetScore() => score = 0; 
-
-    /// <summary>
-    /// Gets current score of game
-    /// </summary>
-    /// <returns>Integer of score</returns>
-    public int GetScore() => score;
-
-    /// <summary>
-    /// Gets current score of game
-    /// </summary>
-    /// <returns>String of score</returns>
-    public string GetScoreAsString() => score.ToString(); 
 
 
+    // TODO: Redo timer to use UnityEvent instead of Time.deltaTime
     /// <summary>
     /// Represents the time, in seconds, that has ticked since a fruit has entered the dead zone.
     /// </summary>
@@ -141,7 +114,7 @@ public class GameManager : MonoBehaviour
             Destroy(obj);
         }
         DroppedFruit.Clear();
-        ResetScore();
+        ScoreManager.Instance.ResetScore();
     }
 
     public class Constants

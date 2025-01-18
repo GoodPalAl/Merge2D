@@ -3,7 +3,7 @@ using UnityEngine;
 public class CursorController : MonoBehaviour
 {
     // Radius of fruit
-    // TODO: move this into Fruit.cs
+    // TODO: fetch this from Fruit.cs instead of a hardcoded number
     [SerializeField]
     float fruitRadius = 0.5f;
 

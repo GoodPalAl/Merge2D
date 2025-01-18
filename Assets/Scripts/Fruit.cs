@@ -59,7 +59,7 @@ public class Fruit : MonoBehaviour
         }
 
         // Increase score
-        GameManager.Instance.TickScore();
-        Debug.Log("SCORE: " + GameManager.Instance.GetScoreAsString());
+        ScoreManager.Instance.TickScore();
+        Debug.Log("SCORE: " + ScoreManager.Instance.GetScore());
     }
 }
