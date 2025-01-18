@@ -3,6 +3,7 @@ using UnityEngine;
 public class CursorController : MonoBehaviour
 {
     // Radius of fruit
+    // TODO: move this into Fruit.cs
     [SerializeField]
     float fruitRadius = 0.5f;
 
@@ -23,7 +24,6 @@ public class CursorController : MonoBehaviour
         GameObject newCursor = ItemDropper.GetNextFruit();
         CursorManager.Instance.UpdateCursor(newCursor);
     }
-    void showCursor() => CursorManager.Instance.ShowCursor();
 
     /// <summary>
     /// Calculates mouse position in the world and has cursor 

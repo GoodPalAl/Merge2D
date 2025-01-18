@@ -50,7 +50,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
 --- !u!50 &2883645008782811697
 Rigidbody2D:
-  serializedVersion: 4
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -61,8 +61,8 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 10
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
   m_GravityScale: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -121,8 +121,12 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 0.3140963, y: 0.18939906}
-      - {x: -0.06432256, y: 0.25069422}
+    - - {x: 0.31427106, y: 0.18981165}
+      - {x: 0.5010966, y: 0.25173253}
+      - {x: 0.50029445, y: 0.37561402}
+      - {x: 0.37746543, y: 0.50453514}
+      - {x: -0.31104365, y: 0.49821478}
+      - {x: -0.31094617, y: 0.3753612}
       - {x: -0.18793614, y: 0.25024164}
       - {x: -0.37530193, y: 0.061755814}
       - {x: -0.37622595, y: -0.25239608}
@@ -184,6 +188,7 @@ SpriteRenderer:
   m_RayTraceProcedural: 0
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:

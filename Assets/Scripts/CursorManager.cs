@@ -34,8 +34,6 @@ public class CursorManager : MonoBehaviour
 
     public GameObject GetCursor() => cursor;
     public void UpdateCursorPosition(Vector3 _pos) => cursor.transform.position = _pos;
-    public void UpdateCursorSprite(Sprite _s) 
-        => cursor.GetComponentInChildren<SpriteRenderer>().sprite = _s;
     
     /// <summary>
     /// Uses fruit prefab to load in sprite and transform scale for cursor.
@@ -49,7 +47,6 @@ public class CursorManager : MonoBehaviour
         cursor.GetComponentInChildren<SpriteRenderer>().sprite = newFruitSprite;
         cursor.GetComponentInChildren<Transform>().localScale = newFruitSize;
     }
-
 
     /// <summary>
     /// Convert mouse position to Unity world position

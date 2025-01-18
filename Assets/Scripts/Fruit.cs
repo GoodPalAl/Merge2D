@@ -7,8 +7,8 @@ public class Fruit : MonoBehaviour
 {
     PolygonCollider2D trigger;
     Rigidbody2D rb;
-
     int id;
+
 
     private void Start()
     {

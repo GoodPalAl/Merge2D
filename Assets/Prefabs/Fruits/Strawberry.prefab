@@ -50,7 +50,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
 --- !u!50 &2117786462566298934
 Rigidbody2D:
-  serializedVersion: 4
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -61,8 +61,8 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 10
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
   m_GravityScale: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -121,7 +121,10 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: -0.23543602, y: 0.18995884}
+    - - {x: 0.063961245, y: 0.44124365}
+      - {x: -0.060341645, y: 0.377345}
+      - {x: -0.19035631, y: 0.3791352}
+      - {x: -0.24800512, y: 0.19100635}
       - {x: -0.3701224, y: 0.065861486}
       - {x: -0.44591808, y: -0.07169978}
       - {x: -0.50836027, y: -0.1861203}
@@ -130,9 +133,11 @@ PolygonCollider2D:
       - {x: -0.05845045, y: -0.50535226}
       - {x: 0.07053265, y: -0.43578145}
       - {x: 0.3128748, y: -0.18380022}
-      - {x: 0.31099397, y: -0.063211426}
-      - {x: 0.24955788, y: 0.06873667}
-      - {x: 0.12458791, y: 0.18887646}
+      - {x: 0.5058148, y: -0.06321142}
+      - {x: 0.50267255, y: 0.064574316}
+      - {x: 0.37734365, y: 0.19128524}
+      - {x: 0.251731, y: 0.24988757}
+      - {x: 0.1853385, y: 0.4434005}
   m_UseDelaunayMesh: 0
 --- !u!1 &4657591306522983549
 GameObject:
@@ -276,6 +281,7 @@ SpriteRenderer:
   m_RayTraceProcedural: 0
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
