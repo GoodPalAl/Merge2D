@@ -33,9 +33,9 @@ public class CursorController : MonoBehaviour
     {
         // Convert mouse position to Unity world position
         Vector3 worldPos = CursorManager.GetCursorInWorldPosition();
-        float mapRight = GameManager.Constants.MAP_BORDER_RIGHT;
-        float mapLeft = GameManager.Constants.MAP_BORDER_LEFT;
-        float height = GameManager.Constants.START_HEIGHT;
+        float mapRight = FruitMergeUtility.Constants.MAP_BORDER_RIGHT;
+        float mapLeft = FruitMergeUtility.Constants.MAP_BORDER_LEFT;
+        float height = FruitMergeUtility.Constants.START_HEIGHT;
 
         // Keep item within border of map.
         // Right border
