@@ -1673,6 +1673,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a48e32fef5cfe2f4996993cbc530ede5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  deathTimeThreshold: 1
+  gameOverTime: 1
 --- !u!1 &1506776494
 GameObject:
   m_ObjectHideFlags: 0
@@ -1965,6 +1967,8 @@ MonoBehaviour:
   testMode: 1
   testModeStartFruit: 0
   maxFruitSpawn: 7
+  parent: {fileID: 0}
+  timeLastClick: 0
 --- !u!1 &1728853327
 GameObject:
   m_ObjectHideFlags: 0

@@ -21,7 +21,7 @@ public class ScoreManager : MonoBehaviour
     /// <summary>
     /// Score of Current Game
     /// </summary>    
-    int score = 0;
+    public int score { get; private set; }
 
     /// <summary>
     /// Increment score by 1. 
