@@ -1,5 +1,6 @@
 namespace GameUtility
 {
+	/*
     public struct ColorPallete 
     {
         string[] HexCodes  = new string[] {
@@ -32,4 +33,5 @@ namespace GameUtility
             //HexCodes[11] = "ffd380";
         
     };
+	//*/
 }

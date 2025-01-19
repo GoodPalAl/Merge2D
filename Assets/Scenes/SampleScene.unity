@@ -1311,6 +1311,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1195160872690095431, guid: dbd654605562d3b449cef2d3c1621d89, type: 3}
   m_PrefabInstance: {fileID: 913969462}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1197736015 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8063244727708864116, guid: 47e5a6b42ee220b4c83a589de36bb617, type: 3}
+  m_PrefabInstance: {fileID: 5267471600724536130}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe1c29a1b5b1a8f4ebd5e84652ca5987, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1237324501
 GameObject:
   m_ObjectHideFlags: 0
@@ -1589,7 +1600,7 @@ GameObject:
   - component: {fileID: 1476060560}
   m_Layer: 0
   m_Name: GameManager
-  m_TagString: Untagged
+  m_TagString: GameController
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1961,14 +1972,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1700063897}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 178a053e187f3564fb294784de29b512, type: 3}
+  m_Script: {fileID: 11500000, guid: 73dbadf8bec0feb4d929469a26cfd15b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  testMode: 1
+  testMode: 0
   testModeStartFruit: 0
   maxFruitSpawn: 7
-  parent: {fileID: 0}
-  timeLastClick: 0
 --- !u!1 &1728853327
 GameObject:
   m_ObjectHideFlags: 0
@@ -2118,6 +2127,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65f6f185f1daa8847999e05288e18f43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  scoreText: {fileID: 0}
 --- !u!1001 &1838443784
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2369,6 +2379,34 @@ PrefabInstance:
     - target: {fileID: 2924450933297528885, guid: 47e5a6b42ee220b4c83a589de36bb617, type: 3}
       propertyPath: m_Name
       value: Strawberry
+      objectReference: {fileID: 0}
+    - target: {fileID: 8063244727708864116, guid: 47e5a6b42ee220b4c83a589de36bb617, type: 3}
+      propertyPath: fruitsMerged.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8063244727708864116, guid: 47e5a6b42ee220b4c83a589de36bb617, type: 3}
+      propertyPath: fruitsMerged.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8063244727708864116, guid: 47e5a6b42ee220b4c83a589de36bb617, type: 3}
+      propertyPath: fruitsMerged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1197736015}
+    - target: {fileID: 8063244727708864116, guid: 47e5a6b42ee220b4c83a589de36bb617, type: 3}
+      propertyPath: fruitsMerged.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8063244727708864116, guid: 47e5a6b42ee220b4c83a589de36bb617, type: 3}
+      propertyPath: fruitsMerged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: TestMethod
+      objectReference: {fileID: 0}
+    - target: {fileID: 8063244727708864116, guid: 47e5a6b42ee220b4c83a589de36bb617, type: 3}
+      propertyPath: fruitsMerged.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Fruit, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 8063244727708864116, guid: 47e5a6b42ee220b4c83a589de36bb617, type: 3}
+      propertyPath: fruitsMerged.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.Events;
 
 [RequireComponent(typeof(PolygonCollider2D))]
 [RequireComponent(typeof(Rigidbody2D))]
@@ -9,12 +10,22 @@ public class Fruit : MonoBehaviour // Scriptable object?
     Rigidbody2D rb;
     int id;
 
+    public UnityEvent fruitsMerged;
 
     private void Start()
     {
+        // Initializing variables
         id = GetInstanceID();
         trigger = GetComponent<PolygonCollider2D>();
         rb = GetComponent<Rigidbody2D>();
+
+        // Initializing events and listeners
+        fruitsMerged.AddListener(
+            GameObject.FindGameObjectWithTag("GameController").GetComponent<ScoreManager>().TickScore
+            );
+        fruitsMerged.AddListener(
+            GameObject.FindGameObjectWithTag("GameController").GetComponent<ScoreManager>().PrintScoreToDebug
+            );
     }
 
     private void OnTriggerStay2D(Collider2D _other)
@@ -50,6 +61,10 @@ public class Fruit : MonoBehaviour // Scriptable object?
                     + "POOF last fruit haha");
         }
 
+        // Increase score
+        //ScoreManager.Instance.TickScore();
+        fruitsMerged.Invoke();
+
         Destroy(_thisFruit);
         Destroy(_otherFruit);
 
@@ -57,9 +72,10 @@ public class Fruit : MonoBehaviour // Scriptable object?
         {
             Instantiate(newFruit, transform.position, Quaternion.identity);
         }
+    }
 
-        // Increase score
-        ScoreManager.Instance.TickScore();
-        Debug.Log("SCORE: " + ScoreManager.Instance.GetScore());
+    public void TestMethod()
+    {
+        Debug.Log("Score!");
     }
 }

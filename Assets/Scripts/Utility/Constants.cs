@@ -1,3 +1,5 @@
+using UnityEngine;
+
 namespace GameUtility
 {
     public class Constants
@@ -24,5 +26,6 @@ namespace GameUtility
         /// Height cursor is locked at
         /// </summary>
         public const float START_HEIGHT = 4f;
+
     }
 }

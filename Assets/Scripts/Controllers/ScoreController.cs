@@ -4,6 +4,7 @@ using TMPro;
 [RequireComponent(typeof(TextMeshProUGUI))]
 public class ScoreController : MonoBehaviour
 {
+    [SerializeField]
     TextMeshProUGUI scoreText;
 
     private void Start()

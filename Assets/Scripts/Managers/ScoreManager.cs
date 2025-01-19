@@ -39,4 +39,9 @@ public class ScoreManager : MonoBehaviour
     /// </summary>
     /// <returns>String of score</returns>
     public string GetScore() => score.ToString();
+    
+    /// <summary>
+    /// Prints the current score to the debug log.
+    /// </summary>
+    public void PrintScoreToDebug() => Debug.Log("SCORE: " + GetScore());
 }
