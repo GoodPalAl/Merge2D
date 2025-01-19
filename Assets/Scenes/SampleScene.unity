@@ -1975,8 +1975,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73dbadf8bec0feb4d929469a26cfd15b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  testMode: 0
-  testModeStartFruit: 0
+  testMode: 1
+  testModeStartFruit: 13
   maxFruitSpawn: 7
 --- !u!1 &1728853327
 GameObject:

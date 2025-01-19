@@ -40,19 +40,47 @@ public class FruitManager : MonoBehaviour
         Watermelon
     }
 
+    [SerializeField]
+    Fruit testModeStartFruit = Fruit.Strawberry;
+    [SerializeField]
+    Fruit maxFruitSpawn = Fruit.Banana;
+
+    // Does this need to be static?
+    static GameObject QuededFruit;
+
+    public GameObject GetFirstFruit(bool _isDebugOn)
+        => QuededFruit = GetFruitFromList(_isDebugOn ? GetFruitIndexFromEnum(testModeStartFruit) : 0);
+    
+
+
     /// <summary>
-    /// Official merge order of fruit.
+    /// Official merge order of fruit. Initialized in Unity Editor
     /// </summary>
     public List<GameObject> FruitOrder = new();
-    public GameObject GetFruitFromEnum(Fruit _fruit) => FruitOrder.Find(x => x.CompareTag(_fruit.ToString()));
-    public int GetFruitIndexFromEnum(Fruit _fruit) => FruitOrder.FindIndex(x => x.CompareTag(_fruit.ToString()));
-    public GameObject GetFruit(int _order) => FruitOrder[_order];
+
+    public int GetFruitIndexFromEnum(Fruit _fruit) 
+        => FruitOrder.FindIndex(x => x.CompareTag(_fruit.ToString()));
+    public GameObject GetFruitFromList(int _order) => FruitOrder[_order];
     public GameObject GetNextFruit(string _oldFruitName) 
     {
         int nextIndex = FruitOrder.FindIndex(Fruit => Fruit.name == _oldFruitName) + 1;
-        return GetFruit(nextIndex);
+        return GetFruitFromList(nextIndex);
     }
     public int FruitCount() => FruitOrder.Count;
+
+    public GameObject GetQueuedFruit(bool _debugMode) => QuededFruit;
+
+    public void UpdateQuededFruit()
+    {
+        // If TestMode enabled,
+        // the first fruit in hierarchy will always load,
+        // otherwise the fruit will be random.
+        // FIXME: never reference a Manager class. 
+        int index = ItemDropManager.Instance.IsDebugEnabled() ?
+            GetFruitIndexFromEnum(testModeStartFruit) :
+            Random.Range(0, GetFruitIndexFromEnum(maxFruitSpawn));
+        QuededFruit = GetFruitFromList(index);
+    }
 
     /// <summary>
     /// List of all the dropped fruit in the game.

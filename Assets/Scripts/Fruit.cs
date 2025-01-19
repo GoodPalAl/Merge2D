@@ -21,10 +21,12 @@ public class Fruit : MonoBehaviour // Scriptable object?
 
         // Initializing events and listeners
         fruitsMerged.AddListener(
-            GameObject.FindGameObjectWithTag("GameController").GetComponent<ScoreManager>().TickScore
+            GameObject.FindGameObjectWithTag("GameController")
+            .GetComponent<ScoreManager>().TickScore
             );
         fruitsMerged.AddListener(
-            GameObject.FindGameObjectWithTag("GameController").GetComponent<ScoreManager>().PrintScoreToDebug
+            GameObject.FindGameObjectWithTag("GameController")
+            .GetComponent<ScoreManager>().PrintScoreToDebug
             );
     }
 
@@ -61,8 +63,7 @@ public class Fruit : MonoBehaviour // Scriptable object?
                     + "POOF last fruit haha");
         }
 
-        // Increase score
-        //ScoreManager.Instance.TickScore();
+        // Invoke event
         fruitsMerged.Invoke();
 
         Destroy(_thisFruit);

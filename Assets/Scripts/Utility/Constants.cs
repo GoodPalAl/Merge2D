@@ -28,4 +28,17 @@ namespace GameUtility
         public const float START_HEIGHT = 4f;
 
     }
+    public class Functions
+    {
+        // TODO: convert to a template function
+        /// <summary>
+        /// Compares tags of colliders so they do not trigger 
+        /// each other twice, only once.
+        /// </summary>
+        /// <param name="_col1">One of the colliders</param>
+        /// <param name="_col2">The other the collider</param>
+        /// <returns>True: first trigger</returns>
+        public bool FirstTrigger(Collider2D _col1, Collider2D _col2)
+            => _col1 != null && _col2 != null && _col1.CompareTag(_col2.tag);
+    }
 }
