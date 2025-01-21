@@ -45,8 +45,6 @@ public class CursorManager : MonoBehaviour
         Sprite newFruitSprite = obj.GetComponentInChildren<SpriteRenderer>().sprite;
         Vector3 newFruitSize = obj.transform.localScale;
 
-        Debug.Log(_cursor.name);
-        Debug.Log(_cursor.GetComponentInChildren<SpriteRenderer>().name);
         _cursor.GetComponentInChildren<SpriteRenderer>().sprite = newFruitSprite;
         _cursor.GetComponentInChildren<Transform>().localScale = newFruitSize;
     }

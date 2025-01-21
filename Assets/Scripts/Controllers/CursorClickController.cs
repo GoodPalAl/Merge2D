@@ -17,7 +17,7 @@ public class CursorClickController : MonoBehaviour
         {
             GameObject.FindGameObjectWithTag("GameController")
             .GetComponent<FruitManager>()
-            .UpdateQuededFruit(ItemDropManager.Instance.IsDebugEnabled());
+            .UpdateQuededFruit(GameStateManager.Instance.IsDebugEnabled());
         });
     }
 
@@ -26,7 +26,7 @@ public class CursorClickController : MonoBehaviour
         StartCoroutine(nameof(DelayClick));
     }
 
-    bool IsDebugOn => ItemDropManager.Instance.IsDebugEnabled();
+    bool IsDebugOn => GameStateManager.Instance.IsDebugEnabled();
 
     /// <summary>
     /// Coroutine that waits for some seconds 
@@ -48,7 +48,7 @@ public class CursorClickController : MonoBehaviour
     }
     private void Click()
     {
-        ClickEvent.Invoke();
+        ClickEvent?.Invoke();
         UpdateCursor(false);
     }
 

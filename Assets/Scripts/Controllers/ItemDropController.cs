@@ -1,11 +1,9 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class ItemDropController : MonoBehaviour
 {
-    /// <summary>
-    /// Next fruit in queue
-    /// </summary>
-    //GameObject QueuedFruit;
     // Parent that new fruits will be put in.
     Transform _parent;
 
@@ -13,16 +11,16 @@ public class ItemDropController : MonoBehaviour
     {
         // Initialize this transform as the parent that the new items will spawn in.
         _parent = transform;
-        //QueuedFruit = FruitManager.Instance.GetFirstFruit(debugMode());
     }
 
-    bool DebugMode() => ItemDropManager.Instance.IsDebugEnabled();
+    bool DebugMode() => GameStateManager.Instance.IsDebugEnabled();
 
     private void FixedUpdate()
     {
         // If the space bar is pressed, clear the board of all dropped fruits.
         if (DebugMode() && Input.GetKeyDown(KeyCode.Space))
         {
+            Debug.Log("Space bar pressed.");
             FruitManager.Instance.ClearBoard();
         }
     }
@@ -30,6 +28,12 @@ public class ItemDropController : MonoBehaviour
 
     // Created local function to utilize the invoke function.
     void ShowCursor() => CursorManager.Instance.ShowCursor();
+    IEnumerator ShowCursorWithDelay()
+    {
+        yield return new WaitForSeconds(CursorManager.Instance.GetCursorDelay());
+        CursorManager.Instance.ShowCursor();
+    }
+
 
     /// <summary>
     /// Toggles cursor visibility and calls for a new fruit to spawn.
@@ -43,10 +47,8 @@ public class ItemDropController : MonoBehaviour
         SpawnFruit();
 
         // Invoke show cursor so there is a small delay.
+        // TODO: convert to a coroutine
         Invoke(nameof(ShowCursor), CursorManager.Instance.GetCursorDelay());
-
-        // Queue next fruit
-        //QueuedFruit = FruitManager.Instance.GetQueuedFruit(debugMode());
     }
 
     /// <summary>
@@ -62,12 +64,14 @@ public class ItemDropController : MonoBehaviour
         GameObject newFruit = Instantiate(queuedFruit, pos, Quaternion.identity);
 
         // Update child's name based on # of fruit in the board.
-        newFruit.name = queuedFruit.name + (FruitManager.DroppedFruit.Count + 1).ToString();
+        newFruit.name = queuedFruit.name + (FruitManager.GetDroppedFruitCount() + 1).ToString();
 
         // Assign a parent to the new fruit.
         newFruit.transform.SetParent(_parent.transform);
 
         // Add item to an array to manage it.
-        FruitManager.DroppedFruit.Add(newFruit);
+        FruitManager.AddFruitToBoard(newFruit);
+
+        FruitManager.PrintAllFruit();
     }
 }

@@ -9,7 +9,7 @@ public class DeadZoneController : MonoBehaviour
     {
         if (firstTrigger(_collision))
         {
-            Debug.Log("Entered Dead Zone.");
+            //Debug.Log("Entered Dead Zone.");
 
             if (FruitsInDeadZone.FindAll(x => x == _collision).Count == 0)
             {
@@ -23,7 +23,7 @@ public class DeadZoneController : MonoBehaviour
         if (firstTrigger(_collision))
         {
             TimerManager.Instance.TickDeathTimer();
-            TimerManager.Instance.PrintTimerToDebug();
+            //TimerManager.Instance.PrintTimerToDebug();
         }
     }
 
@@ -31,14 +31,14 @@ public class DeadZoneController : MonoBehaviour
     {
         if (firstTrigger(_collision) && FruitsInDeadZone.FindAll(x => x == _collision).Count != 0)
         {
-            Debug.Log("Leaving Dead Zone.");
+            //Debug.Log("Leaving Dead Zone.");
             FruitsInDeadZone.Remove(_collision);
         }
         if (FruitsInDeadZone.Count <= 0)
         {
-            Debug.Log("Dead Zone Empty. Resetting timer...");
+            //Debug.Log("Dead Zone Empty. Resetting timer...");
             TimerManager.Instance.ResetDeathTimer();
-            TimerManager.Instance.PrintTimerToDebug();
+            //TimerManager.Instance.PrintTimerToDebug();
 
         }
     }

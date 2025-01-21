@@ -1594,11 +1594,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1476060556}
+  - component: {fileID: 1476060561}
   - component: {fileID: 1476060557}
   - component: {fileID: 1476060558}
   - component: {fileID: 1476060559}
   - component: {fileID: 1476060560}
-  - component: {fileID: 1476060561}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: GameController
@@ -1633,9 +1633,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd1c904c096e9414d90432bda31885fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _testModeStartFruit: 0
-  _maxFruitSpawn: 7
-  _fruitOrder:
+  fruitOrder:
   - {fileID: 2924450933297528885, guid: 47e5a6b42ee220b4c83a589de36bb617, type: 3}
   - {fileID: 2157959706339219250, guid: dbd654605562d3b449cef2d3c1621d89, type: 3}
   - {fileID: 2157959706339219250, guid: fee5e467e497d544b8865bd9da3fb001, type: 3}
@@ -1650,6 +1648,11 @@ MonoBehaviour:
   - {fileID: 2157959706339219250, guid: 373b4ac4787b50f419ea533114e981ce, type: 3}
   - {fileID: 2157959706339219250, guid: 6c3edcc74745a6343b780cc309d720ab, type: 3}
   - {fileID: 2157959706339219250, guid: 2456f64b0a3588941ad7e9d03e9a1d99, type: 3}
+  testModeStartFruit: 0
+  maxFruitSpawn: 4
+  BoardClearEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &1476060558
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1662,7 +1665,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7cb08029506f2ee41b190d9458d53fef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cursor: {fileID: 7553321913051092972}
+  _cursor: {fileID: 7553321913051092972}
   _showCursorDelay: 0.5
 --- !u!114 &1476060559
 MonoBehaviour:
@@ -1702,7 +1705,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eddc6b81754158c449f4fc580fc57181, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DebugMode: 0
+  _debugMode: 0
+  _gameState: 0
 --- !u!1 &1553077104
 GameObject:
   m_ObjectHideFlags: 0

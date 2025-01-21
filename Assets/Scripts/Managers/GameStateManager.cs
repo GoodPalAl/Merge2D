@@ -1,12 +1,13 @@
 using UnityEngine;
+using static GameUtility.Enums;
 
-public class ItemDropManager : MonoBehaviour
+public class GameStateManager : MonoBehaviour
 {
     /// <summary>
     /// Establishes only one Instance of this class.
     /// </summary>
     #region Singleton
-    public static ItemDropManager Instance { get; private set; }
+    public static GameStateManager Instance { get; private set; }
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -18,10 +19,12 @@ public class ItemDropManager : MonoBehaviour
     }
     #endregion
 
-    // FIXME: make an event that triggers whenever debug is toggled.
+    
     // Variables editable in Unity
     [SerializeField]
-    bool DebugMode;
-    public bool IsDebugEnabled() => DebugMode;
+    bool _debugMode;
+    [SerializeField]
+    GameStates _gameState = GameStates.Starting;
+    public bool IsDebugEnabled() => _debugMode;
 
 }

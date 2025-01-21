@@ -43,5 +43,39 @@ namespace GameUtility
         /// <returns>True: first trigger</returns>
         public bool FirstTrigger(Collider2D _col1, Collider2D _col2)
             => _col1 != null && _col2 != null && _col1.CompareTag(_col2.tag);
+
+
+    }
+    public class Enums
+    {
+        public enum GameStates
+        {
+            Starting,
+            Running,
+            Paused,
+            Won,
+            Lost
+        }
+
+        ///
+        /// <summary>Fruit in order as enums. First = strawberry, Last = watermelon</summary>
+        ///
+        public enum Fruits
+        {
+            Strawberry,
+            Cherry,
+            Apple,
+            Peach,
+            Pear,
+            Orange,
+            Pineapple,
+            Banana,
+            Lemon,
+            Avocado,
+            Kiwi,
+            Coconut,
+            Grape,
+            Watermelon
+        }
     }
 }
