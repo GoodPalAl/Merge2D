@@ -5,16 +5,15 @@ using TMPro;
 public class ScoreController : MonoBehaviour
 {
     [SerializeField]
-    TextMeshProUGUI scoreText;
+    TextMeshProUGUI _scoreText;
 
     private void Start()
     {
-        scoreText = GetComponent<TextMeshProUGUI>();
+        _scoreText = GetComponent<TextMeshProUGUI>();
     }
 
-    // Update is called once per frame
     void Update()
     {
-        scoreText.text = ScoreManager.Instance.GetScore();
+        _scoreText.text = ScoreManager.Instance.GetScore();
     }
 }

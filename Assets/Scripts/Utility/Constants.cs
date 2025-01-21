@@ -4,8 +4,11 @@ namespace GameUtility
 {
     public class Constants
     {
-        public static readonly string PATH_TO_PREFABS = "Assets/Prefabs";
+        public const string PATH_TO_PREFABS = "Assets/Prefabs";
         public static readonly string PATH_TO_FRUIT_PREFABS = PATH_TO_PREFABS + "/Fruits";
+
+        public const string TAG_FOR_ITEM_DROP_CONTROLLER = "ItemDropController";
+        public const string TAG_FOR_GAME_MANAGER = "GameController";
 
         /// <summary>
         /// Width of the board

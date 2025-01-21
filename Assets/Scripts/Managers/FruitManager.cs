@@ -41,45 +41,47 @@ public class FruitManager : MonoBehaviour
     }
 
     [SerializeField]
-    Fruit testModeStartFruit = Fruit.Strawberry;
+    Fruit _testModeStartFruit = Fruit.Strawberry;
     [SerializeField]
-    Fruit maxFruitSpawn = Fruit.Banana;
+    Fruit _maxFruitSpawn = Fruit.Banana;
 
     // Does this need to be static?
-    static GameObject QuededFruit;
+    static GameObject _quededFruit;
 
     public GameObject GetFirstFruit(bool _isDebugOn)
-        => QuededFruit = GetFruitFromList(_isDebugOn ? GetFruitIndexFromEnum(testModeStartFruit) : 0);
-    
+        => _quededFruit = GetFruitFromList(
+            _isDebugOn ? GetFruitIndexFromEnum(_testModeStartFruit) : 0
+            );
+
 
 
     /// <summary>
     /// Official merge order of fruit. Initialized in Unity Editor
     /// </summary>
-    public List<GameObject> FruitOrder = new();
+    [SerializeField]
+    List<GameObject> _fruitOrder = new();
 
     public int GetFruitIndexFromEnum(Fruit _fruit) 
-        => FruitOrder.FindIndex(x => x.CompareTag(_fruit.ToString()));
-    public GameObject GetFruitFromList(int _order) => FruitOrder[_order];
+        => _fruitOrder.FindIndex(x => x.CompareTag(_fruit.ToString()));
+    public GameObject GetFruitFromList(int _order) => _fruitOrder[_order];
     public GameObject GetNextFruit(string _oldFruitName) 
     {
-        int nextIndex = FruitOrder.FindIndex(Fruit => Fruit.name == _oldFruitName) + 1;
+        int nextIndex = _fruitOrder.FindIndex(Fruit => Fruit.name == _oldFruitName) + 1;
         return GetFruitFromList(nextIndex);
     }
-    public int FruitCount() => FruitOrder.Count;
+    public int FruitCount() => _fruitOrder.Count;
 
-    public GameObject GetQueuedFruit(bool _debugMode) => QuededFruit;
+    public GameObject GetQueuedFruit() => _quededFruit;
 
-    public void UpdateQuededFruit()
+    public void UpdateQuededFruit(bool _debugOn)
     {
         // If TestMode enabled,
         // the first fruit in hierarchy will always load,
         // otherwise the fruit will be random.
-        // FIXME: never reference a Manager class. 
-        int index = ItemDropManager.Instance.IsDebugEnabled() ?
-            GetFruitIndexFromEnum(testModeStartFruit) :
-            Random.Range(0, GetFruitIndexFromEnum(maxFruitSpawn));
-        QuededFruit = GetFruitFromList(index);
+        int index = _debugOn ?
+            GetFruitIndexFromEnum(_testModeStartFruit) :
+            Random.Range(0, GetFruitIndexFromEnum(_maxFruitSpawn));
+        _quededFruit = GetFruitFromList(index);
     }
 
     /// <summary>

@@ -19,33 +19,36 @@ public class CursorManager : MonoBehaviour
     #endregion
 
     // Private instance variables
-    static GameObject cursor;
+    [SerializeField]
+    GameObject _cursor;
 
     // Variables ediable in Unity
     [SerializeField]
-    float showCursorDelay = 0.5f;
+    float _showCursorDelay = 0.5f;
 
     void Start()
     {
-        if (cursor == null)
-            cursor = GameObject.Find("Cursor");
+        // WHY DID THIS BREAK????
+        //cursor = GameObject.FindGameObjectWithTag("MouseCursor");
     }
 
 
-    public GameObject GetCursor() => cursor;
-    public void UpdateCursorPosition(Vector3 _pos) => cursor.transform.position = _pos;
+    public GameObject GetCursor() => _cursor;
+    public void UpdateCursorPosition(Vector3 pos) => _cursor.transform.position = pos;
     
     /// <summary>
     /// Uses fruit prefab to load in sprite and transform scale for cursor.
     /// </summary>
-    /// <param name="_g">Prefab of queued fruit.</param>
-    public void UpdateCursor(GameObject _g)
+    /// <param name="obj">Prefab of queued fruit.</param>
+    public void UpdateCursor(GameObject obj)
     {
-        Sprite newFruitSprite = _g.GetComponentInChildren<SpriteRenderer>().sprite;
-        Vector3 newFruitSize = _g.transform.localScale;
+        Sprite newFruitSprite = obj.GetComponentInChildren<SpriteRenderer>().sprite;
+        Vector3 newFruitSize = obj.transform.localScale;
 
-        cursor.GetComponentInChildren<SpriteRenderer>().sprite = newFruitSprite;
-        cursor.GetComponentInChildren<Transform>().localScale = newFruitSize;
+        Debug.Log(_cursor.name);
+        Debug.Log(_cursor.GetComponentInChildren<SpriteRenderer>().name);
+        _cursor.GetComponentInChildren<SpriteRenderer>().sprite = newFruitSprite;
+        _cursor.GetComponentInChildren<Transform>().localScale = newFruitSize;
     }
 
     /// <summary>
@@ -58,8 +61,8 @@ public class CursorManager : MonoBehaviour
     public static Vector3 GetCursorInWorldPosition()
         => Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-    public void HideCursor() => cursor.SetActive(false);
-    public void ShowCursor() => cursor.SetActive(true);
-    public float GetCursorDelay() => showCursorDelay;
+    public void HideCursor() => _cursor.SetActive(false);
+    public void ShowCursor() => _cursor.SetActive(true);
+    public float GetCursorDelay() => _showCursorDelay;
 
 }

@@ -6,18 +6,18 @@ using UnityEngine.Events;
 [RequireComponent(typeof(Rigidbody2D))]
 public class Fruit : MonoBehaviour // Scriptable object?
 {
-    PolygonCollider2D trigger;
-    Rigidbody2D rb;
-    int id;
+    PolygonCollider2D Trigger;
+    Rigidbody2D RigidBody;
+    int ID;
 
     public UnityEvent fruitsMerged;
 
     private void Start()
     {
         // Initializing variables
-        id = GetInstanceID();
-        trigger = GetComponent<PolygonCollider2D>();
-        rb = GetComponent<Rigidbody2D>();
+        ID = GetInstanceID();
+        Trigger = GetComponent<PolygonCollider2D>();
+        RigidBody = GetComponent<Rigidbody2D>();
 
         // Initializing events and listeners
         fruitsMerged.AddListener(
@@ -32,12 +32,12 @@ public class Fruit : MonoBehaviour // Scriptable object?
 
     private void OnTriggerStay2D(Collider2D _other)
     {
-        if (_other.GetComponent<Fruit>() != null && trigger.CompareTag(_other.tag))
+        if (_other.GetComponent<Fruit>() != null && Trigger.CompareTag(_other.tag))
         {
-            Debug.Log(trigger.tag + ":" + id + " --> " + _other.tag + ":" + _other.gameObject.GetComponent<Fruit>().id);
+            Debug.Log(Trigger.tag + ":" + ID + " --> " + _other.tag + ":" + _other.gameObject.GetComponent<Fruit>().ID);
 
             // Ensures this trigger is only called once when event happens.
-            if (id < _other.gameObject.GetComponent<Fruit>().id)
+            if (ID < _other.gameObject.GetComponent<Fruit>().ID)
             {
                 mergeFruits(tag, gameObject, _other.gameObject);
             }

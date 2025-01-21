@@ -7,21 +7,21 @@ public class ItemDropController : MonoBehaviour
     /// </summary>
     //GameObject QueuedFruit;
     // Parent that new fruits will be put in.
-    Transform parent;
+    Transform _parent;
 
     private void Start()
     {
         // Initialize this transform as the parent that the new items will spawn in.
-        parent = transform;
+        _parent = transform;
         //QueuedFruit = FruitManager.Instance.GetFirstFruit(debugMode());
     }
 
-    bool debugMode() => ItemDropManager.Instance.IsDebugEnabled();
+    bool DebugMode() => ItemDropManager.Instance.IsDebugEnabled();
 
     private void FixedUpdate()
     {
         // If the space bar is pressed, clear the board of all dropped fruits.
-        if (debugMode() && Input.GetKeyDown(KeyCode.Space))
+        if (DebugMode() && Input.GetKeyDown(KeyCode.Space))
         {
             FruitManager.Instance.ClearBoard();
         }
@@ -29,7 +29,7 @@ public class ItemDropController : MonoBehaviour
 
 
     // Created local function to utilize the invoke function.
-    void showCursor() => CursorManager.Instance.ShowCursor();
+    void ShowCursor() => CursorManager.Instance.ShowCursor();
 
     /// <summary>
     /// Toggles cursor visibility and calls for a new fruit to spawn.
@@ -40,10 +40,10 @@ public class ItemDropController : MonoBehaviour
         CursorManager.Instance.HideCursor();
 
         // Spawn a new item.
-        spawnFruit();
+        SpawnFruit();
 
         // Invoke show cursor so there is a small delay.
-        Invoke(nameof(showCursor), CursorManager.Instance.GetCursorDelay());
+        Invoke(nameof(ShowCursor), CursorManager.Instance.GetCursorDelay());
 
         // Queue next fruit
         //QueuedFruit = FruitManager.Instance.GetQueuedFruit(debugMode());
@@ -52,11 +52,11 @@ public class ItemDropController : MonoBehaviour
     /// <summary>
     /// Spawns a new fruit object at cursor's position
     /// </summary>
-    private void spawnFruit()
+    private void SpawnFruit()
     {
         // Subtract a bit of y-axis position so the fruit is dropped below trigger box.
         Vector3 pos = CursorManager.Instance.GetCursor().transform.position + new Vector3(0f,-0.5f,0f);
-        GameObject queuedFruit = FruitManager.Instance.GetQueuedFruit(debugMode());
+        GameObject queuedFruit = FruitManager.Instance.GetQueuedFruit();
         
         // New item spawns where cursor is located.
         GameObject newFruit = Instantiate(queuedFruit, pos, Quaternion.identity);
@@ -65,7 +65,7 @@ public class ItemDropController : MonoBehaviour
         newFruit.name = queuedFruit.name + (FruitManager.DroppedFruit.Count + 1).ToString();
 
         // Assign a parent to the new fruit.
-        newFruit.transform.SetParent(parent.transform);
+        newFruit.transform.SetParent(_parent.transform);
 
         // Add item to an array to manage it.
         FruitManager.DroppedFruit.Add(newFruit);

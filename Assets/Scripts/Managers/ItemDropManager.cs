@@ -21,7 +21,7 @@ public class ItemDropManager : MonoBehaviour
     // FIXME: make an event that triggers whenever debug is toggled.
     // Variables editable in Unity
     [SerializeField]
-    bool debugMode;
-    public bool IsDebugEnabled() => debugMode;
+    bool DebugMode;
+    public bool IsDebugEnabled() => DebugMode;
 
 }
