@@ -21,6 +21,7 @@ TagManager:
   - Watermelon
   - ItemDropController
   - MouseCursor
+  - CursorTimer
   layers:
   - Default
   - TransparentFX

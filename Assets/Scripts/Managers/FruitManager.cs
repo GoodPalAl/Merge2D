@@ -108,8 +108,6 @@ public class FruitManager : MonoBehaviour
         }
         DroppedFruit.Clear();
 
-        // FIXME: use unity event instead of having a dependency
-        //ScoreManager.Instance.ResetScore();
         BoardClearEvent?.Invoke();
     }
 

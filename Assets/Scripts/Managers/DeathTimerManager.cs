@@ -1,13 +1,13 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-public class TimerManager : MonoBehaviour
+public class DeathTimerManager : MonoBehaviour
 {
     /// <summary>
     /// Establishes only one Instance of this class.
     /// </summary>
     #region Singleton
-    public static TimerManager Instance { get; private set; }
+    public static DeathTimerManager Instance { get; private set; }
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -19,7 +19,7 @@ public class TimerManager : MonoBehaviour
     }
     #endregion
 
-    // TODO: Redo timer to use UnityEvent instead of Time.deltaTime
+    // TODO: Redo timer to use coroutines instead of Time.deltaTime
     /// <summary>
     /// Represents the time, in seconds, that has ticked since a fruit has entered the dead zone.
     /// </summary>

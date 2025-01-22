@@ -22,7 +22,7 @@ public class DeadZoneController : MonoBehaviour
     {
         if (firstTrigger(_collision))
         {
-            TimerManager.Instance.TickDeathTimer();
+            DeathTimerManager.Instance.TickDeathTimer();
             //TimerManager.Instance.PrintTimerToDebug();
         }
     }
@@ -37,7 +37,7 @@ public class DeadZoneController : MonoBehaviour
         if (FruitsInDeadZone.Count <= 0)
         {
             //Debug.Log("Dead Zone Empty. Resetting timer...");
-            TimerManager.Instance.ResetDeathTimer();
+            DeathTimerManager.Instance.ResetDeathTimer();
             //TimerManager.Instance.PrintTimerToDebug();
 
         }

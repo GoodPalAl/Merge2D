@@ -4,29 +4,43 @@ using UnityEngine.Events;
 
 public class CursorClickController : MonoBehaviour
 {
+    // Must be public for this to work
     public UnityEvent ClickEvent;
+
+    // Click delay should happen slightly after the cursor is revealed
+    float clickDelaySeconds = 0.1f;
+
+    bool IsDebugOn => GameStateManager.Instance.IsDebugEnabled();
 
     private void Start()
     {
         UpdateCursor(true);
-        ClickEvent.AddListener(
+        ClickEvent.AddListener(delegate 
+        {
             GameObject.FindGameObjectWithTag("ItemDropController")
-            .GetComponent<ItemDropController>().DropFruit
-            );
+            .GetComponent<ItemDropController>().DropFruit();
+        });
         ClickEvent.AddListener(delegate
         {
             GameObject.FindGameObjectWithTag("GameController")
-            .GetComponent<FruitManager>()
-            .UpdateQuededFruit(GameStateManager.Instance.IsDebugEnabled());
+            .GetComponent<FruitManager>().UpdateQuededFruit(
+                GameStateManager.Instance.IsDebugEnabled()
+            );
+        });
+        clickDelaySeconds += CursorManager.Instance.GetCursorDelay();
+        ClickEvent.AddListener(delegate 
+        {
+            GameObject.FindGameObjectWithTag("CursorTimer")
+            .GetComponent<CursorTimerController>().ClickTriggered(clickDelaySeconds);
         });
     }
+
+    bool isDelayActive = false;
 
     private void Update()
     {
         StartCoroutine(nameof(DelayClick));
     }
-
-    bool IsDebugOn => GameStateManager.Instance.IsDebugEnabled();
 
     /// <summary>
     /// Coroutine that waits for some seconds 
@@ -35,11 +49,7 @@ public class CursorClickController : MonoBehaviour
     /// <returns></returns>
     private IEnumerator DelayClick()
     {
-        // Click delay should happen slightly after the cursor is revealed
-        float clickDelaySeconds = CursorManager.Instance.GetCursorDelay() + 0.1f;
-
         yield return new WaitForSeconds(clickDelaySeconds);
-
         // Now that time has passed, get input.
         if (Input.GetMouseButtonDown(0))
         {
