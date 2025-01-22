@@ -6,42 +6,47 @@ using UnityEngine;
 
 public class CursorTimerController : MonoBehaviour
 {
-    TextMeshProUGUI timerText;
+    TextMeshProUGUI countdownText;
 
-    float timerSpeed = 0.1f;
+
+    float clickDelaySeconds;
+    float countdownSpeed = 0.1f;
     float remainingTime;
 
     // Start is called before the first frame update
     void Start()
     {
-        timerText = GetComponent<TextMeshProUGUI>();
-        ShowTimer(true);
+        countdownText = GetComponent<TextMeshProUGUI>();
+        clickDelaySeconds = CursorManager.Instance.GetCursorDelay();
+        ShowCountdown(false);
     }
 
-    public void ClickTriggered(float delay)
+    public void ClickTriggered()
     {
-        remainingTime = delay;
+        ResetTimer();
         UpdateTimerText();
         StartCoroutine(TimerCountdown());
     }
     IEnumerator TimerCountdown()
     {
-        ShowTimer(true);
+        ShowCountdown(true);
         while (remainingTime > 0)
         {
-            yield return new WaitForSeconds(timerSpeed);
-            remainingTime -= timerSpeed;
+            yield return new WaitForSeconds(countdownSpeed);
+            remainingTime -= countdownSpeed;
             UpdateTimerText();
         }
-        ShowTimer(false);
+        ShowCountdown(false);
         Debug.Log("Cursor Countdown Finished");
     }
 
-    void UpdateTimerText() => timerText.text = remainingTime.ToString("0.0");
+    void ResetTimer() => remainingTime = clickDelaySeconds;
+
+    void UpdateTimerText() => countdownText.text = remainingTime.ToString("0.0");
 
     /// <summary>
     /// Enable or disable visibility on timer's text based on input
     /// </summary>
     /// <param name="_x">true = show timer, false = hide timer</param>
-    void ShowTimer(bool _x) => timerText.enabled = _x;
+    void ShowCountdown(bool _x) => countdownText.enabled = _x;
 }
