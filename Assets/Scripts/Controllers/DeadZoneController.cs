@@ -45,7 +45,11 @@ public class DeadZoneController : MonoBehaviour
         if (firstTrigger(_collision))
         {
             if (_collision.GetInstanceID() < GetInstanceID())
+            {
+                // FIXME: Called several times if fruit stays in deadzone
+                // should only be called once
                 e_FruitInDeadZone?.Invoke();
+            }
         }
     }
 

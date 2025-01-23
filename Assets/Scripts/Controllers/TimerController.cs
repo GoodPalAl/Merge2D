@@ -13,27 +13,26 @@ public class TimerController : MonoBehaviour
      */
 
     TextMeshProUGUI countdownText;
-
-
+    // Timer should refresh every tenth of a second
+    float timerRefreshRate;
+    // Countdown starts at this time in seconds
+    float countdownStart;
+    // The amount of time remaining in seconds on the countdown
+    float remainingTime;
 
     // Start is called before the first frame update
     void Start()
     {
         countdownText = GetComponent<TextMeshProUGUI>();
-        //deathCountdownStart = DeathTimerManager.Instance.GetDeathTimer();
+        countdownStart = DeathTimerManager.Instance.GetSecondsUntilGameOver();
+        timerRefreshRate = DeathTimerManager.Instance.CountdownRefreshRate;
         HideCountdown();
     }
 
-    // Timer should refresh every tenth of a second
-    float timerRefreshRate = .1f;
-    // Countdown starts at this time in seconds
-    float deathCountdownStart = 10f;
-    // The amount of time remaining in seconds on the countdown
-    float remainingTime;
     public void TriggerStartCountDown()
     {
         Debug.Log("Countdown Start!");
-        Invoke(nameof(ShowCountdown), .1f);
+        ShowCountdown();
         ResetTimer();
         UpdateTimerText();
 
@@ -62,27 +61,11 @@ public class TimerController : MonoBehaviour
         }
     }
 
-    void ResetTimer() => remainingTime = deathCountdownStart;
+    void ResetTimer() => remainingTime = countdownStart;
 
     void UpdateTimerText() => countdownText.text = remainingTime.ToString("0.00");
 
     void ShowCountdown() => countdownText.enabled = true;
-
     void HideCountdown() => countdownText.enabled = false;
-
-    void oldTimer()
-    {
-        // Show timer if timer has passed 1 second
-        float timer = DeathTimerManager.Instance.GetDeathTimer();
-        if (timer >= DeathTimerManager.Instance.GetDeathTimeThreshold())
-        {
-            ShowCountdown();
-            countdownText.text = DeathTimerManager.Instance.GetDeathTimerAsString();
-        }
-        else
-        {
-            HideCountdown();
-        }
-    }
 
 }
