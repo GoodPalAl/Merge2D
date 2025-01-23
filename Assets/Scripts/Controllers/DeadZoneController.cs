@@ -1,9 +1,31 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class DeadZoneController : MonoBehaviour
 {
     public List<Collider2D> FruitsInDeadZone = new();
+
+    public UnityEvent e_FruitInDeadZone;
+    public UnityEvent e_DeadZoneEmpty;
+
+    private void Start()
+    {
+        var countdownObject = GameObject.FindGameObjectWithTag("CountdownUntilDeath");
+        if (countdownObject != null)
+        {
+            var listener = countdownObject.GetComponent<TimerController>();
+            
+            e_FruitInDeadZone.AddListener(delegate
+            {
+                listener.TriggerStartCountDown();
+            });
+            e_DeadZoneEmpty.AddListener(delegate
+            {
+                listener.TriggerStopCountDown();
+            });
+        }
+    }
 
     private void OnTriggerEnter2D(Collider2D _collision)
     {
@@ -22,8 +44,8 @@ public class DeadZoneController : MonoBehaviour
     {
         if (firstTrigger(_collision))
         {
-            DeathTimerManager.Instance.TickDeathTimer();
-            //TimerManager.Instance.PrintTimerToDebug();
+            if (_collision.GetInstanceID() < GetInstanceID())
+                e_FruitInDeadZone?.Invoke();
         }
     }
 
@@ -33,11 +55,13 @@ public class DeadZoneController : MonoBehaviour
         {
             //Debug.Log("Leaving Dead Zone.");
             FruitsInDeadZone.Remove(_collision);
+            e_DeadZoneEmpty?.Invoke();
         }
         if (FruitsInDeadZone.Count <= 0)
         {
             //Debug.Log("Dead Zone Empty. Resetting timer...");
-            DeathTimerManager.Instance.ResetDeathTimer();
+
+            //DeathTimerManager.Instance.ResetDeathTimer();
             //TimerManager.Instance.PrintTimerToDebug();
 
         }

@@ -222,7 +222,7 @@ GameObject:
   - component: {fileID: 230479025}
   m_Layer: 5
   m_Name: TimerText
-  m_TagString: Untagged
+  m_TagString: CountdownUntilDeath
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1653,6 +1653,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FruitsInDeadZone: []
+  e_FruitInDeadZone:
+    m_PersistentCalls:
+      m_Calls: []
+  e_DeadZoneEmpty:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!4 &1290795388 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1195160872690095431, guid: 373b4ac4787b50f419ea533114e981ce, type: 3}
@@ -1945,7 +1951,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   deathTimeThreshold: 1
-  gameOverTime: 1
+  gameOverTime: 10
 --- !u!1 &1553077104
 GameObject:
   m_ObjectHideFlags: 0

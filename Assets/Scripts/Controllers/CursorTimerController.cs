@@ -10,7 +10,7 @@ public class CursorTimerController : MonoBehaviour
 
 
     float clickDelaySeconds;
-    float countdownSpeed = 0.1f;
+    float countdownSpeed = 1f;
     float remainingTime;
 
     // Start is called before the first frame update
