@@ -40,15 +40,10 @@ public class FruitManager : MonoBehaviour
 
     private void Start()
     {
-        var gameControllerObject = GameObject.FindGameObjectWithTag("GameController");
-        if (gameControllerObject != null)
-        {
-            var listener = gameControllerObject.GetComponent<ScoreManager>();
-            BoardClearEvent.AddListener(delegate 
-            {
-                listener.ResetScore();
-            });
-        }
+        BoardClearEvent.AddListener(
+            GameObject.FindGameObjectWithTag("GameController")
+            .GetComponent<ScoreManager>().ResetScore
+        );
     }
 
     public GameObject GetFirstFruit(bool _isDebugOn)
@@ -112,7 +107,6 @@ public class FruitManager : MonoBehaviour
 
     /// <summary>
     /// Clear the board of all fruits. DEBUG ONLY.
-    /// FIXME: game will not destroy object.
     /// </summary>
     public void ClearBoard()
     {
@@ -145,7 +139,7 @@ public class FruitManager : MonoBehaviour
         foreach (var fruit in DroppedFruit)
         {
             str += fruit.name;
-            if (fruit != DroppedFruit[^1]) // [^1] = DroppedFruit.Count - 1
+            if (fruit != DroppedFruit[^1]) 
             { 
                 str += ", ";
             }

@@ -91,7 +91,7 @@ public class PlayerInputController : MonoBehaviour
         if (IsDebugOn)
         {
             WaitForDevInput();
-        }    
+        }
     }
 
     /// <summary>

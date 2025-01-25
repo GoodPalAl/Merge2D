@@ -707,7 +707,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &679294039
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2711,9 +2711,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 5199917009849456002, guid: a04f022534e79f34fba40baf265e149a, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7553321913051092973}
-    - targetCorrespondingSourceObject: {fileID: 5199917009849456002, guid: a04f022534e79f34fba40baf265e149a, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 7553321913051092975}
   m_SourcePrefab: {fileID: 100100000, guid: a04f022534e79f34fba40baf265e149a, type: 3}
 --- !u!1 &7553321913051092972 stripped
 GameObject:
@@ -2733,21 +2730,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fruitRadius: 0.5
---- !u!114 &7553321913051092975
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7553321913051092972}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b4901999ea5950d40842b13c44d3f8b5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  e_Click:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!1001 &8827090164154643191
 PrefabInstance:
   m_ObjectHideFlags: 0
