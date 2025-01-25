@@ -72,18 +72,13 @@ public class Fruit : MonoBehaviour // Scriptable object?
         fruitsMerged?.Invoke();
 
         // Remove merged fruits from board.
-        FruitManager.DestroyFruitOnBoard(_thisFruit);
-        FruitManager.DestroyFruitOnBoard(_otherFruit);
+        FruitManager.DeactivateFruit(_thisFruit);
+        FruitManager.DeactivateFruit(_otherFruit);
 
         if (newFruit != null)
         {
             Instantiate(newFruit, transform.position, Quaternion.identity, fruitCollector);
             FruitManager.AddFruitToBoard(newFruit);
         }
-    }
-
-    public void TestMethod()
-    {
-        Debug.Log("Score!");
     }
 }

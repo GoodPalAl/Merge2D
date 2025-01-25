@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 using static GameUtility.Enums;
@@ -84,17 +85,23 @@ public class FruitManager : MonoBehaviour
     public static int GetDroppedFruitCount()
         => DroppedFruit.Count;
 
-    public static void DestroyFruitOnBoard(GameObject victim)
+    public static void DeactivateFruit(GameObject victim)
     {
         var victimOnBoard = DroppedFruit.Find(fruit => fruit == victim);
         if (victimOnBoard != null)
         {
-            DroppedFruit.Remove(victimOnBoard);
+            Debug.LogError("<color=red>ERROR:</color> This fruit is not real.");
+            return;
         }
         if (victim != null)
         {
-            Destroy(victim);
+            Debug.LogError("<color=red>ERROR:</color> This fruit is not in board.");
+            return;
         }
+
+        //DroppedFruit.Remove(victimOnBoard);
+        //Destroy(victim);
+        victim.SetActive(false);
     }
 
     /// <summary>
@@ -102,9 +109,23 @@ public class FruitManager : MonoBehaviour
     /// </summary>
     public void ClearBoard()
     {
-        foreach (var fruit in DroppedFruit)
+        PrintAllFruit();
+        for (int i = DroppedFruit.Count - 1; i < 0; i--)
         {
-            Destroy(fruit);
+            if (DroppedFruit[i].IsDestroyed())
+            {
+                Debug.LogError("The fruit at index <color=red>\'" + i + "\'</color> is already destroyed.");
+                continue;
+            }
+            try
+            {
+                Debug.Log("Destroying <color=red>\'" + DroppedFruit[i].name + "\'</color>...");
+                Destroy(DroppedFruit[i]);
+            }
+            catch
+            {
+                Debug.LogError("FAILED TO DELETE!!!!!");
+            }
         }
         DroppedFruit.Clear();
 
