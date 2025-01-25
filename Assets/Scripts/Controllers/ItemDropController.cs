@@ -13,12 +13,12 @@ public class ItemDropController : MonoBehaviour
         _parent = transform;
     }
 
-    bool DebugMode() => GameStateManager.Instance.IsDebugEnabled();
+    bool DebugMode => GameStateManager.Instance.IsDebugEnabled();
 
     private void FixedUpdate()
     {
         // If the space bar is pressed, clear the board of all dropped fruits.
-        if (DebugMode() && Input.GetKeyDown(KeyCode.Space))
+        if (DebugMode && Input.GetKeyDown(KeyCode.Space))
         {
             Debug.Log("Space bar pressed.");
             FruitManager.Instance.ClearBoard();

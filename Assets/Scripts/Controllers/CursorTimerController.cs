@@ -3,11 +3,13 @@ using System.Collections;
 using System.Threading;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class CursorTimerController : MonoBehaviour
 {
     TextMeshProUGUI countdownText;
 
+    UnityEvent e_ClickReEnable;
 
     float clickDelaySeconds;
     float countdownSpeed = 1f;
@@ -16,6 +18,16 @@ public class CursorTimerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //var cursorObject = GameObject.FindGameObjectWithTag("CountdownUntilDeath");
+        //if (cursorObject != null)
+        //{
+        //    var listener = cursorObject.GetComponent<CursorClickController>();
+        //    e_ClickReEnable.AddListener(delegate
+        //    {
+
+        //    });
+        //}
+
         countdownText = GetComponent<TextMeshProUGUI>();
         clickDelaySeconds = CursorManager.Instance.GetCursorDelay();
         ShowCountdown(false);
