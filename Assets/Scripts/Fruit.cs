@@ -22,14 +22,19 @@ public class Fruit : MonoBehaviour // Scriptable object?
         fruitCollector = GameObject.FindGameObjectWithTag("ItemDropController").transform;
 
         // Initializing events and listeners
-        fruitsMerged.AddListener(
-            GameObject.FindGameObjectWithTag("GameController")
-            .GetComponent<ScoreManager>().TickScore
-            );
-        fruitsMerged.AddListener(
-            GameObject.FindGameObjectWithTag("GameController")
-            .GetComponent<ScoreManager>().PrintScoreToDebug
-            );
+        var gameControllerObject = GameObject.FindGameObjectWithTag("GameController");
+        if (gameControllerObject != null)
+        {
+            var listener = gameControllerObject.GetComponent<ScoreManager>();
+            fruitsMerged.AddListener(delegate 
+            {
+                listener.TickScore();
+            });
+            fruitsMerged.AddListener(delegate 
+            {
+                listener.PrintScoreToDebug();
+            }); 
+        }
     }
 
     private void OnTriggerStay2D(Collider2D _other)
@@ -46,12 +51,12 @@ public class Fruit : MonoBehaviour // Scriptable object?
         }
     }
 
-    void MergeFruits(string _oldName, GameObject _thisFruit, GameObject _otherFruit)
+    void MergeFruits(string _oldTag, GameObject _thisFruit, GameObject _otherFruit)
     {
         GameObject newFruit;
         try
         {
-            newFruit = FruitManager.Instance.GetNextFruit(_oldName);
+            newFruit = FruitManager.Instance.GetFruitNextInOrder(_oldTag);
             /*
             Debug.Log(_thisFruit.tag  + ":" + _thisFruit.GetInstanceID()  + " + "
                     + _otherFruit.tag + ":" + _otherFruit.GetInstanceID() + " = " 
@@ -60,6 +65,7 @@ public class Fruit : MonoBehaviour // Scriptable object?
         }
         catch (ArgumentOutOfRangeException)
         {
+
             newFruit = null;
             /*
             Debug.Log(_thisFruit.tag + ":" + _thisFruit.GetInstanceID() + " + "
@@ -68,22 +74,19 @@ public class Fruit : MonoBehaviour // Scriptable object?
             //*/
         }
 
-        // Invoke event
-        fruitsMerged?.Invoke();
-
         // Remove merged fruits from board.
-        FruitManager.DestroyFruitOnBoard(_thisFruit);
-        FruitManager.DestroyFruitOnBoard(_otherFruit);
+        FruitManager.DestroyAndRemoveFruit(_thisFruit);
+        FruitManager.DestroyAndRemoveFruit(_otherFruit);
 
+        // Add the next fruit in order as long as it wasn't the last.
+        // This should have been handled in the try-catch.
         if (newFruit != null)
         {
             Instantiate(newFruit, transform.position, Quaternion.identity, fruitCollector);
             FruitManager.AddFruitToBoard(newFruit);
         }
-    }
 
-    public void TestMethod()
-    {
-        Debug.Log("Score!");
+        // Invoke event
+        fruitsMerged?.Invoke();
     }
 }

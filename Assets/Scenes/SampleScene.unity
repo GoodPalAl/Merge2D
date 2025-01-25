@@ -1936,7 +1936,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eddc6b81754158c449f4fc580fc57181, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _debugMode: 0
+  _debugMode: 1
   _gameState: 0
 --- !u!114 &1476060562
 MonoBehaviour:

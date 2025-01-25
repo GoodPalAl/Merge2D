@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 using static GameUtility.Enums;
@@ -54,15 +55,14 @@ public class FruitManager : MonoBehaviour
             _isDebugOn ? GetFruitIndexFromEnum(testModeStartFruit) : 0
             );
 
-    public int GetFruitIndexFromEnum(Fruits _fruit) 
+    int GetFruitIndexFromEnum(Fruits _fruit) 
         => fruitOrder.FindIndex(x => x.CompareTag(_fruit.ToString()));
-    public GameObject GetFruitFromList(int _order) => fruitOrder[_order];
-    public GameObject GetNextFruit(string _oldFruitName) 
+    GameObject GetFruitFromList(int _order) => fruitOrder[_order];
+    public GameObject GetFruitNextInOrder(string _oldFruitName) 
     {
         int nextIndex = fruitOrder.FindIndex(Fruit => Fruit.name == _oldFruitName) + 1;
         return GetFruitFromList(nextIndex);
     }
-    public int FruitCount() => fruitOrder.Count;
 
     public GameObject GetQueuedFruit() => _quededFruit;
 
@@ -74,6 +74,7 @@ public class FruitManager : MonoBehaviour
         int index = _debugOn ?
             GetFruitIndexFromEnum(testModeStartFruit) :
             Random.Range(0, GetFruitIndexFromEnum(maxFruitSpawn));
+
         _quededFruit = GetFruitFromList(index);
     }
 
@@ -89,17 +90,23 @@ public class FruitManager : MonoBehaviour
     public static int GetDroppedFruitCount()
         => DroppedFruit.Count;
 
-    public static void DestroyFruitOnBoard(GameObject victim)
+    public static void DestroyAndRemoveFruit(GameObject victim)
     {
+        if (victim == null)
+        {
+            Debug.Log("<color=red>ERROR:</color> " + victim.name + " is not real.");
+            return;
+        }
+
         var victimOnBoard = DroppedFruit.Find(fruit => fruit == victim);
-        if (victimOnBoard != null)
+        if (victimOnBoard == null)
         {
-            DroppedFruit.Remove(victimOnBoard);
+            Debug.Log("<color=red>ERROR:</color> " + victimOnBoard.name + " is not in board.");
+            return;
         }
-        if (victim != null)
-        {
-            Destroy(victim);
-        }
+
+        DroppedFruit.Remove(victimOnBoard);
+        Destroy(victim);
     }
 
     /// <summary>
@@ -108,18 +115,23 @@ public class FruitManager : MonoBehaviour
     /// </summary>
     public void ClearBoard()
     {
-        foreach (var fruit in DroppedFruit)
+        PrintAllFruitOnBoard();
+        for (int i = 1; i < DroppedFruit.Count; i++)
         {
-            // FIXME: broken, game refuses to destroy object
-            // Maybe use DestroyImmediate()?
-            Destroy(fruit);
+            if (DroppedFruit[^i].IsDestroyed())
+            {
+                Debug.Log("This fruit <color=red>\'" + DroppedFruit[^i].name + "\'</color> is already destroyed.");
+                continue;
+            }
+            Debug.Log("Destroying <color=red>\'" + DroppedFruit[^i].name + "\'</color>...");
+            DestroyImmediate(DroppedFruit[^i], true);
         }
         DroppedFruit.Clear();
 
         BoardClearEvent?.Invoke();
     }
 
-    public static void PrintAllFruit()
+    public static void PrintAllFruitOnBoard()
     {
         string str = "Fruits: ";
         foreach (var fruit in DroppedFruit)

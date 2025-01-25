@@ -72,6 +72,6 @@ public class ItemDropController : MonoBehaviour
         // Add item to an array to manage it.
         FruitManager.AddFruitToBoard(newFruit);
 
-        FruitManager.PrintAllFruit();
+        FruitManager.PrintAllFruitOnBoard();
     }
 }

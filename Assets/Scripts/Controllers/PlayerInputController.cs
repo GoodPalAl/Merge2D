@@ -5,7 +5,7 @@ public class PlayerInputController : MonoBehaviour
 {
     // Must be public for this to work
     public UnityEvent e_Click;
-    UnityEvent e_SpacePress;
+    public UnityEvent e_SpacePress;
 
     bool IsDebugOn => GameStateManager.Instance.IsDebugEnabled();
 
@@ -29,6 +29,8 @@ public class PlayerInputController : MonoBehaviour
         });
         // Each "if != null" statement checks to make sure that game object exists,
         //  and is attached with the proper tag and component.
+
+        // Drops Fruit in cursor
         var itemDropObject = GameObject.FindGameObjectWithTag("ItemDropController");
         if (itemDropObject != null)
         {
@@ -38,6 +40,17 @@ public class PlayerInputController : MonoBehaviour
                 listener.DropFruit();
             });
         }
+        // Triggers cursor countdown the indicates a cooldown period
+        var cursorTimerObject = GameObject.FindGameObjectWithTag("CursorTimer");
+        if (cursorTimerObject != null)
+        {
+            var listener = cursorTimerObject.GetComponent<CursorTimerController>();
+            e_Click.AddListener(delegate
+            {
+                listener.ClickTriggered();
+            });
+        }
+        // Update fruit in queue
         var gameManagerObject = GameObject.FindGameObjectWithTag("GameController");
         if (gameManagerObject != null)
         {
@@ -46,15 +59,6 @@ public class PlayerInputController : MonoBehaviour
             {
                 // This may not work due to when IsDebugOn instantiated
                 listener.UpdateQuededFruit(IsDebugOn);
-            });
-        }
-        var cursorTimerObject = GameObject.FindGameObjectWithTag("CursorTimer");
-        if (cursorTimerObject != null)
-        {
-            var listener = cursorTimerObject.GetComponent<CursorTimerController>();
-            e_Click.AddListener(delegate
-            {
-                listener.ClickTriggered();
             });
         }
     }
@@ -68,10 +72,15 @@ public class PlayerInputController : MonoBehaviour
         var gameManagerObject = GameObject.FindGameObjectWithTag("GameController");
         if (gameManagerObject != null)
         {
-            var listener = gameManagerObject.GetComponent<FruitManager>();
+            var listenerForFruit = gameManagerObject.GetComponent<FruitManager>();
             e_SpacePress.AddListener(delegate
             {
-                listener.ClearBoard();
+                listenerForFruit.ClearBoard();
+            });
+            var listenerForScore = gameManagerObject.GetComponent<ScoreManager>();
+            e_SpacePress.AddListener(delegate
+            {
+                listenerForScore.ResetScore();
             });
         }
     }
@@ -85,6 +94,9 @@ public class PlayerInputController : MonoBehaviour
         }    
     }
 
+    /// <summary>
+    /// Define user input controls
+    /// </summary>
     void WaitForUserInput()
     {
         // Left Mouse
@@ -93,7 +105,9 @@ public class PlayerInputController : MonoBehaviour
             e_Click?.Invoke();
         }
     }
-    /******* DEBUG CONTROLS ONLY *******/
+    /// <summary>
+    /// Defines DEBUG ONLY controls
+    /// </summary>
     void WaitForDevInput()
     {
         // Space Bar
