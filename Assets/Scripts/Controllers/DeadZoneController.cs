@@ -14,7 +14,7 @@ public class DeadZoneController : MonoBehaviour
         var countdownObject = GameObject.FindGameObjectWithTag("CountdownUntilDeath");
         if (countdownObject != null)
         {
-            var listener = countdownObject.GetComponent<TimerController>();
+            var listener = countdownObject.GetComponent<CountdownController>();
             
             e_FruitInDeadZone.AddListener(delegate
             {
@@ -37,8 +37,13 @@ public class DeadZoneController : MonoBehaviour
             {
                 FruitsInDeadZone.Add(_collision);
             }
+            if (_collision.GetInstanceID() < GetInstanceID())
+            {
+                e_FruitInDeadZone?.Invoke();
+            }
         }
     }
+    
 
     private void OnTriggerStay2D(Collider2D _collision)
     {
@@ -46,28 +51,25 @@ public class DeadZoneController : MonoBehaviour
         {
             if (_collision.GetInstanceID() < GetInstanceID())
             {
-                // FIXME: Called several times if fruit stays in deadzone
-                // should only be called once
-                e_FruitInDeadZone?.Invoke();
+                
             }
         }
     }
 
     private void OnTriggerExit2D(Collider2D _collision)
     {
-        if (firstTrigger(_collision) && FruitsInDeadZone.FindAll(x => x == _collision).Count != 0)
+        if (firstTrigger(_collision))
         {
-            //Debug.Log("Leaving Dead Zone.");
-            FruitsInDeadZone.Remove(_collision);
-            e_DeadZoneEmpty?.Invoke();
-        }
-        if (FruitsInDeadZone.Count <= 0)
-        {
-            //Debug.Log("Dead Zone Empty. Resetting timer...");
-
-            //DeathTimerManager.Instance.ResetDeathTimer();
-            //TimerManager.Instance.PrintTimerToDebug();
-
+            if (FruitsInDeadZone.FindAll(x => x == _collision).Count != 0)
+            {
+                Debug.Log("Leaving Dead Zone.");
+                FruitsInDeadZone.Remove(_collision);
+            }
+            if (FruitsInDeadZone.Count <= 0)
+            {
+                Debug.Log("Dead Zone Empty. Resetting timer...");
+                e_DeadZoneEmpty?.Invoke();
+            }
         }
     }
     /// <summary>

@@ -1894,7 +1894,7 @@ MonoBehaviour:
   - {fileID: 2157959706339219250, guid: 6c3edcc74745a6343b780cc309d720ab, type: 3}
   - {fileID: 2157959706339219250, guid: 2456f64b0a3588941ad7e9d03e9a1d99, type: 3}
   testModeStartFruit: 0
-  maxFruitSpawn: 4
+  maxFruitSpawn: 13
   BoardClearEvent:
     m_PersistentCalls:
       m_Calls: []
@@ -1936,7 +1936,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eddc6b81754158c449f4fc580fc57181, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _debugMode: 1
+  _debugMode: 0
   _gameState: 0
 --- !u!114 &1476060562
 MonoBehaviour:
@@ -1950,8 +1950,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36e5fc20daf78c946865a5b90959e0a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  deathTimeThreshold: 1
-  gameOverTime: 10
+  secondsUntilGameOver: 10
+  countdownRefreshRate: 0.1
 --- !u!1 &1553077104
 GameObject:
   m_ObjectHideFlags: 0
