@@ -64,7 +64,9 @@ public class ItemDropController : MonoBehaviour
         GameObject newFruit = Instantiate(queuedFruit, pos, Quaternion.identity);
 
         // Update child's name based on # of fruit in the board.
-        newFruit.name = queuedFruit.name + (FruitManager.GetDroppedFruitCount() + 1).ToString();
+        newFruit.name = queuedFruit.name 
+            + (FruitManager.GetDroppedFruitCount() + 1).ToString()
+            + "(Dropped)";
 
         // Assign a parent to the new fruit.
         newFruit.transform.SetParent(_parent.transform);

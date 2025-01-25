@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -101,7 +102,7 @@ public class FruitManager : MonoBehaviour
         var victimOnBoard = DroppedFruit.Find(fruit => fruit == victim);
         if (victimOnBoard == null)
         {
-            Debug.Log("<color=red>ERROR:</color> " + victimOnBoard.name + " is not in board.");
+            Debug.Log("<color=red>ERROR:</color> This fruit is not in board.");
             return;
         }
 
@@ -116,15 +117,22 @@ public class FruitManager : MonoBehaviour
     public void ClearBoard()
     {
         PrintAllFruitOnBoard();
-        for (int i = 1; i < DroppedFruit.Count; i++)
+        for (int i = DroppedFruit.Count - 1; i < 0; i--)
         {
-            if (DroppedFruit[^i].IsDestroyed())
+            if (DroppedFruit[i].IsDestroyed())
             {
-                Debug.Log("This fruit <color=red>\'" + DroppedFruit[^i].name + "\'</color> is already destroyed.");
+                Debug.Log("This fruit <color=red>\'" + DroppedFruit[i].name + "\'</color> is already destroyed.");
                 continue;
             }
-            Debug.Log("Destroying <color=red>\'" + DroppedFruit[^i].name + "\'</color>...");
-            DestroyImmediate(DroppedFruit[^i], true);
+            try
+            {
+                Debug.Log("Destroying <color=red>\'" + DroppedFruit[i].name + "\'</color>...");
+                DestroyImmediate(DroppedFruit[i], true);
+            }
+            catch
+            {
+                Debug.Log("FAILED TO DELETE <color=red>\'" + DroppedFruit[i].name + "\'</color>!!!!!");
+            }
         }
         DroppedFruit.Clear();
 

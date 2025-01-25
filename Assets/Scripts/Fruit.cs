@@ -11,7 +11,7 @@ public class Fruit : MonoBehaviour // Scriptable object?
     int id;
     Transform fruitCollector;
 
-    public UnityEvent fruitsMerged;
+    public UnityEvent e_FruitsMerged;
 
     private void Start()
     {
@@ -26,11 +26,11 @@ public class Fruit : MonoBehaviour // Scriptable object?
         if (gameControllerObject != null)
         {
             var listener = gameControllerObject.GetComponent<ScoreManager>();
-            fruitsMerged.AddListener(delegate 
+            e_FruitsMerged.AddListener(delegate 
             {
                 listener.TickScore();
             });
-            fruitsMerged.AddListener(delegate 
+            e_FruitsMerged.AddListener(delegate 
             {
                 listener.PrintScoreToDebug();
             }); 
@@ -74,19 +74,27 @@ public class Fruit : MonoBehaviour // Scriptable object?
             //*/
         }
 
+        // Invoke event
+        e_FruitsMerged?.Invoke();
+
         // Remove merged fruits from board.
-        FruitManager.DestroyAndRemoveFruit(_thisFruit);
-        FruitManager.DestroyAndRemoveFruit(_otherFruit);
+        //FruitManager.DestroyAndRemoveFruit(_thisFruit);
+        //FruitManager.DestroyAndRemoveFruit(_otherFruit);
+        Destroy(_thisFruit);
+        Destroy(_otherFruit);
 
         // Add the next fruit in order as long as it wasn't the last.
         // This should have been handled in the try-catch.
         if (newFruit != null)
         {
+
+            // Update child's name based on # of fruit in the board.
+            newFruit.name = newFruit.name 
+                + (FruitManager.GetDroppedFruitCount() + 1).ToString() 
+                + "(Merged)";
+
             Instantiate(newFruit, transform.position, Quaternion.identity, fruitCollector);
             FruitManager.AddFruitToBoard(newFruit);
         }
-
-        // Invoke event
-        fruitsMerged?.Invoke();
     }
 }
