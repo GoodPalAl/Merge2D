@@ -9,6 +9,7 @@ namespace GameUtility
 
         public const string TAG_FOR_ITEM_DROP_CONTROLLER = "ItemDropController";
         public const string TAG_FOR_GAME_MANAGER = "GameController";
+        public const string TAG_FOR_CURSOR = "Player";
 
         /// <summary>
         /// Width of the board

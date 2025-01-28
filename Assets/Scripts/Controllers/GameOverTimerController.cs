@@ -4,7 +4,7 @@ using UnityEngine.Events;
 using System.Collections;
 using Unity.VisualScripting;
 
-public class TimerController : MonoBehaviour
+public class GameOverTimerController : MonoBehaviour
 {
 
     /* TODO: 

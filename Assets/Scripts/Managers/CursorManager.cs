@@ -18,8 +18,6 @@ public class CursorManager : MonoBehaviour
     }
     #endregion
 
-    // Private instance variables
-    //[SerializeField]
     GameObject _cursor;
     public GameObject GetCursor() => _cursor;
 
@@ -34,6 +32,7 @@ public class CursorManager : MonoBehaviour
 
     void SetCursor()
     {
+        // Ensure there is only 1 object tagged as "player"
         var objs = GameObject.FindGameObjectsWithTag("Player");
         if (objs.Length != 1)
         {
@@ -47,16 +46,15 @@ public class CursorManager : MonoBehaviour
                 + str_error);
 
             _cursor = null;
+            return;
         }
-        else if (objs[0] == null || objs.Length == 0)
+        if (objs[0] == null || objs.Length == 0)
         {
             Debug.LogError("No 'Player' object established. Please fix.");
             _cursor = null;
+            return;
         }
-        else
-        {
-            _cursor = objs[0];
-        }
+        _cursor = objs[0];
     }
 
     public void UpdateCursorPosition(Vector3 pos) => _cursor.transform.position = pos;

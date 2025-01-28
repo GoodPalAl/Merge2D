@@ -21,8 +21,7 @@ TagManager:
   - Watermelon
   - ItemDropController
   - CursorTimer
-  - CountdownUntilDeath
-  - PlayerCursor
+  - GameOverTimer
   layers:
   - Default
   - TransparentFX

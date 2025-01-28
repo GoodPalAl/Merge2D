@@ -221,8 +221,8 @@ GameObject:
   - component: {fileID: 230479027}
   - component: {fileID: 230479025}
   m_Layer: 5
-  m_Name: TimerText
-  m_TagString: CountdownUntilDeath
+  m_Name: GameOverTimerText
+  m_TagString: GameOverTimer
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -256,7 +256,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 230479023}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2b52ff4ae97afcd48b4dcc4a10637162, type: 3}
+  m_Script: {fileID: 11500000, guid: 146cbaab3af153242a6f09593a6866a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &230479027

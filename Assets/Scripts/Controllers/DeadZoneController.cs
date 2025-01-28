@@ -11,10 +11,10 @@ public class DeadZoneController : MonoBehaviour
 
     private void Start()
     {
-        var countdownObject = GameObject.FindGameObjectWithTag("CountdownUntilDeath");
+        var countdownObject = GameObject.FindGameObjectWithTag("GameOverTimer");
         if (countdownObject != null)
         {
-            var listener = countdownObject.GetComponent<TimerController>();
+            var listener = countdownObject.GetComponent<GameOverTimerController>();
             
             e_FruitInDeadZone.AddListener(delegate
             {
