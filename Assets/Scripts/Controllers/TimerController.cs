@@ -31,7 +31,7 @@ public class TimerController : MonoBehaviour
 
     public void TriggerStartCountDown()
     {
-        Debug.Log("Countdown Start!");
+        //Debug.Log("Countdown Start!");
         ShowCountdown();
         ResetTimer();
         UpdateTimerText();
@@ -42,7 +42,7 @@ public class TimerController : MonoBehaviour
     // FIXME: Won't rehide the timer??
     public void TriggerStopCountDown()
     {
-        Debug.Log("Countdown Stop!");
+        //Debug.Log("Countdown Stop!");
         HideCountdown();
         CancelInvoke(nameof(InvokeTimer));
     }

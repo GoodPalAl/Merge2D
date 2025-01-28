@@ -72,6 +72,24 @@ public class FruitManager : MonoBehaviour
         _quededFruit = GetFruitFromList(index);
     }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     /// <summary>
     /// List of all the dropped fruit in the game.
     /// </summary>

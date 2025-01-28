@@ -1910,7 +1910,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7cb08029506f2ee41b190d9458d53fef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _cursor: {fileID: 7553321913051092972}
   _showCursorDelay: 0.5
 --- !u!114 &1476060559
 MonoBehaviour:
@@ -1950,8 +1949,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36e5fc20daf78c946865a5b90959e0a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  deathTimeThreshold: 1
-  gameOverTime: 10
+  secondsUntilGameOver: 10
 --- !u!1 &1553077104
 GameObject:
   m_ObjectHideFlags: 0
@@ -2702,7 +2700,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5199917009849456002, guid: a04f022534e79f34fba40baf265e149a, type: 3}
       propertyPath: m_TagString
-      value: MouseCursor
+      value: Player
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

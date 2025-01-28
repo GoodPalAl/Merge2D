@@ -19,8 +19,9 @@ public class CursorManager : MonoBehaviour
     #endregion
 
     // Private instance variables
-    [SerializeField]
+    //[SerializeField]
     GameObject _cursor;
+    public GameObject GetCursor() => _cursor;
 
     // Variables ediable in Unity
     [SerializeField]
@@ -28,12 +29,36 @@ public class CursorManager : MonoBehaviour
 
     void Start()
     {
-        // WHY DID THIS BREAK????
-        //cursor = GameObject.FindGameObjectWithTag("MouseCursor");
+        SetCursor();
     }
 
+    void SetCursor()
+    {
+        var objs = GameObject.FindGameObjectsWithTag("Player");
+        if (objs.Length != 1)
+        {
+            string str_error = "";
+            foreach (var t in objs)
+            {
+                str_error += t.name + "\n";
+            }
+            Debug.LogError("Multiple 'Players' in Scene. Please fix tags in "
+                + objs.Length + " objects: \n"
+                + str_error);
 
-    public GameObject GetCursor() => _cursor;
+            _cursor = null;
+        }
+        else if (objs[0] == null || objs.Length == 0)
+        {
+            Debug.LogError("No 'Player' object established. Please fix.");
+            _cursor = null;
+        }
+        else
+        {
+            _cursor = objs[0];
+        }
+    }
+
     public void UpdateCursorPosition(Vector3 pos) => _cursor.transform.position = pos;
     
     /// <summary>

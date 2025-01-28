@@ -20,9 +20,9 @@ TagManager:
   - Pineapple
   - Watermelon
   - ItemDropController
-  - MouseCursor
   - CursorTimer
   - CountdownUntilDeath
+  - PlayerCursor
   layers:
   - Default
   - TransparentFX
