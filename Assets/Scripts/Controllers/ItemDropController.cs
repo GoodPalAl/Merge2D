@@ -21,7 +21,8 @@ public class ItemDropController : MonoBehaviour
         if (DebugMode() && Input.GetKeyDown(KeyCode.Space))
         {
             Debug.Log("Space bar pressed.");
-            FruitManager.Instance.ClearBoard();
+            //FruitManager.Instance.ClearBoard();
+            GameStateManager.Instance.ResetGame();
         }
     }
 

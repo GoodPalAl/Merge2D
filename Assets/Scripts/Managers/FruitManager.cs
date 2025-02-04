@@ -118,7 +118,7 @@ public class FruitManager : MonoBehaviour
     /// <summary>
     /// Clear the board of all fruits. DEBUG ONLY.
     /// </summary>
-    public void ClearBoard()
+    void ClearBoard()
     {
         foreach (var fruit in DroppedFruit)
         {

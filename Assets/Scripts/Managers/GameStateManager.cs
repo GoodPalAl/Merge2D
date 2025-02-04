@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 using static GameUtility.Enums;
 
 public class GameStateManager : MonoBehaviour
@@ -41,6 +42,14 @@ public class GameStateManager : MonoBehaviour
     public void ChangeStateToRunning()
     {
         _gameState = GameStates.Running;
+    }
+
+    /// <summary>
+    /// Resets the current scene.
+    /// </summary>
+    public void ResetGame()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
 }
