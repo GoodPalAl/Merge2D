@@ -46,7 +46,10 @@ public class CursorClickController : MonoBehaviour
 
     private void Update()
     {
-        WaitForClick();
+        if (GameStateManager.Instance.GetCurrentGameState() == GameUtility.Enums.GameStates.Running)
+        {
+            WaitForClick();
+        }
     }
 
     void WaitForClick()

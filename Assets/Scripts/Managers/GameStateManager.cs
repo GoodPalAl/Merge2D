@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Events;
 using static GameUtility.Enums;
 
 public class GameStateManager : MonoBehaviour
@@ -25,6 +26,21 @@ public class GameStateManager : MonoBehaviour
     bool _debugMode;
     [SerializeField]
     GameStates _gameState = GameStates.Starting;
+    public GameStates GetCurrentGameState() => _gameState;
+
     public bool IsDebugEnabled() => _debugMode;
+
+    public void Start()
+    {
+        _gameState = GameStates.Starting;
+    }
+
+    /// <summary>
+    /// Switches game state to indicate the game is running.
+    /// </summary>
+    public void ChangeStateToRunning()
+    {
+        _gameState = GameStates.Running;
+    }
 
 }

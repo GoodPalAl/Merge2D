@@ -24,6 +24,7 @@ public class CursorManager : MonoBehaviour
     // Variables ediable in Unity
     [SerializeField]
     float _showCursorDelay = 0.5f;
+    public float GetCursorDelay() => _showCursorDelay;
 
     void Start()
     {
@@ -32,8 +33,16 @@ public class CursorManager : MonoBehaviour
 
     void SetCursor()
     {
-        // Ensure there is only 1 object tagged as "player"
         var objs = GameObject.FindGameObjectsWithTag("Player");
+        // ERROR CHECKING
+        // Ensure that object is not null or nonexistent
+        if (objs[0] == null || objs.Length == 0)
+        {
+            Debug.LogError("No 'Player' object established. Please fix.");
+            _cursor = null;
+            return;
+        }
+        // Ensure there is only 1 object tagged as "player"
         if (objs.Length != 1)
         {
             string str_error = "";
@@ -48,12 +57,7 @@ public class CursorManager : MonoBehaviour
             _cursor = null;
             return;
         }
-        if (objs[0] == null || objs.Length == 0)
-        {
-            Debug.LogError("No 'Player' object established. Please fix.");
-            _cursor = null;
-            return;
-        }
+
         _cursor = objs[0];
     }
 
@@ -84,6 +88,5 @@ public class CursorManager : MonoBehaviour
 
     public void HideCursor() => _cursor.SetActive(false);
     public void ShowCursor() => _cursor.SetActive(true);
-    public float GetCursorDelay() => _showCursorDelay;
 
 }

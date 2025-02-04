@@ -9,7 +9,10 @@ public class CursorFollowController : MonoBehaviour
 
     private void Update()
     {
-        FollowMouse();
+        if (GameStateManager.Instance.GetCurrentGameState() == GameUtility.Enums.GameStates.Running)
+        {
+            FollowMouse();
+        }
     }
 
     /// <summary>
