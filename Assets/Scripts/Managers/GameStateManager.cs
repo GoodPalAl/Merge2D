@@ -21,7 +21,6 @@ public class GameStateManager : MonoBehaviour
     }
     #endregion
 
-    
     // Variables editable in Unity
     [SerializeField]
     bool _debugMode;
@@ -31,25 +30,39 @@ public class GameStateManager : MonoBehaviour
 
     public bool IsDebugEnabled() => _debugMode;
 
-    public void Start()
+    void Start()
     {
-        _gameState = GameStates.Starting;
+        ChangeStateToStarting();
     }
 
     /// <summary>
     /// Switches game state to indicate the game is running.
     /// </summary>
-    public void ChangeStateToRunning()
-    {
-        _gameState = GameStates.Running;
-    }
+    void ChangeStateToStarting() => _gameState = GameStates.Starting;
 
+    /// <summary>
+    /// Switches game state to indicate the game is running.
+    /// </summary>
+    public void ChangeStateToRunning() => _gameState = GameStates.Running;
+
+    /// <summary>
+    /// Switches game state to indicate the game is paused.
+    /// </summary>
+    public void ChangeStateToPaused() => _gameState = GameStates.Paused;
+
+    /// <summary>
+    /// Switches game state to indicate the game has been won.
+    /// </summary>
+    public void ChangeStateToWon() => _gameState = GameStates.Won;
+
+    /// <summary>
+    /// Switches game state to indicate the game has been lost.
+    /// </summary>
+    public void ChangeStateToLost() => _gameState = GameStates.Lost;
+    
     /// <summary>
     /// Resets the current scene.
     /// </summary>
-    public void ResetGame()
-    {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-    }
+    public void ResetGame() => SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 
 }

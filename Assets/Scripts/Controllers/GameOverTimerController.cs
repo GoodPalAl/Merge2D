@@ -20,12 +20,16 @@ public class GameOverTimerController : MonoBehaviour
     // The amount of time remaining in seconds on the countdown
     float remainingTime;
 
+    static bool isTimerRunning;
+    public static bool IsTimerRunning => isTimerRunning;
+
     // Start is called before the first frame update
     void Start()
     {
         countdownText = GetComponent<TextMeshProUGUI>();
         countdownStart = DeathTimerManager.Instance.GetSecondsUntilGameOver();
         timerRefreshRate = DeathTimerManager.Instance.CountdownRefreshRate;
+        isTimerRunning = false;
         HideCountdown();
     }
 
@@ -39,16 +43,17 @@ public class GameOverTimerController : MonoBehaviour
         InvokeRepeating(nameof(InvokeTimer), 0, timerRefreshRate);
     }
 
-    // FIXME: Won't rehide the timer??
     public void TriggerStopCountDown()
     {
         //Debug.Log("Countdown Stop!");
         HideCountdown();
+        isTimerRunning = false;
         CancelInvoke(nameof(InvokeTimer));
     }
 
     void InvokeTimer()
     {
+        isTimerRunning = true;
         remainingTime -= timerRefreshRate * (Time.deltaTime / timerRefreshRate);
         UpdateTimerText();
 
@@ -57,6 +62,7 @@ public class GameOverTimerController : MonoBehaviour
         {
             Debug.Log("Game Over!");
             HideCountdown();
+            isTimerRunning = false;
             CancelInvoke(nameof(InvokeTimer));
         }
     }

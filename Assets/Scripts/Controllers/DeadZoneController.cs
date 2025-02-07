@@ -32,24 +32,25 @@ public class DeadZoneController : MonoBehaviour
         if (firstTrigger(_collision))
         {
             //Debug.Log("Entered Dead Zone.");
-
-            if (FruitsInDeadZone.FindAll(x => x == _collision).Count == 0)
+            if (_collision.GetInstanceID() < GetInstanceID())
             {
-                FruitsInDeadZone.Add(_collision);
+                EnteredTheDeadZone(_collision);
             }
         }
     }
 
-    private void OnTriggerStay2D(Collider2D _collision)
+    void EnteredTheDeadZone(Collider2D _collision)
     {
-        if (firstTrigger(_collision))
+        // Add the new fruit into the deadzone collection of fruit
+        if (FruitsInDeadZone.FindAll(x => x == _collision).Count == 0)
         {
-            if (_collision.GetInstanceID() < GetInstanceID())
-            {
-                // FIXME: Called several times if fruit stays in deadzone
-                // should only be called once
-                e_FruitInDeadZone?.Invoke();
-            }
+            FruitsInDeadZone.Add(_collision);
+        }
+
+        // As long as the timer isn't already on, start timer.
+        if (!GameOverTimerController.IsTimerRunning)
+        { 
+            e_FruitInDeadZone?.Invoke(); 
         }
     }
 
@@ -59,8 +60,12 @@ public class DeadZoneController : MonoBehaviour
         {
             //Debug.Log("Leaving Dead Zone.");
             FruitsInDeadZone.Remove(_collision);
+            // FIXME: this should trigger only when there are no fruit in the dead zone
+            // currently triggers when a fruit leaves the deadzone, therefore, unreliable.
             e_DeadZoneEmpty?.Invoke();
         }
+
+        // If deadzone is empty, kill the timer
         if (FruitsInDeadZone.Count <= 0)
         {
             //Debug.Log("Dead Zone Empty. Resetting timer...");
@@ -70,6 +75,11 @@ public class DeadZoneController : MonoBehaviour
 
         }
     }
+
+    private void Update()
+    {
+    }
+
     /// <summary>
     /// Compares Deadzone tag with fruit collider tag so
     /// they do not trigger each other twice, only once.
