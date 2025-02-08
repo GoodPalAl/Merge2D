@@ -28,7 +28,7 @@ public class DeathTimerManager : MonoBehaviour
 
 
     // Rate at which the countdown text should refresh per second
-    public readonly float CountdownRefreshRate = .1f; 
-    
+    float countdownRefreshRate = 0.01f;
+    public float GetCountdownRefreshRate() => countdownRefreshRate;
 
 }

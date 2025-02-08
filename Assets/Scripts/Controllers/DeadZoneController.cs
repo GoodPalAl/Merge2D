@@ -48,7 +48,7 @@ public class DeadZoneController : MonoBehaviour
         }
 
         // As long as the timer isn't already on, start timer.
-        if (!GameOverTimerController.IsTimerRunning)
+        if (!GameOverTimerController.IsCountdownRunning)
         { 
             e_FruitInDeadZone?.Invoke(); 
         }

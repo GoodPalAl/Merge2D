@@ -20,17 +20,16 @@ public class GameOverTimerController : MonoBehaviour
     // The amount of time remaining in seconds on the countdown
     float remainingTime;
 
-    static bool isTimerRunning;
-    public static bool IsTimerRunning => isTimerRunning;
+    static bool isCountdownRunning;
+    public static bool IsCountdownRunning => isCountdownRunning;
 
     // Start is called before the first frame update
     void Start()
     {
         countdownText = GetComponent<TextMeshProUGUI>();
         countdownStart = DeathTimerManager.Instance.GetSecondsUntilGameOver();
-        timerRefreshRate = DeathTimerManager.Instance.CountdownRefreshRate;
-        isTimerRunning = false;
-        HideCountdown();
+        timerRefreshRate = DeathTimerManager.Instance.GetCountdownRefreshRate();
+        StopCountdown();
     }
 
     public void TriggerStartCountDown()
@@ -46,32 +45,40 @@ public class GameOverTimerController : MonoBehaviour
     public void TriggerStopCountDown()
     {
         //Debug.Log("Countdown Stop!");
-        HideCountdown();
-        isTimerRunning = false;
-        CancelInvoke(nameof(InvokeTimer));
+        StopCountdown();
     }
 
     void InvokeTimer()
     {
-        isTimerRunning = true;
-        remainingTime -= timerRefreshRate * (Time.deltaTime / timerRefreshRate);
+        StartCountdown();
+        remainingTime -= Time.deltaTime;
         UpdateTimerText();
 
         // Once the timer has run out, stop invoking this repeating method.
         if (remainingTime < 0)
         {
             Debug.Log("Game Over!");
-            HideCountdown();
-            isTimerRunning = false;
-            CancelInvoke(nameof(InvokeTimer));
+            StopCountdown();
         }
     }
 
     void ResetTimer() => remainingTime = countdownStart;
 
     void UpdateTimerText() => countdownText.text = remainingTime.ToString("0.00");
+    void StartCountdown()
+    {
+        isCountdownRunning = true;
+    }
+    void StopCountdown()
+    {
+        HideCountdown();
+        isCountdownRunning = false;
+        CancelInvoke(nameof(InvokeTimer));
+    }
 
     void ShowCountdown() => countdownText.enabled = true;
+
     void HideCountdown() => countdownText.enabled = false;
+
 
 }
