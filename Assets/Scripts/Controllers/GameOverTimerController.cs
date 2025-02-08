@@ -3,35 +3,79 @@ using TMPro;
 using UnityEngine.Events;
 using System.Collections;
 using Unity.VisualScripting;
+using System;
 
 public class GameOverTimerController : MonoBehaviour
 {
-
-    /* TODO: 
-     * - Timer resets when ONE fruit leaves deadzone. Should reset when there are NO fruit in deadzone.
-     * - Change timer to a UnityEvent instead of a Time.deltaTime timer.
-     */
-
+    /// <summary>
+    /// GameObject component that represents the countdown's text that updates
+    /// every Nth second. N = refresh rate.
+    /// </summary>
     TextMeshProUGUI countdownText;
-    // Timer should refresh every tenth of a second
-    float timerRefreshRate;
-    // Countdown starts at this time in seconds
-    float countdownStart;
-    // The amount of time remaining in seconds on the countdown
+
+    /// <summary>
+    /// Countdown should refresh at this rate.
+    /// </summary>
+    float refreshRate;
+
+    /// <summary>
+    /// Countdown starts at this time in seconds.
+    /// </summary>
+    float startTime;
+
+    /// <summary>
+    /// The amount of time remaining in seconds on the countdown.
+    /// </summary>
     float remainingTime;
 
+    /// <summary>
+    /// Flag that indicates if the Game Over countdown is running or not.
+    /// Can only be edited in this script.
+    /// </summary>
     static bool isCountdownRunning;
+    /// <summary>
+    /// Public getter of flag that indicates if the Game Over countdown is
+    /// running or not.
+    /// </summary>
     public static bool IsCountdownRunning => isCountdownRunning;
+
+    public UnityEvent e_GameOver;
 
     // Start is called before the first frame update
     void Start()
     {
+        // Initialize variables
         countdownText = GetComponent<TextMeshProUGUI>();
-        countdownStart = DeathTimerManager.Instance.GetSecondsUntilGameOver();
-        timerRefreshRate = DeathTimerManager.Instance.GetCountdownRefreshRate();
+        startTime = DeathTimerManager.Instance.GetSecondsUntilGameOver();
+        refreshRate = DeathTimerManager.Instance.GetCountdownRefreshRate();
+
         StopCountdown();
+
+        // Apply listeners for events.
+        /// GAME OVER EVENT:
+        // Freeze all control to the player. 
+        // Stop all timers. 
+        // Display score to user and allow for restart
+        try 
+        { 
+            var obj = GameObject.FindGameObjectWithTag("GameOverCanvas"); 
+            if (obj == null)
+            {
+                throw new NullReferenceException("\'GameOverCanvas\' tag not given or found.");
+            }
+            var listener = obj.GetComponent<GameOverMenu>();
+            e_GameOver.AddListener(delegate
+            {
+                listener.ShowMenuUI();
+            });
+        }
+        catch (NullReferenceException e)
+        {
+            Debug.LogException(e);
+        }
     }
 
+    // TODO: have the timer stay hidden for the first 0.5 seconds
     public void TriggerStartCountDown()
     {
         //Debug.Log("Countdown Start!");
@@ -39,7 +83,7 @@ public class GameOverTimerController : MonoBehaviour
         ResetTimer();
         UpdateTimerText();
 
-        InvokeRepeating(nameof(InvokeTimer), 0, timerRefreshRate);
+        InvokeRepeating(nameof(InvokeCountdown), 0, refreshRate);
     }
 
     public void TriggerStopCountDown()
@@ -48,7 +92,12 @@ public class GameOverTimerController : MonoBehaviour
         StopCountdown();
     }
 
-    void InvokeTimer()
+    /// <summary>
+    /// This function ticks the countdown down and stops itself when countdown
+    /// reaches 0.
+    /// Will repeat every Nth second (N = refresh rate). 
+    /// </summary>
+    void InvokeCountdown()
     {
         StartCountdown();
         remainingTime -= Time.deltaTime;
@@ -57,27 +106,50 @@ public class GameOverTimerController : MonoBehaviour
         // Once the timer has run out, stop invoking this repeating method.
         if (remainingTime < 0)
         {
-            Debug.Log("Game Over!");
+            // Trigger Game Over event.
+            GameOver();
+
             StopCountdown();
         }
     }
 
-    void ResetTimer() => remainingTime = countdownStart;
+    void GameOver()
+    {
+        Debug.Log("Game Over!");
+        e_GameOver?.Invoke();
+    }
+
+    void ResetTimer() => remainingTime = startTime;
 
     void UpdateTimerText() => countdownText.text = remainingTime.ToString("0.00");
+    
+    /// <summary>
+    /// Triggers the following events: flags the countdown as started.
+    /// </summary>
     void StartCountdown()
     {
         isCountdownRunning = true;
     }
+
+    /// <summary>
+    /// Triggers the following events: hides the countdown, indicates the countdown
+    /// is no longer running, and cancels any invoking of the repeating method.
+    /// </summary>
     void StopCountdown()
     {
         HideCountdown();
         isCountdownRunning = false;
-        CancelInvoke(nameof(InvokeTimer));
+        CancelInvoke(nameof(InvokeCountdown));
     }
 
+    /// <summary>
+    /// Reveals the countdown's text to the player.
+    /// </summary>
     void ShowCountdown() => countdownText.enabled = true;
 
+    /// <summary>
+    /// Hides the countdown's text from view of the player.
+    /// </summary>
     void HideCountdown() => countdownText.enabled = false;
 
 

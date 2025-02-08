@@ -76,10 +76,6 @@ public class DeadZoneController : MonoBehaviour
         }
     }
 
-    private void Update()
-    {
-    }
-
     /// <summary>
     /// Compares Deadzone tag with fruit collider tag so
     /// they do not trigger each other twice, only once.

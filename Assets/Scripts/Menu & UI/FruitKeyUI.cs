@@ -1,13 +1,11 @@
 using UnityEngine;
 
-public class DisableGravity : MonoBehaviour
+public class FruitKeyUI : MonoBehaviour
 {
     void Start()
     {
-        if (false)
-        {
-            Debug.Log("Disabling gravity for fruits in key. \'" + transform.childCount.ToString() + "\' gravity scales set to 0.");
-        }
+        //Debug.Log("Disabling gravity for fruits in key. \'" + transform.childCount.ToString() + "\' gravity scales set to 0.");
+        
         
 
         //foreach (GameObject obj in FruitInKey)
