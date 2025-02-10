@@ -16,6 +16,8 @@ public class CursorClickController : MonoBehaviour
         {
             UpdateCursor(false);
         });
+        // FIXME: move this to a manager so we don't have to do
+        // all of this error checking
         if (GameObject.FindGameObjectWithTag("ItemDropController") != null)
         {
             ClickEvent.AddListener(delegate
@@ -46,7 +48,8 @@ public class CursorClickController : MonoBehaviour
 
     private void Update()
     {
-        if (GameStateManager.Instance.GetCurrentGameState() == GameUtility.Enums.GameStates.Running)
+        if (GameStateManager.Instance.GetCurrentGameState() 
+            == GameUtility.Enums.GameStates.Running)
         {
             WaitForClick();
         }

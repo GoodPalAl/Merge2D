@@ -45,6 +45,7 @@ public class GameOverTimerController : MonoBehaviour
     void Start()
     {
         // Initialize variables
+        // TODO: Move to an Awake()?
         countdownText = GetComponent<TextMeshProUGUI>();
         startTime = DeathTimerManager.Instance.GetSecondsUntilGameOver();
         refreshRate = DeathTimerManager.Instance.GetCountdownRefreshRate();
@@ -52,22 +53,33 @@ public class GameOverTimerController : MonoBehaviour
         StopCountdown();
 
         // Apply listeners for events.
-        /// GAME OVER EVENT:
-        // Freeze all control to the player. 
-        // Stop all timers. 
+        // GAME OVER EVENT:
+        // Change game state to lost
         // Display score to user and allow for restart
         try 
-        { 
-            var obj = GameObject.FindGameObjectWithTag("GameOverCanvas"); 
-            if (obj == null)
+        {
+            // Change game state to lose
+            // CursorFollow and CursorClick checks if the game is running
+            // and will disable control if it is not.
+            e_GameOver.AddListener(delegate 
+            { 
+                GameStateManager.Instance.ChangeStateToLost();
+            });
+
+            // Show Game Over UI
+            var obj_GameOverCanvas = GameObject.FindGameObjectWithTag("GameOverCanvas");
+            if (obj_GameOverCanvas == null)
             {
                 throw new NullReferenceException("\'GameOverCanvas\' tag not given or found.");
             }
-            var listener = obj.GetComponent<GameOverMenu>();
-            e_GameOver.AddListener(delegate
+            else
             {
-                listener.ShowMenuUI();
-            });
+                var listener = obj_GameOverCanvas.GetComponent<GameOverMenu>();
+                e_GameOver.AddListener(delegate
+                {
+                    listener.ShowMenuUI();
+                });
+            }
         }
         catch (NullReferenceException e)
         {
