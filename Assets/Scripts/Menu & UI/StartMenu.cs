@@ -10,7 +10,7 @@ public class StartMenu : MonoBehaviour
         // Tests to ensure that game objects are assigned in engine.
         try
         {
-            m_StartMenu.SetActive(true); 
+            ShowMenuUI();
         } 
         catch (UnassignedReferenceException e)
         {
@@ -28,10 +28,12 @@ public class StartMenu : MonoBehaviour
     }
 
     /// <summary>
-    /// Disables this UI.
+    /// Sets game object that holds all the menu UI components to active.
     /// </summary>
-    void HideMenuUI()
-    {
-        m_StartMenu.SetActive(false);
-    }
+    void ShowMenuUI() => m_StartMenu.SetActive(true);
+
+    /// <summary>
+    /// Sets game object that holds all the menu UI components to inactive.
+    /// </summary>
+    void HideMenuUI() => m_StartMenu.SetActive(false);
 }

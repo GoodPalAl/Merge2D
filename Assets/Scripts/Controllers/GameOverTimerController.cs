@@ -77,7 +77,7 @@ public class GameOverTimerController : MonoBehaviour
                 var listener = obj_GameOverCanvas.GetComponent<GameOverMenu>();
                 e_GameOver.AddListener(delegate
                 {
-                    listener.ShowGameOverMenuUI();
+                    listener.TriggerGameOverScreen();
                 });
             }
         }

@@ -15,7 +15,7 @@ public class GameOverMenu : MonoBehaviour
         try
         {
             UpdateScoreText();
-            m_GameOverMenu.SetActive(false);
+            HideMenuUI();
         }
         catch (UnassignedReferenceException e)
         {
@@ -43,17 +43,24 @@ public class GameOverMenu : MonoBehaviour
     /// <summary>
     /// Reveals Game Over menu UI and updates the score.
     /// </summary>
-    public void ShowGameOverMenuUI()
+    public void TriggerGameOverScreen()
     {
-        m_GameOverMenu.SetActive(true);
+        ShowMenuUI();
         UpdateScoreText();
     }
 
     /// <summary>
+    /// Sets game object that holds all the menu UI components to active.
+    /// </summary>
+    void ShowMenuUI() => m_GameOverMenu.SetActive(true);
+
+    /// <summary>
+    /// Sets game object that holds all the menu UI components to inactive.
+    /// </summary>
+    void HideMenuUI() => m_GameOverMenu.SetActive(false);
+
+    /// <summary>
     /// Fetches the player's score to show on Game Over screen.
     /// </summary>
-    void UpdateScoreText()
-    {
-        scoreText.text = ScoreManager.Instance.GetScore();
-    }
+    void UpdateScoreText() => scoreText.text = ScoreManager.Instance.GetScore();
 }
