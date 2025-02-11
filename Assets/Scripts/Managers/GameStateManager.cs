@@ -59,10 +59,22 @@ public class GameStateManager : MonoBehaviour
     /// Switches game state to indicate the game has been lost.
     /// </summary>
     public void ChangeStateToLost() => _gameState = GameStates.Lost;
-    
+
     /// <summary>
     /// Resets the current scene.
     /// </summary>
-    public void ResetGame() => SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    public void ResetGame() 
+    {
+        Debug.Log("Resetting Level...");
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
 
+    /// <summary>
+    /// Closes application.
+    /// </summary>
+    public void QuitGame() 
+    { 
+        Debug.Log("Quitting Game..."); 
+        Application.Quit();
+    }
 }

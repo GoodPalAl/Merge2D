@@ -1,25 +1,36 @@
 using UnityEngine;
 
-public class StartMenuController : MonoBehaviour
+public class StartMenu : MonoBehaviour
 {
     [SerializeField]
     GameObject m_StartMenu = null;
 
     private void Start()
     {
-        try 
+        // Tests to ensure that game objects are assigned in engine.
+        try
         {
             m_StartMenu.SetActive(true); 
-        } catch (UnassignedReferenceException e)
+        } 
+        catch (UnassignedReferenceException e)
         {
             Debug.LogException(e);
         }
     }
 
     /// <summary>
+    /// Sequence of events when start button is pressed. 
+    /// </summary>
+    public void OnStartButtonClick()
+    {
+        GameStateManager.Instance.ChangeStateToRunning();
+        HideMenuUI();
+    }
+
+    /// <summary>
     /// Disables this UI.
     /// </summary>
-    public void HideUI()
+    void HideMenuUI()
     {
         m_StartMenu.SetActive(false);
     }

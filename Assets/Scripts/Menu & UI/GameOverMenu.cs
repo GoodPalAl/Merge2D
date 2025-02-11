@@ -4,18 +4,56 @@ using UnityEngine;
 public class GameOverMenu : MonoBehaviour
 {
     [SerializeField]
-    GameObject m_GameOverMenu;
+    GameObject m_GameOverMenu = null;
 
     [SerializeField]
-    TextMeshProUGUI scoreText;
+    TextMeshProUGUI scoreText = null;
 
     private void Start()
     {
-        m_GameOverMenu.SetActive(false);
+        // Tests to ensure that game objects are assigned in engine.
+        try
+        {
+            UpdateScoreText();
+            m_GameOverMenu.SetActive(false);
+        }
+        catch (UnassignedReferenceException e)
+        {
+            Debug.LogException(e);
+        }
     }
-    public void ShowMenuUI()
+
+    /// <summary>
+    /// Sequence of events when reset button is pressed. 
+    /// </summary>
+    public void OnResetButtonClick()
+    {
+        GameStateManager.Instance.ResetGame();
+    }
+
+    /// <summary>
+    /// Sequence of events when quit button is pressed. 
+    /// </summary>
+    public void OnQuitButtonClick()
+    {
+        // TODO: trigger a confirmation menu
+        GameStateManager.Instance.QuitGame();
+    }
+
+    /// <summary>
+    /// Reveals Game Over menu UI and updates the score.
+    /// </summary>
+    public void ShowGameOverMenuUI()
     {
         m_GameOverMenu.SetActive(true);
+        UpdateScoreText();
+    }
+
+    /// <summary>
+    /// Fetches the player's score to show on Game Over screen.
+    /// </summary>
+    void UpdateScoreText()
+    {
         scoreText.text = ScoreManager.Instance.GetScore();
     }
 }
