@@ -13,6 +13,14 @@ public class ScoreController : MonoBehaviour
 
     void Update()
     {
-        _scoreText.text = ScoreManager.Instance.GetScore();
+        // Make string empty if game is not running.
+        if (!GameStateManager.Instance.IsGameRunning())
+        {
+            _scoreText.text = string.Empty;
+        }
+        else
+        {
+            _scoreText.text = ScoreManager.Instance.GetScore();
+        }
     }
 }

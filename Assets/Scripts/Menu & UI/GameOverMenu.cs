@@ -7,7 +7,7 @@ public class GameOverMenu : MonoBehaviour
     GameObject m_GameOverMenu = null;
 
     [SerializeField]
-    TextMeshProUGUI scoreText = null;
+    TextMeshProUGUI _finalScoreText = null;
 
     private void Start()
     {
@@ -62,5 +62,5 @@ public class GameOverMenu : MonoBehaviour
     /// <summary>
     /// Fetches the player's score to show on Game Over screen.
     /// </summary>
-    void UpdateScoreText() => scoreText.text = ScoreManager.Instance.GetScore();
+    void UpdateScoreText() => _finalScoreText.text = ScoreManager.Instance.GetScore();
 }

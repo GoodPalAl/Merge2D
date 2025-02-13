@@ -45,6 +45,8 @@ public class GameStateManager : MonoBehaviour
     /// </summary>
     public void ChangeStateToRunning() => _gameState = GameStates.Running;
 
+    public bool IsGameRunning() => GetCurrentGameState() == GameStates.Running;
+
     /// <summary>
     /// Switches game state to indicate the game is paused.
     /// </summary>
