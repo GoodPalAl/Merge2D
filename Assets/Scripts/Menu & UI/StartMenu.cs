@@ -10,6 +10,10 @@ public class StartMenu : MonoBehaviour
         // Tests to ensure that game objects are assigned in engine.
         try
         {
+            if (m_StartMenu == null) 
+            {
+                throw new UnassignedReferenceException("Start Menu unassigned!");
+            }
             ShowMenuUI();
         } 
         catch (UnassignedReferenceException e)

@@ -31,7 +31,7 @@ public class CursorClickController : MonoBehaviour
             ClickEvent.AddListener(delegate
             {
                 GameObject.FindGameObjectWithTag("GameController")
-                .GetComponent<FruitManager>().UpdateQuededFruit(
+                .GetComponent<FruitQueueManager>().UpdateQuededFruit(
                     GameStateManager.Instance.IsDebugEnabled()
                 );
             });
@@ -69,8 +69,8 @@ public class CursorClickController : MonoBehaviour
     void UpdateCursor(bool calledInStart)
     {
         GameObject newCursor = calledInStart ?
-            FruitManager.Instance.GetFirstFruit(IsDebugOn) :
-            FruitManager.Instance.GetQueuedFruit();
+            FruitQueueManager.Instance.GetFirstFruit(IsDebugOn) :
+            FruitQueueManager.Instance.GetQueuedFruit();
 
         CursorManager.Instance.UpdateCursor(newCursor);
     }

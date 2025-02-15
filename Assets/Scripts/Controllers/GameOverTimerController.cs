@@ -33,6 +33,7 @@ public class GameOverTimerController : MonoBehaviour
     /// Can only be edited in this script.
     /// </summary>
     static bool isCountdownRunning;
+
     /// <summary>
     /// Public getter of flag that indicates if the Game Over countdown is
     /// running or not.
@@ -63,7 +64,9 @@ public class GameOverTimerController : MonoBehaviour
             // and will disable control if it is not.
             e_GameOver.AddListener(delegate 
             { 
-                GameStateManager.Instance.ChangeGameState(GameUtility.Enums.GameStates.Lost);
+                GameStateManager.Instance.ChangeGameState(
+                    GameUtility.Enums.GameStates.Lost
+                );
             });
 
             // Show Game Over UI
@@ -133,7 +136,11 @@ public class GameOverTimerController : MonoBehaviour
 
     void ResetTimer() => remainingTime = startTime;
 
-    void UpdateTimerText() => countdownText.text = remainingTime.ToString("0.00");
+    void UpdateTimerText()
+    {
+        if (countdownText != null)
+            countdownText.text = remainingTime.ToString("0.00");
+    }
     
     /// <summary>
     /// Triggers the following events: flags the countdown as started.
@@ -157,12 +164,18 @@ public class GameOverTimerController : MonoBehaviour
     /// <summary>
     /// Reveals the countdown's text to the player.
     /// </summary>
-    void ShowCountdown() => countdownText.enabled = true;
+    void ShowCountdown()
+    {
+        if (countdownText != null) 
+            countdownText.enabled = true;
+    }
 
     /// <summary>
     /// Hides the countdown's text from view of the player.
     /// </summary>
-    void HideCountdown() => countdownText.enabled = false;
-
-
+    void HideCountdown() 
+    { 
+        if (countdownText != null) 
+            countdownText.enabled = false; 
+    }
 }

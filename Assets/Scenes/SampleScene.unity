@@ -2858,8 +2858,10 @@ GameObject:
   - component: {fileID: 1476060561}
   - component: {fileID: 1476060557}
   - component: {fileID: 1476060558}
-  - component: {fileID: 1476060559}
   - component: {fileID: 1476060562}
+  - component: {fileID: 1476060563}
+  - component: {fileID: 1476060559}
+  - component: {fileID: 1476060564}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: GameController
@@ -2891,7 +2893,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1476060554}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bd1c904c096e9414d90432bda31885fc, type: 3}
+  m_Script: {fileID: 11500000, guid: b4544220561af414b9e9e8caef49fa9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   fruitOrder:
@@ -2910,10 +2912,7 @@ MonoBehaviour:
   - {fileID: 2157959706339219250, guid: 6c3edcc74745a6343b780cc309d720ab, type: 3}
   - {fileID: 2157959706339219250, guid: 2456f64b0a3588941ad7e9d03e9a1d99, type: 3}
   testModeStartFruit: 0
-  maxFruitSpawn: 13
-  BoardClearEvent:
-    m_PersistentCalls:
-      m_Calls: []
+  maxFruitSpawn: 7
 --- !u!114 &1476060558
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2966,6 +2965,31 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   secondsUntilGameOver: 10
+--- !u!114 &1476060563
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1476060554}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36e5fc20daf78c946865a5b90959e0a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  secondsUntilGameOver: 10
+--- !u!114 &1476060564
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1476060554}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df7e97770793c7d47a24ad58d9214fac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1509751398
 GameObject:
   m_ObjectHideFlags: 0

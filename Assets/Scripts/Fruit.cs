@@ -51,7 +51,7 @@ public class Fruit : MonoBehaviour // Scriptable object?
         GameObject newFruit;
         try
         {
-            newFruit = FruitManager.Instance.GetNextFruit(_oldName);
+            newFruit = FruitQueueManager.Instance.GetNextFruit(_oldName);
             /*
             Debug.Log(_thisFruit.tag  + ":" + _thisFruit.GetInstanceID()  + " + "
                     + _otherFruit.tag + ":" + _otherFruit.GetInstanceID() + " = " 
@@ -72,13 +72,13 @@ public class Fruit : MonoBehaviour // Scriptable object?
         fruitsMerged?.Invoke();
 
         // Remove merged fruits from board.
-        FruitManager.DestroyFruitOnBoard(_thisFruit);
-        FruitManager.DestroyFruitOnBoard(_otherFruit);
+        DroppedFruitManager.Instance.DestroyFruitOnBoard(_thisFruit);
+        DroppedFruitManager.Instance.DestroyFruitOnBoard(_otherFruit);
 
         if (newFruit != null)
         {
             Instantiate(newFruit, transform.position, Quaternion.identity, fruitCollector);
-            FruitManager.AddFruitToBoard(newFruit);
+            DroppedFruitManager.Instance.AddFruitToBoard(newFruit);
         }
     }
 
