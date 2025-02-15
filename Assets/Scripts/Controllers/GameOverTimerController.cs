@@ -63,7 +63,7 @@ public class GameOverTimerController : MonoBehaviour
             // and will disable control if it is not.
             e_GameOver.AddListener(delegate 
             { 
-                GameStateManager.Instance.ChangeStateToLost();
+                GameStateManager.Instance.ChangeGameState(GameUtility.Enums.GameStates.Lost);
             });
 
             // Show Game Over UI

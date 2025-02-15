@@ -23,7 +23,7 @@ public class StartMenu : MonoBehaviour
     /// </summary>
     public void OnStartButtonClick()
     {
-        GameStateManager.Instance.ChangeStateToRunning();
+        GameStateManager.Instance.ChangeGameState(GameUtility.Enums.GameStates.Running);
         HideMenuUI();
     }
 

@@ -32,13 +32,8 @@ public class GameStateManager : MonoBehaviour
 
     void Start()
     {
-        ChangeStateToStarting();
+        ChangeGameState(GameStates.Starting);
     }
-
-    /// <summary>
-    /// Switches game state to indicate the game is running.
-    /// </summary>
-    void ChangeStateToStarting() => _gameState = GameStates.Starting;
 
     /// <summary>
     /// Switches game state to indicate the game is running.
@@ -47,20 +42,7 @@ public class GameStateManager : MonoBehaviour
 
     public bool IsGameRunning() => GetCurrentGameState() == GameStates.Running;
 
-    /// <summary>
-    /// Switches game state to indicate the game is paused.
-    /// </summary>
-    public void ChangeStateToPaused() => _gameState = GameStates.Paused;
-
-    /// <summary>
-    /// Switches game state to indicate the game has been won.
-    /// </summary>
-    public void ChangeStateToWon() => _gameState = GameStates.Won;
-
-    /// <summary>
-    /// Switches game state to indicate the game has been lost.
-    /// </summary>
-    public void ChangeStateToLost() => _gameState = GameStates.Lost;
+    public void ChangeGameState(GameStates gameState) => _gameState = gameState;
 
     /// <summary>
     /// Resets the current scene.
