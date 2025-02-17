@@ -21,14 +21,26 @@ public class FruitQueueManager : MonoBehaviour
     #endregion
 
     /// <summary>
+    /// Allows for FruitHierarchy to be easily loaded in code.
+    /// </summary>
+    [SerializeField]
+    FruitAssetPack fruitAssetPack;
+    /// <summary>
     /// Official merge order of fruit. Initialized in Unity Editor
-    /// FIXME: make it so i dont have to initialize this list everytime i change FruitQueueManager
     /// </summary>
     [SerializeField]
     List<GameObject> FruitHierarchy = new();
 
     private void Start()
     {
+        if (fruitAssetPack != null && fruitAssetPack.FruitHierarchy.Count != 0)
+        {
+            FruitHierarchy.Clear();
+            foreach (var fruit in fruitAssetPack.FruitHierarchy)
+            {
+                FruitHierarchy.Add(fruit);
+            }
+        }
         // Prints the fruitHierarchy in debug.
         // If this prints as 0, then list is not preloaded in Unity Inspector.
         PrintList();

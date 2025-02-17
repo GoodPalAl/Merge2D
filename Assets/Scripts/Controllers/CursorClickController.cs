@@ -14,7 +14,7 @@ public class CursorClickController : MonoBehaviour
         UpdateCursor(true);
 
         // Keep these events in this order!
-        // ------ CLICK EVENT ----- //
+        // ----- CLICK EVENT --------------------------------------------------- //
         // Trigger count down to start
         if (GameObject.FindGameObjectWithTag("CursorTimer") != null)
         {

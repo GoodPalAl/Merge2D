@@ -2896,6 +2896,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4544220561af414b9e9e8caef49fa9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fruitAssetPack: {fileID: 11400000, guid: dfecc1f98cd1fe54ca63ea4c635cd75f, type: 2}
   FruitHierarchy:
   - {fileID: 2924450933297528885, guid: 47e5a6b42ee220b4c83a589de36bb617, type: 3}
   - {fileID: 2157959706339219250, guid: dbd654605562d3b449cef2d3c1621d89, type: 3}
@@ -2912,7 +2913,7 @@ MonoBehaviour:
   - {fileID: 2157959706339219250, guid: 6c3edcc74745a6343b780cc309d720ab, type: 3}
   - {fileID: 2157959706339219250, guid: 2456f64b0a3588941ad7e9d03e9a1d99, type: 3}
   testModeStartFruit: 0
-  maxFruitSpawn: 7
+  maxFruitSpawn: 5
 --- !u!114 &1476060558
 MonoBehaviour:
   m_ObjectHideFlags: 0
