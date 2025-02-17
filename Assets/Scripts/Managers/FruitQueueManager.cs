@@ -1,8 +1,5 @@
 using System.Collections.Generic;
-using System.Linq;
-using UnityEditor;
 using UnityEngine;
-using UnityEngine.Events;
 using static GameUtility.Enums;
 
 public class FruitQueueManager : MonoBehaviour
@@ -28,54 +25,25 @@ public class FruitQueueManager : MonoBehaviour
     /// FIXME: make it so i dont have to initialize this list everytime i change FruitQueueManager
     /// </summary>
     [SerializeField]
-    List<GameObject> fruitOrder = new();
+    List<GameObject> FruitHierarchy = new();
 
     private void Start()
     {
-        //// LoadAll returns array, not list.
-        //// Initialize a sublist then convert each in sublist to GameObject,
-        //// then save in fruitOrder.
-        //GameObject[] subListObjects = Resources.LoadAll<GameObject>("Fruits");
-        //PrintArray(subListObjects);
-
-        //foreach (GameObject subListObj in subListObjects) 
-        //{ 
-        //    GameObject localObj = (GameObject)subListObj;
-        //    fruitOrder.Add(localObj);
-        //}
+        // Prints the fruitHierarchy in debug.
+        // If this prints as 0, then list is not preloaded in Unity Inspector.
         PrintList();
-    }
-
-    void PrintArray(Object[] arr)
-    {
-        string str = "(Array) Prefab Fruits: ";
-        foreach (var fruit in arr)
-        {
-            // check if fruit is null
-            if (fruit != null)
-            {
-                str += fruit.name;
-                if (fruit != arr[^1])
-                {
-                    str += ", ";
-                }
-            }
-        }
-        Debug.Log(str);
-        Debug.Log("Number of Fruits Dropped: "
-            + arr.Length.ToString());
     }
 
     void PrintList()
     {
         string str = "(List) Prefab Fruits: ";
-        foreach (var fruit in fruitOrder)
+        foreach (var fruit in FruitHierarchy)
         {
             // check if fruit is null
             if (fruit != null)
             {
                 str += fruit.name;
-                if (fruit != fruitOrder[^1])
+                if (fruit != FruitHierarchy[^1])
                 {
                     str += ", ";
                 }
@@ -83,7 +51,7 @@ public class FruitQueueManager : MonoBehaviour
         }
         Debug.Log(str);
         Debug.Log("Number of Fruits Dropped: "
-            + fruitOrder.Count.ToString());
+            + FruitHierarchy.Count.ToString());
     }
 
     [SerializeField]
@@ -91,34 +59,36 @@ public class FruitQueueManager : MonoBehaviour
     [SerializeField]
     Fruits maxFruitSpawn = Fruits.Banana;
     
-    // Does this need to be static?
-    GameObject _quededFruit;
+    /// <summary>
+    /// Indicates what fruit is next to be dropped. Should also be shown as Cursor.
+    /// </summary>
+    GameObject QuededFruit;
 
 
     public GameObject GetFirstFruit(bool _isDebugOn)
     {
         int index = _isDebugOn ? GetFruitIndexFromEnum(testModeStartFruit) : 0;
 
-        _quededFruit = GetFruitFromList(index); 
+        QuededFruit = GetFruitFromList(index); 
 
-        return _quededFruit;
+        return QuededFruit;
     }
 
     public int GetFruitIndexFromEnum(Fruits _fruit) 
-        => fruitOrder.FindIndex(x => x.CompareTag(_fruit.ToString()));
+        => FruitHierarchy.FindIndex(x => x.CompareTag(_fruit.ToString()));
 
-    public GameObject GetFruitFromList(int _order) => fruitOrder[_order];
+    public GameObject GetFruitFromList(int _order) => FruitHierarchy[_order];
 
     public GameObject GetNextFruit(string _oldFruitName) 
     {
-        int nextIndex = fruitOrder.FindIndex(Fruit => Fruit.name == _oldFruitName) + 1;
+        int nextIndex = FruitHierarchy.FindIndex(Fruit => Fruit.name == _oldFruitName) + 1;
         
         return GetFruitFromList(nextIndex);
     }
 
-    public int FruitCount() => fruitOrder.Count;
+    public int FruitCount() => FruitHierarchy.Count;
 
-    public GameObject GetQueuedFruit() => _quededFruit;
+    public GameObject GetQueuedFruit() => QuededFruit;
 
     public void UpdateQuededFruit(bool _debugOn)
     {
@@ -129,6 +99,6 @@ public class FruitQueueManager : MonoBehaviour
             GetFruitIndexFromEnum(testModeStartFruit) :
             Random.Range(0, GetFruitIndexFromEnum(maxFruitSpawn));
 
-        _quededFruit = GetFruitFromList(index);
+        QuededFruit = GetFruitFromList(index);
     }
 }

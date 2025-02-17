@@ -2896,7 +2896,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4544220561af414b9e9e8caef49fa9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fruitOrder:
+  FruitHierarchy:
   - {fileID: 2924450933297528885, guid: 47e5a6b42ee220b4c83a589de36bb617, type: 3}
   - {fileID: 2157959706339219250, guid: dbd654605562d3b449cef2d3c1621d89, type: 3}
   - {fileID: 2157959706339219250, guid: fee5e467e497d544b8865bd9da3fb001, type: 3}
